@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+@layer base {
+  body {
+    @apply bg-gray-50 text-gray-900 antialiased;
+  }
+}
+
+@layer components {
+  /* Ana aksiyon — turuncu */
+  .btn-primary {
+    @apply bg-[#E67E22] hover:bg-[#D35400] active:bg-[#BA4A00] text-white font-bold
+           px-6 py-3 rounded-lg transition-colors duration-150 disabled:opacity-50
+           disabled:cursor-not-allowed shadow-sm;
+  }
+
+  /* Güven/bilgi — zümrüt yeşili */
+  .btn-green {
+    @apply bg-[#27AE60] hover:bg-[#1E8449] text-white font-bold
+           px-6 py-3 rounded-lg transition-colors duration-150 shadow-sm;
+  }
+
+  /* Antrasit koyu */
+  .btn-dark {
+    @apply bg-[#2C3E50] hover:bg-[#1a252f] text-white font-bold
+           px-6 py-3 rounded-lg transition-colors duration-150 shadow-sm;
+  }
+
+  .btn-outline {
+    @apply border-2 border-[#2C3E50] text-[#2C3E50] hover:bg-[#2C3E50] hover:text-white
+           font-bold px-6 py-3 rounded-lg transition-colors duration-150;
+  }
+
+  .input-field {
+    @apply w-full bg-white border border-gray-300 text-gray-900 placeholder-gray-400
+           rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#E67E22]
+           focus:border-transparent transition-all duration-150 text-sm;
+  }
+
+  .select-field {
+    @apply w-full bg-white border border-gray-300 text-gray-900
+           rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#E67E22]
+           focus:border-transparent transition-all duration-150 appearance-none text-sm;
+  }
+
+  .card {
+    @apply bg-white border border-gray-200 rounded-xl p-6 shadow-sm;
+  }
+
+  .label {
+    @apply block text-sm font-semibold text-gray-700 mb-1.5;
+  }
+
+  .error-msg {
+    @apply text-red-600 text-xs mt-1;
+  }
+}
