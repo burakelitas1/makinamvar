@@ -42,6 +42,9 @@ export async function sendAdminNotification(listing: Listing) {
 }
 
 export async function sendOfferToCustomer(listing: Listing, price: number, notes?: string) {
+  const resend = getResend()
+  if (!resend) return
+
   const priceFormatted = new Intl.NumberFormat('tr-TR', {
     style: 'currency', currency: 'TRY', maximumFractionDigits: 0,
   }).format(price)
