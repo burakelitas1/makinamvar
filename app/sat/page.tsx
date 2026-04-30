@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -69,6 +69,7 @@ export default function SatPage() {
     register,
     handleSubmit,
     watch,
+    setValue,
     formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(schema) })
 
@@ -82,6 +83,13 @@ export default function SatPage() {
   const isTestere = machineType === 'testere'
   const isDigerMakine = machineType === 'diger'
   const boruTipi = watch('boru_tipi')
+
+  useEffect(() => {
+    setValue('brand_select', '')
+    setValue('brand_free', '')
+    setValue('brand_other', '')
+    setValue('capacity', '')
+  }, [machineType, setValue])
 
   const brandOptions = isSilindir
     ? ['Akyapak', 'Isıtan', 'Mac Bending', 'Şahinler']
@@ -105,10 +113,14 @@ export default function SatPage() {
   }
 
   async function onSubmit(data: FormData) {
+    if (photos.length === 0) {
+      setError('En az 1 fotoğraf yüklemeniz gerekmektedir.')
+      return
+    }
     setSubmitting(true)
     setError('')
     try {
-      const photoUrls = photos.length ? await uploadPhotos(photos) : []
+      const photoUrls = await uploadPhotos(photos)
 
       const extra_fields = isAbkant ? {
         tip: data.abkant_tip || null,
@@ -132,7 +144,7 @@ export default function SatPage() {
         tip: data.press_tip || null,
       } : null
 
-      const needsCapacity = !isAbkant && !isGiyotin
+      const needsCapacity = !isAbkant && !isGiyotin && !isSilindir && !isBoruBukum && !isTestere && !isDigerMakine
       if (needsCapacity && !data.capacity) {
         setError('Tonaj / Kapasite giriniz')
         setSubmitting(false)
