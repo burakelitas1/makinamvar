@@ -489,6 +489,17 @@ export default function SatPage() {
               )}
 
               <div>
+                <label className="label">Üretim Yılı *</label>
+                <input
+                  className="input-field"
+                  type="number"
+                  placeholder="örn. 2015"
+                  {...register('year')}
+                />
+                {errors.year && <p className="error-msg">{errors.year.message}</p>}
+              </div>
+
+              <div>
                 <label className="label">Satış Gerekçesi *</label>
                 <select className="select-field" {...register('sell_reason')}>
                   <option value="">Lütfen seçiniz…</option>
