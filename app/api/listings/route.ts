@@ -19,7 +19,7 @@ export async function POST(req: Request) {
     const body = await req.json()
 
     const required = [
-      'machine_type', 'brand', 'model', 'year', 'capacity',
+      'machine_type', 'brand', 'year',
       'condition', 'location_city', 'location_district',
       'contact_name', 'contact_phone', 'contact_email',
     ]
