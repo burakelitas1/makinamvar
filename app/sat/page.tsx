@@ -266,7 +266,7 @@ export default function SatPage() {
                         <option value="">Seçiniz…</option>
                         <option value="1250-1350">1250–1350</option>
                         <option value="1500-1600">1500–1600</option>
-                        <option value="2000-2100">2000–2100</option>
+                        <option value="2000-2500">2000–2500</option>
                         <option value="3000-3100">3000–3100</option>
                         <option value="4000-4100">4000–4100</option>
                         <option value="6000-6100">6000–6100</option>
