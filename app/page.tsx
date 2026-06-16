@@ -131,7 +131,7 @@ export default async function HomePage() {
       <section className="relative min-h-[500px] flex items-center">
         <div
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: "url('https://d8j0ntlcm91z4.cloudfront.net/user_35eUMy38SQL2PT06afk6uyN041G/hf_20260616_150726_acc12afc-1740-4c28-90bc-1b4def5ebfc3.png')", filter: 'blur(2px)', transform: 'scale(1.05)' }}
+          style={{ backgroundImage: "url('https://d8j0ntlcm91z4.cloudfront.net/user_35eUMy38SQL2PT06afk6uyN041G/hf_20260616_145758_be0e9a6a-fcb9-470d-a31b-7234fdd3e64c.png')", filter: 'blur(2px)', transform: 'scale(1.05)' }}
         />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(30, 58, 138, 0.85) 0%, rgba(44, 62, 80, 0.80) 100%)' }} />
 
