@@ -144,16 +144,10 @@ export default async function HomePage() {
                 {heroBadge}
               </div>
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-tight mb-4">
-                {heroTitle.includes('nakit') ? (
-                  <>
-                    {heroTitle.split('nakit')[0]}
-                    <span className="text-[#E67E22]">nakit</span>
-                    {heroTitle.split('nakit')[1]}
-                  </>
-                ) : heroTitle}
+                Makina satmanın en <span className="text-[#E67E22]">TRİNK</span> hali!
               </h1>
               <p className="text-gray-300 text-base sm:text-lg leading-relaxed mb-3">
-                Sac işleme makinenizi yüzlerce alıcıya sunuyoruz. Söküm, vinç ve nakliye işlemleri bizden.
+                48 saat içerisinde makinanını nakite dönüştürmek ister misin ?
               </p>
 
               <div className="flex items-center gap-2 bg-[#27AE60]/20 border border-[#27AE60]/40 rounded-lg px-4 py-2.5 mb-7 w-fit">
