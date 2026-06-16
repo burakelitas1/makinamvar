@@ -101,7 +101,7 @@ const DEFAULT_FAQS = [
   { question: 'Söküm ve nakliye gerçekten ücretsiz mi?', answer: 'Evet. Anlaşma sağlandığında makinenizin söküm, vinç ve nakliye işlemlerini tamamen biz karşılıyoruz. Sizin herhangi bir masraf yapmanız gerekmez.' },
   { question: 'Teklif alma süreci nasıl işliyor?', answer: 'Formu doldurduğunuzda uzman ekibimiz makinenizi inceler. 24 saat içinde SMS ve e-posta ile nakit teklifini iletir. Kabul edip etmemek tamamen size kalmış.' },
   { question: 'Bu hizmet ücretli mi?', answer: 'Hayır, teklif alma ve tüm süreç tamamen ücretsizdir. Satış gerçekleşmeden herhangi bir ücret alınmaz.' },
-  { question: 'Ödeme ne zaman yapılır?', answer: 'Satışı onayladıktan ve evrak işlemleri tamamlandıktan sonra ürünler nakliye aracına yüklendikten sonra ödeme aynı gün hesabınıza yapılır.' },
+  { question: 'Ödeme ne zaman yapılır?', answer: 'Satışı onayladıktan, evrak işlemleri tamamlandıktan ve ürünler nakliye aracına yüklendikten sonra ödeme aynı gün hesabınıza yapılır.' },
 ]
 
 export default async function HomePage() {
