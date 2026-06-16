@@ -133,7 +133,7 @@ export default async function HomePage() {
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: "url('https://d8j0ntlcm91z4.cloudfront.net/user_35eUMy38SQL2PT06afk6uyN041G/hf_20260616_145758_be0e9a6a-fcb9-470d-a31b-7234fdd3e64c.png')", filter: 'blur(2px)', transform: 'scale(1.08)' }}
         />
-        <div className="absolute inset-0" style={{ background: 'rgba(30, 45, 65, 0.70)' }} />
+        <div className="absolute inset-0" style={{ background: 'rgba(30, 45, 65, 0.84)' }} />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 w-full">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
