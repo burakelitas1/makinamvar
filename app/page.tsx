@@ -131,9 +131,9 @@ export default async function HomePage() {
       <section className="relative min-h-[500px] flex items-center">
         <div
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=1920&q=80')" }}
+          style={{ backgroundImage: "url('/hero-fabrika.webp')", filter: 'blur(2px)', transform: 'scale(1.05)' }}
         />
-        <div className="absolute inset-0" style={{ background: 'rgba(44, 62, 80, 0.82)' }} />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(30, 58, 138, 0.85) 0%, rgba(44, 62, 80, 0.80) 100%)' }} />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 w-full">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
