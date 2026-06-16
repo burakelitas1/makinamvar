@@ -128,12 +128,12 @@ export default async function HomePage() {
     <div className="bg-white">
 
       {/* ══ HERO — Endüstriyel Arka Plan + Overlay ══ */}
-      <section className="relative min-h-[500px] flex items-center">
+      <section className="relative min-h-[500px] flex items-center overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: "url('https://d8j0ntlcm91z4.cloudfront.net/user_35eUMy38SQL2PT06afk6uyN041G/hf_20260616_145758_be0e9a6a-fcb9-470d-a31b-7234fdd3e64c.png')", filter: 'blur(2px)', transform: 'scale(1.05)' }}
+          style={{ backgroundImage: "url('https://d8j0ntlcm91z4.cloudfront.net/user_35eUMy38SQL2PT06afk6uyN041G/hf_20260616_145758_be0e9a6a-fcb9-470d-a31b-7234fdd3e64c.png')", filter: 'blur(2px)', transform: 'scale(1.08)' }}
         />
-        <div className="absolute inset-0" style={{ background: 'rgba(10, 25, 70, 0.88)' }} />
+        <div className="absolute inset-0" style={{ background: 'rgba(0, 40, 120, 0.87)' }} />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 w-full">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
