@@ -3,7 +3,7 @@ import TestimonialsCarousel from '@/components/TestimonialsCarousel'
 import FaqSection from '@/components/FaqSection'
 import { createServiceClient } from '@/lib/supabase-server'
 
-export const revalidate = 0
+export const revalidate = 3600
 
 const ADVANTAGES = [
   {
@@ -124,8 +124,22 @@ export default async function HomePage() {
   const ctaTitle = settings['cta_banner_title'] || 'Makineniz atıl mı duruyor?'
   const ctaSubtitle = settings['cta_banner_subtitle'] || 'Hemen formu doldurun, 24 saat içinde nakit teklifiniz gelsin.'
 
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.question,
+      acceptedAnswer: { '@type': 'Answer', text: f.answer },
+    })),
+  }
+
   return (
     <div className="bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
 
       {/* ══ HERO — Endüstriyel Arka Plan + Overlay ══ */}
       <section className="relative min-h-[500px] flex items-center overflow-hidden">
