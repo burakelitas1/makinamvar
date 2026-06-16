@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Makinam Var — İkinci El Sac İşleme Makinesi Al-Sat',
+  title: 'Trink Makina — İkinci El Sac İşleme Makinesi Al-Sat',
   description: 'Abkant pres, giyotin makas, lazer kesim makinelerinizi en yüksek teklife satın. Söküm, nakliye ve ödeme güvencesi bizden.',
 }
 
@@ -17,8 +17,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
             {/* Logo */}
             <a href="/" className="flex items-center gap-1 flex-shrink-0">
-              <span className="font-black text-xl text-[#2C3E50] tracking-tight">Makinam</span>
-              <span className="font-black text-xl bg-[#E67E22] text-white px-1.5 py-0.5 rounded tracking-tight">Var</span>
+              <span className="font-black text-xl text-[#2C3E50] tracking-tight">Trink</span>
+              <span className="font-black text-xl bg-[#E67E22] text-white px-1.5 py-0.5 rounded tracking-tight">Makina</span>
             </a>
 
             {/* Tagline */}
@@ -44,8 +44,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
               <div className="col-span-2 lg:col-span-1">
                 <div className="flex items-center gap-1 mb-3">
-                  <span className="font-black text-xl tracking-tight">Makinam</span>
-                  <span className="font-black text-xl bg-[#E67E22] px-1.5 py-0.5 rounded tracking-tight">Var</span>
+                  <span className="font-black text-xl tracking-tight">Trink</span>
+                  <span className="font-black text-xl bg-[#E67E22] px-1.5 py-0.5 rounded tracking-tight">Makina</span>
                 </div>
                 <p className="text-gray-300 text-sm leading-relaxed">
                   Türkiye'nin İlk Sac İşleme Makineleri Alım Platformu
@@ -80,7 +80,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   </li>
                   <li className="flex items-start gap-2">
                     <span>✉️</span>
-                    <a href="mailto:info@makinamvar.com" className="hover:text-white transition-colors">info@makinamvar.com</a>
+                    <a href="mailto:info@trinkmakina.com" className="hover:text-white transition-colors">info@trinkmakina.com</a>
                   </li>
                   <li className="flex items-start gap-2">
                     <span>📍</span>
@@ -90,7 +90,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </div>
             </div>
             <div className="border-t border-gray-700 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-gray-500 text-xs">
-              <span>© 2026 Makinam Var — Bir Varmak Makine kuruluşudur.</span>
+              <span>© 2026 Trink Makina — Bir Varmak Makine kuruluşudur.</span>
               <div className="flex flex-wrap gap-x-4 gap-y-1 justify-center">
                 <a href="/kvkk" className="hover:text-gray-300 transition-colors">Kişisel Verilerin Korunması</a>
                 <a href="/kullanim-kosullari" className="hover:text-gray-300 transition-colors">Kullanım Koşulları</a>

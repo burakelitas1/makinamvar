@@ -11,7 +11,7 @@ export default function KullanimKosullariPage() {
             <h2 className="font-bold text-gray-900 mb-2">1. Taraflar ve Kapsam</h2>
             <p>
               Bu Kullanım Koşulları, <strong>Varmak Makine Alım Satım Hizmetleri Ltd. Şti.</strong> ("Varmak Makine")
-              tarafından işletilen Makinam Var platformunu ("Platform") kullanan gerçek ve tüzel kişiler ("Kullanıcı")
+              tarafından işletilen Trink Makina platformunu ("Platform") kullanan gerçek ve tüzel kişiler ("Kullanıcı")
               ile Varmak Makine arasındaki hukuki ilişkiyi düzenlemektedir. Platforma erişim ve form gönderimi bu
               koşulların kabul edildiği anlamına gelir.
             </p>
@@ -20,7 +20,7 @@ export default function KullanimKosullariPage() {
           <section>
             <h2 className="font-bold text-gray-900 mb-2">2. Hizmetin Tanımı</h2>
             <p>
-              Makinam Var, ikinci el sac işleme makinelerinin satışına aracılık etmek amacıyla tasarlanmış
+              Trink Makina, ikinci el sac işleme makinelerinin satışına aracılık etmek amacıyla tasarlanmış
               çevrimiçi bir platformdur. Platform üzerinden teklif alınması, kesin satış vaadi veya garanti
               anlamına gelmez; nihai fiyat ve koşullar taraflarca ayrıca kararlaştırılır.
             </p>

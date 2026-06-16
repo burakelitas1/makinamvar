@@ -96,7 +96,7 @@ const COMPARE_ROWS = [
 ]
 
 const DEFAULT_FAQS = [
-  { question: 'Makinam Var nedir?', answer: 'Makinam Var, ikinci el sac işleme makinesi satmak isteyen kişilerin makinelerini platforma kayıtlı alıcılara online olarak sunduğu, söküm ve nakliye dahil tam hizmet veren bir alım platformudur.' },
+  { question: 'Trink Makina nedir?', answer: 'Trink Makina, ikinci el sac işleme makinesi satmak isteyen kişilerin makinelerini platforma kayıtlı alıcılara online olarak sunduğu, söküm ve nakliye dahil tam hizmet veren bir alım platformudur.' },
   { question: 'Hangi makineler için teklif alabilirsiniz?', answer: 'Abkant pres, giyotin makas, lazer kesim, punta kaynak ve tüm sac işleme makineleri için teklif alabilirsiniz. Çalışır veya arızalı tüm makineleri değerlendiriyoruz.' },
   { question: 'Söküm ve nakliye gerçekten ücretsiz mi?', answer: 'Evet. Anlaşma sağlandığında makinenizin söküm, vinç ve nakliye işlemlerini tamamen biz karşılıyoruz. Sizin herhangi bir masraf yapmanız gerekmez.' },
   { question: 'Teklif alma süreci nasıl işliyor?', answer: 'Formu doldurduğunuzda uzman ekibimiz makinenizi inceler. 24 saat içinde SMS ve e-posta ile nakit teklifini iletir. Kabul edip etmemek tamamen size kalmış.' },
@@ -174,7 +174,7 @@ export default async function HomePage() {
             </div>
 
             <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-7">
-              <p className="text-white font-bold text-lg mb-5">Neden Makinam Var?</p>
+              <p className="text-white font-bold text-lg mb-5">Neden Trink Makina?</p>
               <div className="space-y-3">
                 {[
                   { icon: '⚡', text: '24 saat içinde nakit teklif' },
@@ -205,7 +205,7 @@ export default async function HomePage() {
       <section className="bg-gray-50 py-12 md:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl sm:text-3xl font-black text-gray-900 text-center mb-10">
-            Makinam Var&apos;nin avantajları
+            Trink Makina&apos;nin avantajları
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {ADVANTAGES.map((adv) => (
@@ -226,7 +226,7 @@ export default async function HomePage() {
       <section id="nasil-calisir" className="py-12 md:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl sm:text-3xl font-black text-gray-900 text-center mb-10">
-            Makinam Var ile makinemi nasıl satarım?
+            Trink Makina ile makinemi nasıl satarım?
           </h2>
           <div className="grid lg:grid-cols-2 gap-10 items-center">
             <div className="relative rounded-2xl overflow-hidden min-h-[320px]">
@@ -274,7 +274,7 @@ export default async function HomePage() {
       <section id="karsilastirma" className="bg-gray-50 py-12 md:py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl sm:text-3xl font-black text-gray-900 text-center mb-3">
-            Geleneksel Yöntemle Satmak vs. Makinam Var
+            Geleneksel Yöntemle Satmak vs. Trink Makina
           </h2>
           <p className="text-gray-500 text-center mb-10">Neden binlerce makine satıcısı bizi tercih ediyor?</p>
 
@@ -282,7 +282,7 @@ export default async function HomePage() {
             <div className="grid grid-cols-3 bg-[#2C3E50] text-white text-sm font-bold">
               <div className="px-4 py-4">Kriter</div>
               <div className="px-4 py-4 text-center border-l border-gray-600">Geleneksel Yöntemle Satmak</div>
-              <div className="px-4 py-4 text-center border-l border-gray-600 text-[#F39C12]">Makinam Var ✓</div>
+              <div className="px-4 py-4 text-center border-l border-gray-600 text-[#F39C12]">Trink Makina ✓</div>
             </div>
             {COMPARE_ROWS.map((row, i) => (
               <div key={row.label}
@@ -308,7 +308,7 @@ export default async function HomePage() {
       <section className="py-12 md:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl sm:text-3xl font-black text-gray-900 text-center mb-10">
-            Makinesini Makinam Var&apos;de satanlar ne diyor?
+            Makinesini Trink Makina&apos;de satanlar ne diyor?
           </h2>
           <TestimonialsCarousel testimonials={testimonials} />
         </div>

@@ -11,7 +11,7 @@ export default function CerezYonetimiPage() {
             <h2 className="font-bold text-gray-900 mb-2">1. Çerez Nedir?</h2>
             <p>
               Çerezler, ziyaret ettiğiniz web sitesi tarafından tarayıcınıza kaydedilen küçük metin dosyalarıdır.
-              Makinam Var platformu (<strong>Varmak Makine Alım Satım Hizmetleri Ltd. Şti.</strong>) bu politikada
+              Trink Makina platformu (<strong>Varmak Makine Alım Satım Hizmetleri Ltd. Şti.</strong>) bu politikada
               açıklanan amaçlarla çerez kullanmaktadır.
             </p>
           </section>
@@ -55,7 +55,7 @@ export default function CerezYonetimiPage() {
           <section>
             <h2 className="font-bold text-gray-900 mb-2">4. İletişim</h2>
             <p>
-              Çerez politikamıza ilişkin sorularınız için <strong>info@makinamvar.com</strong> adresine
+              Çerez politikamıza ilişkin sorularınız için <strong>info@trinkmakina.com</strong> adresine
               ulaşabilirsiniz.
             </p>
           </section>

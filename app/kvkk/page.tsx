@@ -12,7 +12,7 @@ export default function KVKKPage() {
             <p>
               Bu aydınlatma metni, 6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK") kapsamında
               <strong> Varmak Makine Alım Satım Hizmetleri Ltd. Şti.</strong> ("Varmak Makine" veya "Şirket")
-              tarafından hazırlanmıştır. Makinam Var platformu Varmak Makine'ye ait olup Şirket, veri sorumlusu
+              tarafından hazırlanmıştır. Trink Makina platformu Varmak Makine'ye ait olup Şirket, veri sorumlusu
               sıfatıyla hareket etmektedir.
             </p>
           </section>
@@ -87,7 +87,7 @@ export default function KVKKPage() {
               <li>Zararın tazminini talep etme</li>
             </ul>
             <p className="mt-2">
-              Haklarınızı kullanmak için <strong>info@makinamvar.com</strong> adresine yazılı başvuruda bulunabilirsiniz.
+              Haklarınızı kullanmak için <strong>info@trinkmakina.com</strong> adresine yazılı başvuruda bulunabilirsiniz.
             </p>
           </section>
 

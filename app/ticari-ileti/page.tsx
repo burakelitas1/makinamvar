@@ -18,7 +18,7 @@ export default function TicariIletiPage() {
           <section>
             <h2 className="font-bold text-gray-900 mb-2">2. Ticari İletişim İzni</h2>
             <p>
-              Makinam Var platformunda form doldururken ticari ileti onayı vermeniz halinde Varmak Makine;
+              Trink Makina platformunda form doldururken ticari ileti onayı vermeniz halinde Varmak Makine;
               telefon, SMS, e-posta ve diğer elektronik kanallar aracılığıyla size aşağıdaki içerikleri iletebilir:
             </p>
             <ul className="list-disc pl-5 mt-2 space-y-1">
@@ -36,7 +36,7 @@ export default function TicariIletiPage() {
             </p>
             <ul className="list-disc pl-5 mt-2 space-y-1">
               <li>Gelen e-postalardaki "Abonelikten çık" bağlantısını tıklayabilirsiniz.</li>
-              <li><strong>info@makinamvar.com</strong> adresine "Ticari İleti İznini Geri Al" konusuyla e-posta gönderebilirsiniz.</li>
+              <li><strong>info@trinkmakina.com</strong> adresine "Ticari İleti İznini Geri Al" konusuyla e-posta gönderebilirsiniz.</li>
               <li>0850 XXX XX XX numaralı hattı arayabilirsiniz.</li>
             </ul>
             <p className="mt-2">

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 
-export const metadata: Metadata = { title: 'Admin — Makinam Var' }
+export const metadata: Metadata = { title: 'Admin — Trink Makina' }
 
 const NAV = [
   { href: '/admin', label: 'Dashboard', icon: '📊' },
@@ -20,10 +20,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <div className="px-5 py-5 border-b border-navy-700">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-[#E67E22] rounded-lg flex items-center justify-center flex-shrink-0">
-              <span className="text-white font-black text-xs">MV</span>
+              <span className="text-white font-black text-xs">TM</span>
             </div>
             <div>
-              <p className="text-white font-bold text-sm leading-tight">Makinam Var</p>
+              <p className="text-white font-bold text-sm leading-tight">Trink Makina</p>
               <p className="text-gray-500 text-xs">Admin Paneli</p>
             </div>
           </div>
