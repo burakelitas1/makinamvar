@@ -59,7 +59,7 @@ export async function sendOfferToCustomer(listing: Listing, price: number, notes
          style="background:#f97316;color:white;padding:14px 32px;text-decoration:none;border-radius:8px;font-weight:bold;font-size:16px;display:inline-block">
         Teklifi Görüntüle ve Yanıtla
       </a>
-      <p style="color:#999;font-size:12px;margin-top:12px">Bu link 30 gün geçerlidir.</p>
+      <p style="color:#999;font-size:12px;margin-top:12px">Bu teklif 3 gün geçerlidir.</p>
     </div>
   ` : `
     <p style="color:#666;font-size:14px;margin-top:16px">

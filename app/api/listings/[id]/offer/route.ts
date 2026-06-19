@@ -34,7 +34,7 @@ export async function POST(
   }
 
   const token = generateToken()
-  const expiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
+  const expiresAt = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString()
 
   const { error: updateErr } = await supabase
     .from('listings')
