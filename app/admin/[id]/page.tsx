@@ -43,6 +43,7 @@ export default function AdminDetailPage() {
       setOfferMsg('Teklif başarıyla gönderildi!')
       const updated = await fetch(`/api/listings/${id}`).then((r) => r.json())
       setListing(updated)
+      router.refresh()
     } else {
       const j = await res.json()
       setOfferMsg(j.error ?? 'Hata oluştu')
@@ -60,6 +61,7 @@ export default function AdminDetailPage() {
     const updated = await fetch(`/api/listings/${id}`).then((r) => r.json())
     setListing(updated)
     setStatusUpdating(false)
+    router.refresh()
   }
 
   if (loading) {
@@ -195,6 +197,7 @@ export default function AdminDetailPage() {
               {listing.offer_sent_at && (
                 <p className="text-gray-500 text-xs mt-1">
                   Teklif: {new Date(listing.offer_sent_at).toLocaleString('tr-TR')}
+                  {' '}({Math.floor((Date.now() - new Date(listing.offer_sent_at).getTime()) / 86400000)} gün önce)
                 </p>
               )}
             </div>

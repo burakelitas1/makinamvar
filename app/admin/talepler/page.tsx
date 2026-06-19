@@ -19,6 +19,7 @@ export default async function TaleplerPage({ searchParams }: { searchParams: { s
     all: listings?.length ?? 0,
     bekliyor: listings?.filter((l) => l.status === 'bekliyor').length ?? 0,
     'teklif-verildi': listings?.filter((l) => l.status === 'teklif-verildi').length ?? 0,
+    'yanit-bekliyor': listings?.filter((l) => l.status === 'yanit-bekliyor').length ?? 0,
     kabul: listings?.filter((l) => l.status === 'kabul').length ?? 0,
     red: listings?.filter((l) => l.status === 'red').length ?? 0,
   }
@@ -27,6 +28,7 @@ export default async function TaleplerPage({ searchParams }: { searchParams: { s
     { key: '', label: 'Tümü', count: counts.all },
     { key: 'bekliyor', label: 'Bekliyor', count: counts.bekliyor },
     { key: 'teklif-verildi', label: 'Teklif Verildi', count: counts['teklif-verildi'] },
+    { key: 'yanit-bekliyor', label: 'Yanıt Bekliyor', count: counts['yanit-bekliyor'] },
     { key: 'kabul', label: 'Kabul', count: counts.kabul },
     { key: 'red', label: 'Reddedildi', count: counts.red },
   ]
