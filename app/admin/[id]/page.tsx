@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import Image from 'next/image'
 import type { Listing } from '@/lib/types'
-import { machineTypeLabels, conditionLabels, statusLabels, sellReasonLabels } from '@/lib/types'
+import { machineTypeLabels, conditionLabels, statusLabels, sellReasonLabels, statusColors } from '@/lib/types'
 import StatusBadge from '@/components/StatusBadge'
 import Link from 'next/link'
 
@@ -199,8 +199,30 @@ export default function AdminDetailPage() {
               )}
             </div>
 
+            {listing.customer_response && (
+              <div className="mt-4 p-3 rounded-lg bg-navy-800 border border-navy-600 space-y-2">
+                <p className="text-xs text-gray-400 uppercase tracking-wider font-semibold">Müşteri Yanıtı</p>
+                <span className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold ${
+                  listing.customer_response === 'kabul' ? 'bg-green-100 text-green-800' :
+                  listing.customer_response === 'red' ? 'bg-red-100 text-red-800' :
+                  'bg-purple-100 text-purple-800'
+                }`}>
+                  {listing.customer_response === 'kabul' ? '✅ Kabul Etti' :
+                   listing.customer_response === 'red' ? '❌ Reddetti' : '💬 Karşı Teklif'}
+                </span>
+                {listing.counter_offer_price && (
+                  <p className="text-white font-bold text-lg">
+                    Karşı teklif: {new Intl.NumberFormat('tr-TR', { style: 'currency', currency: 'TRY', maximumFractionDigits: 0 }).format(listing.counter_offer_price)}
+                  </p>
+                )}
+                {listing.customer_note && (
+                  <p className="text-gray-300 text-sm italic">"{listing.customer_note}"</p>
+                )}
+              </div>
+            )}
+
             <div className="space-y-2">
-              {(['bekliyor', 'teklif-verildi', 'kabul', 'red'] as const).map((s) => (
+              {(['bekliyor', 'teklif-verildi', 'yanit-bekliyor', 'kabul', 'red'] as const).map((s) => (
                 <button
                   key={s}
                   onClick={() => updateStatus(s)}
