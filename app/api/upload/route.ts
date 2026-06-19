@@ -18,7 +18,8 @@ export async function POST(req: Request) {
     .upload(path, file, { cacheControl: '3600', upsert: false })
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    console.error('Supabase upload error:', JSON.stringify(error))
+    return NextResponse.json({ error: error.message, details: error }, { status: 500 })
   }
 
   const { data } = supabase.storage.from('listing-photos').getPublicUrl(path)
