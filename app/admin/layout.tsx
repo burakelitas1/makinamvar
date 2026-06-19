@@ -2,7 +2,8 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import { useRouter } from 'next/navigation'
 
 const NAV = [
   { href: '/admin', label: 'Dashboard', icon: '📊' },
@@ -12,8 +13,31 @@ const NAV = [
   { href: '/admin/ayarlar', label: 'Ayarlar', icon: '⚙️' },
 ]
 
+const INACTIVITY_MS = 60 * 60 * 1000 // 1 saat
+
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(true)
+  const router = useRouter()
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  useEffect(() => {
+    function resetTimer() {
+      if (timerRef.current) clearTimeout(timerRef.current)
+      timerRef.current = setTimeout(async () => {
+        await fetch('/api/admin/logout', { method: 'POST' })
+        router.push('/admin/login')
+      }, INACTIVITY_MS)
+    }
+
+    const events = ['mousemove', 'mousedown', 'keydown', 'touchstart', 'scroll']
+    events.forEach((e) => window.addEventListener(e, resetTimer))
+    resetTimer()
+
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current)
+      events.forEach((e) => window.removeEventListener(e, resetTimer))
+    }
+  }, [router])
 
   return (
     <div className="min-h-screen bg-navy-950">
