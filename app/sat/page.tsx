@@ -101,7 +101,7 @@ export default function SatPage() {
     for (const file of files) {
       const nameParts = file.name.split('.')
       const ext = nameParts.length > 1 ? nameParts.pop() : 'jpg'
-      const path = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
+      const path = `trink-makina/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
       const { error: uploadErr } = await supabase.storage
         .from('listing-photos')
         .upload(path, file, { cacheControl: '3600', upsert: false })
