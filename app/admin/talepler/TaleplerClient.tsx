@@ -15,6 +15,7 @@ const STATUS_TABS = [
   { key: 'yanit-bekliyor', label: 'Yanıt Bekliyor' },
   { key: 'kabul', label: 'Kabul' },
   { key: 'red', label: 'Reddedildi' },
+  { key: 'satildi', label: 'Satıldı' },
 ]
 
 interface Props {

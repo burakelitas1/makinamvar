@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { createServiceClient } from '@/lib/supabase-server'
 
-const VALID_STATUSES = ['bekliyor', 'teklif-verildi', 'yanit-bekliyor', 'kabul', 'red']
+const VALID_STATUSES = ['bekliyor', 'teklif-verildi', 'yanit-bekliyor', 'kabul', 'red', 'satildi']
 
 export async function POST(
   req: Request,

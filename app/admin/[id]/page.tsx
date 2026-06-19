@@ -225,7 +225,7 @@ export default function AdminDetailPage() {
             )}
 
             <div className="space-y-2">
-              {(['bekliyor', 'teklif-verildi', 'yanit-bekliyor', 'kabul', 'red'] as const).map((s) => (
+              {(['bekliyor', 'teklif-verildi', 'yanit-bekliyor', 'kabul', 'red', 'satildi'] as const).map((s) => (
                 <button
                   key={s}
                   onClick={() => updateStatus(s)}

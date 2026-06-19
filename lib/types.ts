@@ -1,6 +1,6 @@
 export type MachineType = 'abkant' | 'giyotin' | 'press' | 'silindir' | 'boru-bukum' | 'testere'
 export type MachineCondition = 'calisiyor' | 'arizali' | 'bakim-gerekli'
-export type ListingStatus = 'bekliyor' | 'teklif-verildi' | 'yanit-bekliyor' | 'kabul' | 'red'
+export type ListingStatus = 'bekliyor' | 'teklif-verildi' | 'yanit-bekliyor' | 'kabul' | 'red' | 'satildi'
 export type CustomerResponse = 'kabul' | 'red' | 'karsi-teklif'
 
 export interface Listing {
@@ -60,6 +60,7 @@ export const statusLabels: Record<ListingStatus, string> = {
   'yanit-bekliyor': 'Yanıt Bekliyor',
   kabul: 'Kabul Edildi',
   red: 'Reddedildi',
+  satildi: 'Satıldı (Başkasına)',
 }
 
 export const statusColors: Record<ListingStatus, string> = {
@@ -68,4 +69,5 @@ export const statusColors: Record<ListingStatus, string> = {
   'yanit-bekliyor': 'bg-purple-100 text-purple-800',
   kabul: 'bg-green-100 text-green-800',
   red: 'bg-red-100 text-red-800',
+  satildi: 'bg-gray-100 text-gray-600',
 }
