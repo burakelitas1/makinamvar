@@ -14,8 +14,8 @@ export default async function TaleplerPage() {
 
   if (error) return <div className="text-red-400">Veri yüklenemedi: {error.message}</div>
 
-  const cities = [...new Set((listings as Listing[]).map((l) => l.location_city).filter(Boolean))].sort()
-  const brands = [...new Set((listings as Listing[]).map((l) => l.brand).filter(Boolean))].sort()
+  const cities = [...new Set((listings as Listing[]).map((l) => l.location_city).filter((c): c is string => !!c))].sort()
+  const brands = [...new Set((listings as Listing[]).map((l) => l.brand).filter((b): b is string => !!b))].sort()
 
   return (
     <div>
