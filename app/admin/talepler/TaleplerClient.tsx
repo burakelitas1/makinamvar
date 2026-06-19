@@ -6,6 +6,18 @@ import type { Listing, MachineType } from '@/lib/types'
 import { machineTypeLabels, statusLabels } from '@/lib/types'
 import StatusBadge from '@/components/StatusBadge'
 
+function getDuplicateReasons(listing: Listing, all: Listing[]): string[] {
+  const others = all.filter((l) => l.id !== listing.id)
+  const reasons: string[] = []
+  if (others.some((l) => l.contact_phone === listing.contact_phone))
+    reasons.push('Aynı telefon')
+  if (others.some((l) => l.contact_name.trim().toLowerCase() === listing.contact_name.trim().toLowerCase()))
+    reasons.push('Aynı isim')
+  if (others.some((l) => l.machine_type === listing.machine_type && l.brand.toLowerCase() === listing.brand.toLowerCase()))
+    reasons.push('Aynı makine')
+  return reasons
+}
+
 const MACHINE_TYPES: MachineType[] = ['abkant', 'giyotin', 'press', 'silindir', 'boru-bukum', 'testere']
 
 const STATUS_TABS = [
@@ -243,34 +255,47 @@ export default function TaleplerClient({ listings, cities, brands }: Props) {
               </tr>
             </thead>
             <tbody className="divide-y divide-navy-700">
-              {filtered.map((l) => (
-                <tr key={l.id} className="bg-navy-900 hover:bg-navy-800 transition-colors">
-                  <td className="px-4 py-3 text-gray-400 whitespace-nowrap">
-                    {new Date(l.created_at).toLocaleDateString('tr-TR')}
-                  </td>
-                  <td className="px-4 py-3 text-white font-medium whitespace-nowrap">
-                    {machineTypeLabels[l.machine_type] ?? l.machine_type}
-                  </td>
-                  <td className="px-4 py-3 text-gray-300">
-                    {l.brand}
-                    <span className="text-gray-500 text-xs block">{l.model}</span>
-                  </td>
-                  <td className="px-4 py-3 text-gray-400">
-                    {l.location_city}
-                    <span className="text-gray-500 text-xs block">{l.location_district}</span>
-                  </td>
-                  <td className="px-4 py-3 text-gray-300">
-                    {l.contact_name}
-                    <span className="text-gray-500 text-xs block">{l.contact_phone}</span>
-                  </td>
-                  <td className="px-4 py-3"><StatusBadge status={l.status} /></td>
-                  <td className="px-4 py-3">
-                    <Link href={`/admin/${l.id}`} className="text-[#E67E22] hover:text-orange-300 font-medium text-xs whitespace-nowrap">
-                      İncele →
-                    </Link>
-                  </td>
-                </tr>
-              ))}
+              {filtered.map((l) => {
+                const dupReasons = getDuplicateReasons(l, listings)
+                const isDup = dupReasons.length > 0
+                return (
+                  <tr key={l.id} className={`hover:bg-navy-800 transition-colors ${isDup ? 'bg-yellow-900/20' : 'bg-navy-900'}`}>
+                    <td className="px-4 py-3 text-gray-400 whitespace-nowrap">
+                      {new Date(l.created_at).toLocaleDateString('tr-TR')}
+                    </td>
+                    <td className="px-4 py-3 text-white font-medium whitespace-nowrap">
+                      {machineTypeLabels[l.machine_type] ?? l.machine_type}
+                    </td>
+                    <td className="px-4 py-3 text-gray-300">
+                      {l.brand}
+                      <span className="text-gray-500 text-xs block">{l.model}</span>
+                    </td>
+                    <td className="px-4 py-3 text-gray-400">
+                      {l.location_city}
+                      <span className="text-gray-500 text-xs block">{l.location_district}</span>
+                    </td>
+                    <td className="px-4 py-3 text-gray-300">
+                      <div className="flex items-center gap-2">
+                        <div>
+                          {l.contact_name}
+                          <span className="text-gray-500 text-xs block">{l.contact_phone}</span>
+                        </div>
+                        {isDup && (
+                          <span title={dupReasons.join(' · ')} className="flex-shrink-0 w-5 h-5 bg-yellow-400 text-yellow-900 rounded-full flex items-center justify-center text-xs font-bold cursor-help">
+                            !
+                          </span>
+                        )}
+                      </div>
+                    </td>
+                    <td className="px-4 py-3"><StatusBadge status={l.status} /></td>
+                    <td className="px-4 py-3">
+                      <Link href={`/admin/${l.id}`} className="text-[#E67E22] hover:text-orange-300 font-medium text-xs whitespace-nowrap">
+                        İncele →
+                      </Link>
+                    </td>
+                  </tr>
+                )
+              })}
             </tbody>
           </table>
         </div>

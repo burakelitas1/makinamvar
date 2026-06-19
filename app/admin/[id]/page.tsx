@@ -13,6 +13,7 @@ export default function AdminDetailPage() {
   const router = useRouter()
   const [listing, setListing] = useState<Listing | null>(null)
   const [loading, setLoading] = useState(true)
+  const [duplicates, setDuplicates] = useState<Listing[]>([])
   const [offerPrice, setOfferPrice] = useState('')
   const [offerNotes, setOfferNotes] = useState('')
   const [offerSending, setOfferSending] = useState(false)
@@ -23,7 +24,23 @@ export default function AdminDetailPage() {
   useEffect(() => {
     fetch(`/api/listings/${id}`)
       .then((r) => r.json())
-      .then((d) => { setListing(d); setLoading(false) })
+      .then((d) => {
+        setListing(d)
+        setLoading(false)
+        // Duplicate check
+        fetch('/api/listings')
+          .then((r) => r.json())
+          .then((all: Listing[]) => {
+            const dups = all.filter((l) =>
+              l.id !== d.id && (
+                l.contact_phone === d.contact_phone ||
+                l.contact_name.trim().toLowerCase() === d.contact_name.trim().toLowerCase() ||
+                (l.machine_type === d.machine_type && l.brand.toLowerCase() === d.brand.toLowerCase())
+              )
+            )
+            setDuplicates(dups)
+          })
+      })
       .catch(() => setLoading(false))
   }, [id])
 
@@ -92,6 +109,37 @@ export default function AdminDetailPage() {
           {listing.brand} {listing.model}
         </span>
       </div>
+
+      {/* Duplikat uyarısı */}
+      {duplicates.length > 0 && (
+        <div className="mb-6 bg-yellow-500/10 border border-yellow-500/40 rounded-xl p-4">
+          <div className="flex items-start gap-3">
+            <span className="text-yellow-400 text-xl flex-shrink-0">⚠️</span>
+            <div>
+              <p className="text-yellow-300 font-semibold text-sm mb-2">
+                Bu talep ile benzer {duplicates.length} kayıt bulundu
+              </p>
+              <div className="space-y-1.5">
+                {duplicates.map((d) => {
+                  const reasons = []
+                  if (d.contact_phone === listing.contact_phone) reasons.push('aynı telefon')
+                  if (d.contact_name.trim().toLowerCase() === listing.contact_name.trim().toLowerCase()) reasons.push('aynı isim')
+                  if (d.machine_type === listing.machine_type && d.brand.toLowerCase() === listing.brand.toLowerCase()) reasons.push('aynı makine')
+                  return (
+                    <div key={d.id} className="flex items-center gap-2 text-xs">
+                      <span className="text-yellow-500">{reasons.join(', ')}</span>
+                      <span className="text-gray-500">—</span>
+                      <Link href={`/admin/${d.id}`} className="text-yellow-400 hover:text-yellow-300 underline">
+                        {d.contact_name} · {d.brand} {d.model} · {new Date(d.created_at).toLocaleDateString('tr-TR')}
+                      </Link>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="grid lg:grid-cols-3 gap-6">
         {/* Sol kolon: Detaylar */}
