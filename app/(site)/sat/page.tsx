@@ -627,14 +627,33 @@ export default function SatPage() {
             </div>
           </div>
 
-          {/* KVKK notu */}
-          <p className="text-xs text-gray-400 text-center px-4 leading-relaxed">
-            Formu göndererek{' '}
-            <a href="/kullanim-kosullari" target="_blank" className="underline hover:text-gray-600">Kullanım Koşulları</a>'nı
-            ve{' '}
-            <a href="/kvkk" target="_blank" className="underline hover:text-gray-600">Kişisel Verilerin Korunması</a>{' '}
-            metnini okuduğumu, paylaştığım bilgiler ile fotoğrafların Varmak Makine tarafından kullanılmasına onay verdiğimi kabul ediyorum.
-          </p>
+          {/* KVKK onay kutucukları */}
+          <div className="space-y-3 px-1">
+            <label className="flex items-start gap-3 cursor-pointer group">
+              <input
+                type="checkbox"
+                id="kvkk"
+                required
+                className="mt-0.5 w-4 h-4 rounded border-gray-300 accent-orange-500 flex-shrink-0 cursor-pointer"
+              />
+              <span className="text-xs text-gray-500 leading-relaxed">
+                <a href="/kvkk" target="_blank" className="text-orange-500 hover:underline font-medium">Kişisel Verilerin Korunması</a>{' '}
+                metnini okudum, paylaştığım bilgiler ile fotoğrafların Varmak Makine tarafından kullanılmasına onay veriyorum.
+              </span>
+            </label>
+            <label className="flex items-start gap-3 cursor-pointer group">
+              <input
+                type="checkbox"
+                id="kullanim"
+                required
+                className="mt-0.5 w-4 h-4 rounded border-gray-300 accent-orange-500 flex-shrink-0 cursor-pointer"
+              />
+              <span className="text-xs text-gray-500 leading-relaxed">
+                <a href="/kullanim-kosullari" target="_blank" className="text-orange-500 hover:underline font-medium">Kullanım Koşulları</a>'nı
+                okudum ve kabul ediyorum.
+              </span>
+            </label>
+          </div>
 
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-700 rounded-lg p-4 text-sm">
