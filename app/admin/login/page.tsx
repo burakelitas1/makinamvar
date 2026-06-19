@@ -43,7 +43,7 @@ export default function AdminLoginPage() {
             </svg>
           </div>
           <h1 className="text-2xl font-bold text-white">Admin Girişi</h1>
-          <p className="text-gray-400 text-sm mt-1">SaçMakine Yönetim Paneli</p>
+          <p className="text-gray-400 text-sm mt-1">Trink Makina Yönetim Paneli</p>
         </div>
 
         <form onSubmit={handleSubmit} className="card space-y-4">

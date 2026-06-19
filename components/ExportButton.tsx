@@ -50,7 +50,7 @@ export default function ExportButton() {
       const wb = utils.book_new()
       utils.book_append_sheet(wb, ws, 'Talepler')
 
-      const fileName = `makinebid-talepler-${new Date().toISOString().slice(0, 10)}.xlsx`
+      const fileName = `trink-talepler-${new Date().toISOString().slice(0, 10)}.xlsx`
       writeFile(wb, fileName)
     } catch (e) {
       alert('Excel oluşturulurken hata oluştu.')
