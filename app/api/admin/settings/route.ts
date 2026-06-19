@@ -10,7 +10,7 @@ export async function GET() {
   return NextResponse.json(settings)
 }
 
-export async function PUT(req: Request) {
+export async function POST(req: Request) {
   const supabase = createServiceClient()
   const body: Record<string, string> = await req.json()
   const upserts = Object.entries(body).map(([key, value]) => ({

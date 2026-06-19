@@ -36,7 +36,7 @@ export default function AyarlarPage() {
   async function save() {
     setSaving(true); setMsg('')
     const res = await fetch('/api/admin/settings', {
-      method: 'PUT',
+      method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(settings),
     })

@@ -3,7 +3,7 @@ import { createServiceClient } from '@/lib/supabase-server'
 
 const VALID_STATUSES = ['bekliyor', 'teklif-verildi', 'yanit-bekliyor', 'kabul', 'red']
 
-export async function PUT(
+export async function POST(
   req: Request,
   { params }: { params: { id: string } }
 ) {

@@ -54,7 +54,7 @@ export default function AdminDetailPage() {
   async function updateStatus(status: string) {
     setStatusUpdating(true)
     await fetch(`/api/listings/${id}/status`, {
-      method: 'PUT',
+      method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ status }),
     })
