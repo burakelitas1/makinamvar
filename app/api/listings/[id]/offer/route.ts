@@ -12,8 +12,9 @@ function generateToken(): string {
 
 export async function POST(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params
   const { price, notes } = await req.json()
 
   if (!price || isNaN(Number(price)) || Number(price) <= 0) {
@@ -25,7 +26,7 @@ export async function POST(
   const { data: listing, error: fetchErr } = await supabase
     .from('listings')
     .select('*')
-    .eq('id', params.id)
+    .eq('id', id)
     .single()
 
   if (fetchErr || !listing) {
@@ -48,7 +49,7 @@ export async function POST(
       counter_offer_price: null,
       ...(notes ? { notes } : {}),
     })
-    .eq('id', params.id)
+    .eq('id', id)
 
   if (updateErr) {
     return NextResponse.json({ error: updateErr.message }, { status: 500 })

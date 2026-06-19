@@ -7,13 +7,14 @@ const VALID_RESPONSES: CustomerResponse[] = ['kabul', 'red', 'karsi-teklif']
 
 export async function GET(
   _req: Request,
-  { params }: { params: { token: string } }
+  { params }: { params: Promise<{ token: string }> }
 ) {
+  const { token } = await params
   const supabase = createServiceClient()
   const { data, error } = await supabase
     .from('listings')
     .select('id, brand, model, offer_price, offer_token_expires_at, customer_response, status, contact_name')
-    .eq('offer_token', params.token)
+    .eq('offer_token', token)
     .single()
 
   if (error || !data) {
@@ -29,8 +30,9 @@ export async function GET(
 
 export async function POST(
   req: Request,
-  { params }: { params: { token: string } }
+  { params }: { params: Promise<{ token: string }> }
 ) {
+  const { token } = await params
   const { response, note, counter_price } = await req.json()
 
   if (!VALID_RESPONSES.includes(response)) {
@@ -46,7 +48,7 @@ export async function POST(
   const { data: listing, error: fetchErr } = await supabase
     .from('listings')
     .select('*')
-    .eq('offer_token', params.token)
+    .eq('offer_token', token)
     .single()
 
   if (fetchErr || !listing) {
