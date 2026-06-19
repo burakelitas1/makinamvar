@@ -170,7 +170,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
               <div className="col-span-2 lg:col-span-1">
                 <div className="mb-3">
-                  <Image src="/logo-horizontal.svg" alt="Trink Makina" width={150} height={30} />
+                  <Image src="/logo-horizontal.svg" alt="Trink Makina" width={150} height={30} style={{ filter: 'brightness(0) invert(1)' }} />
                 </div>
                 <p className="text-gray-300 text-sm leading-relaxed">
                   Türkiye&apos;nin İlk Sac İşleme Makineleri Alım Platformu
