@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next'
+import Image from 'next/image'
 import './globals.css'
 
 const SITE_URL = 'https://trinkmakina.com'
@@ -121,9 +122,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between gap-4">
 
             {/* Logo */}
-            <a href="/" className="flex items-center gap-1 flex-shrink-0" aria-label="Trink Makina Ana Sayfa">
-              <span className="font-black text-xl text-[#2C3E50] tracking-tight">Trink</span>
-              <span className="font-black text-xl bg-[#E67E22] text-white px-1.5 py-0.5 rounded tracking-tight">Makina</span>
+            <a href="/" className="flex items-center flex-shrink-0" aria-label="Trink Makina Ana Sayfa">
+              <Image src="/logo-horizontal.svg" alt="Trink Makina" width={180} height={36} priority />
             </a>
 
             {/* Tagline */}
@@ -148,9 +148,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
               <div className="col-span-2 lg:col-span-1">
-                <div className="flex items-center gap-1 mb-3">
-                  <span className="font-black text-xl tracking-tight">Trink</span>
-                  <span className="font-black text-xl bg-[#E67E22] px-1.5 py-0.5 rounded tracking-tight">Makina</span>
+                <div className="mb-3">
+                  <Image src="/logo-horizontal.svg" alt="Trink Makina" width={150} height={30} />
                 </div>
                 <p className="text-gray-300 text-sm leading-relaxed">
                   Türkiye&apos;nin İlk Sac İşleme Makineleri Alım Platformu

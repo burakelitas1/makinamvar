@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 
 export const metadata: Metadata = { title: 'Admin — Trink Makina' }
@@ -19,9 +20,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         {/* Logo */}
         <div className="px-5 py-5 border-b border-navy-700">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-[#E67E22] rounded-lg flex items-center justify-center flex-shrink-0">
-              <span className="text-white font-black text-xs">TM</span>
-            </div>
+            <Image src="/logo-icon.svg" alt="Trink Makina" width={32} height={32} />
             <div>
               <p className="text-white font-bold text-sm leading-tight">Trink Makina</p>
               <p className="text-gray-500 text-xs">Admin Paneli</p>
