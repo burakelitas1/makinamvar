@@ -99,15 +99,15 @@ export default function SatPage() {
   async function uploadPhotos(files: File[]): Promise<string[]> {
     const urls: string[] = []
     for (const file of files) {
-      const nameParts = file.name.split('.')
-      const ext = nameParts.length > 1 ? nameParts.pop() : 'jpg'
-      const path = `trink-makina/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
-      const { error: uploadErr } = await supabase.storage
-        .from('listing-photos')
-        .upload(path, file, { cacheControl: '3600', upsert: false })
-      if (uploadErr) throw new Error(`Fotoğraf yüklenemedi: ${uploadErr.message}`)
-      const { data } = supabase.storage.from('listing-photos').getPublicUrl(path)
-      urls.push(data.publicUrl)
+      const fd = new FormData()
+      fd.append('file', file)
+      const res = await fetch('/api/upload', { method: 'POST', body: fd })
+      if (!res.ok) {
+        const j = await res.json()
+        throw new Error(`Fotoğraf yüklenemedi: ${j.error}`)
+      }
+      const { url } = await res.json()
+      urls.push(url)
     }
     return urls
   }
