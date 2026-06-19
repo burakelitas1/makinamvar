@@ -131,22 +131,26 @@ export default function TestimonialsCarousel({ testimonials }: { testimonials?: 
       <div className="flex items-center justify-center gap-4 mt-8">
         <button
           onClick={prev}
-          className="w-9 h-9 rounded-full border border-gray-300 hover:border-[#E67E22] hover:text-[#E67E22] flex items-center justify-center transition-colors text-gray-500"
+          aria-label="Önceki yorum"
+          className="w-11 h-11 rounded-full border border-gray-300 hover:border-[#E67E22] hover:text-[#E67E22] flex items-center justify-center transition-colors text-gray-600"
         >
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
         </button>
 
-        <div className="flex gap-1.5">
+        <div className="flex gap-2" role="tablist" aria-label="Yorum sayfaları">
           {TESTIMONIALS.map((_, i) => (
             <button
               key={i}
+              role="tab"
+              aria-selected={i === current}
+              aria-label={`${i + 1}. yorum grubuna git`}
               onClick={() => setCurrent(i)}
-              className={`rounded-full transition-all duration-300 ${
+              className={`rounded-full transition-all duration-300 min-w-[11px] min-h-[11px] ${
                 i === current
-                  ? 'w-6 h-2 bg-[#E67E22]'
-                  : 'w-2 h-2 bg-gray-300 hover:bg-gray-400'
+                  ? 'w-6 h-3 bg-[#E67E22]'
+                  : 'w-3 h-3 bg-gray-300 hover:bg-gray-400'
               }`}
             />
           ))}
@@ -154,9 +158,10 @@ export default function TestimonialsCarousel({ testimonials }: { testimonials?: 
 
         <button
           onClick={next}
-          className="w-9 h-9 rounded-full border border-gray-300 hover:border-[#E67E22] hover:text-[#E67E22] flex items-center justify-center transition-colors text-gray-500"
+          aria-label="Sonraki yorum"
+          className="w-11 h-11 rounded-full border border-gray-300 hover:border-[#E67E22] hover:text-[#E67E22] flex items-center justify-center transition-colors text-gray-600"
         >
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
         </button>

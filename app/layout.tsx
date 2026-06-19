@@ -109,7 +109,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="tr" dir="ltr">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="https://d8j0ntlcm91z4.cloudfront.net" />
+        <link rel="preconnect" href="https://d8j0ntlcm91z4.cloudfront.net" crossOrigin="anonymous" />
+        <link
+          rel="preload"
+          as="image"
+          href="https://d8j0ntlcm91z4.cloudfront.net/user_35eUMy38SQL2PT06afk6uyN041G/hf_20260616_145758_be0e9a6a-fcb9-470d-a31b-7234fdd3e64c.png"
+          fetchPriority="high"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(ORG_SCHEMA) }}

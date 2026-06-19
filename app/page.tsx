@@ -188,7 +188,7 @@ export default async function HomePage() {
             </div>
 
             <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-7">
-              <p className="text-white font-bold text-lg mb-5">Neden Trink Makina?</p>
+              <h2 className="text-white font-bold text-lg mb-5">Neden Trink Makina?</h2>
               <div className="space-y-3">
                 {[
                   { icon: '⚡', text: '24 saat içinde nakit teklif' },
@@ -196,7 +196,7 @@ export default async function HomePage() {
                   { icon: '💰', text: 'Aynı gün peşin ödeme' },
                   { icon: '🔍', text: 'Ücretsiz online teknik ekspertiz' },
                 ].map(item => (
-                  <div key={item.text} className="flex items-center gap-3 text-gray-200 text-sm">
+                  <div key={item.text} className="flex items-center gap-3 text-white text-sm">
                     <span className="text-lg">{item.icon}</span>
                     <span>{item.text}</span>
                   </div>
@@ -206,7 +206,7 @@ export default async function HomePage() {
                 {[{ v: '2.400+', l: 'İlan' }, { v: '850+', l: 'Satış' }, { v: '%98', l: 'Memnuniyet' }].map(s => (
                   <div key={s.l}>
                     <p className="text-xl font-black text-white">{s.v}</p>
-                    <p className="text-gray-400 text-xs">{s.l}</p>
+                    <p className="text-gray-200 text-xs">{s.l}</p>
                   </div>
                 ))}
               </div>
