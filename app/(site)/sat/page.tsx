@@ -64,6 +64,8 @@ export default function SatPage() {
   const [photos, setPhotos] = useState<File[]>([])
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
+  const [kvkk, setKvkk] = useState(false)
+  const [kullanim, setKullanim] = useState(false)
 
   const {
     register,
@@ -115,6 +117,10 @@ export default function SatPage() {
   async function onSubmit(data: FormData) {
     if (photos.length === 0) {
       setError('En az 1 fotoğraf yüklemeniz gerekmektedir.')
+      return
+    }
+    if (!kvkk || !kullanim) {
+      setError('Devam etmek için onay kutucuklarını işaretlemeniz gerekmektedir.')
       return
     }
     setSubmitting(true)
@@ -629,26 +635,28 @@ export default function SatPage() {
 
           {/* KVKK onay kutucukları */}
           <div className="space-y-3 px-1">
-            <label className="flex items-start gap-3 cursor-pointer group">
+            <label className="flex items-start gap-3 cursor-pointer">
               <input
                 type="checkbox"
-                id="kvkk"
-                required
-                className="mt-0.5 w-4 h-4 rounded border-gray-300 accent-orange-500 flex-shrink-0 cursor-pointer"
+                checked={kvkk}
+                onChange={(e) => setKvkk(e.target.checked)}
+                className="mt-0.5 w-4 h-4 rounded accent-orange-500 flex-shrink-0 cursor-pointer"
               />
-              <span className="text-xs text-gray-500 leading-relaxed">
+              <span className={`text-xs leading-relaxed ${kvkk ? 'text-gray-500' : 'text-gray-400'}`}>
+                <span className="text-red-500 font-bold mr-0.5">*</span>
                 <a href="/kvkk" target="_blank" className="text-orange-500 hover:underline font-medium">Kişisel Verilerin Korunması</a>{' '}
                 metnini okudum, paylaştığım bilgiler ile fotoğrafların Varmak Makine tarafından kullanılmasına onay veriyorum.
               </span>
             </label>
-            <label className="flex items-start gap-3 cursor-pointer group">
+            <label className="flex items-start gap-3 cursor-pointer">
               <input
                 type="checkbox"
-                id="kullanim"
-                required
-                className="mt-0.5 w-4 h-4 rounded border-gray-300 accent-orange-500 flex-shrink-0 cursor-pointer"
+                checked={kullanim}
+                onChange={(e) => setKullanim(e.target.checked)}
+                className="mt-0.5 w-4 h-4 rounded accent-orange-500 flex-shrink-0 cursor-pointer"
               />
-              <span className="text-xs text-gray-500 leading-relaxed">
+              <span className={`text-xs leading-relaxed ${kullanim ? 'text-gray-500' : 'text-gray-400'}`}>
+                <span className="text-red-500 font-bold mr-0.5">*</span>
                 <a href="/kullanim-kosullari" target="_blank" className="text-orange-500 hover:underline font-medium">Kullanım Koşulları</a>'nı
                 okudum ve kabul ediyorum.
               </span>
