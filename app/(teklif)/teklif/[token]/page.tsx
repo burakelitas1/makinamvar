@@ -12,16 +12,16 @@ export default async function TeklifPage({ params }: { params: Promise<{ token: 
     .single()
 
   if (error || !data) {
-    return <TeklifClient state="error" token={token} />
+    return <TeklifClient initialState="error" token={token} />
   }
 
   if (new Date(data.offer_token_expires_at) < new Date()) {
-    return <TeklifClient state="expired" token={token} />
+    return <TeklifClient initialState="expired" token={token} />
   }
 
   if (data.customer_response) {
-    return <TeklifClient state="done" doneResponse={data.customer_response} token={token} />
+    return <TeklifClient initialState="done" doneResponse={data.customer_response} token={token} />
   }
 
-  return <TeklifClient state="view" data={data} token={token} />
+  return <TeklifClient initialState="view" data={data} token={token} />
 }
