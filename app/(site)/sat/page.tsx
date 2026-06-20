@@ -148,6 +148,12 @@ export default function SatPage() {
         calisma_sekli: data.boru_calisma_sekli || null,
       } : isPress ? {
         tip: data.press_tip || null,
+      } : isTestere ? {
+        mengene_acikligi: data.testere_mengene_acikligi || null,
+        makine_surucu: data.testere_makine_surucu || null,
+        aci_ayari: data.testere_aci_ayari || null,
+      } : isDigerMakine ? {
+        makine_turu: data.diger_makine_turu || null,
       } : null
 
       const needsCapacity = !isAbkant && !isGiyotin && !isSilindir && !isBoruBukum && !isTestere && !isDigerMakine
@@ -176,13 +182,15 @@ export default function SatPage() {
         : isSilindir
         ? [silindir_uzunluk ? `${silindir_uzunluk} mm` : '', silindir_max_kalinlik ? `${silindir_max_kalinlik} mm` : ''].filter(Boolean).join(' / ')
         : isBoruBukum
-        ? (boru_mil_capi ? `Ø${boru_mil_capi} mm` : '')
+        ? [boru_calisma_sekli || '', boru_mil_capi ? `Ø${boru_mil_capi} mm` : ''].filter(Boolean).join(' / ')
+        : isTestere
+        ? (testere_mengene_acikligi ? `Mengene ${testere_mengene_acikligi} mm` : '')
         : (rest.capacity || '')
 
       const res = await fetch('/api/listings', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...rest, brand: resolvedBrand, model: resolvedModel, capacity: resolvedCapacity, photos: photoUrls, extra_fields }),
+        body: JSON.stringify({ ...rest, brand: resolvedBrand, model: resolvedModel, capacity: resolvedCapacity, notes: rest.description || null, photos: photoUrls, extra_fields }),
       })
 
       if (!res.ok) {

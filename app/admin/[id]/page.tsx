@@ -268,10 +268,12 @@ export default function AdminDetailPage() {
                     .filter(([, v]) => v)
                     .map(([k, v]) => {
                       const labels: Record<string, string> = {
-                        tip: 'Tip', uzunluk: 'Uzunluk', tonaj: 'Tonaj',
-                        kapasite_mm: 'Kapasite (mm)', ust_top_capi: 'Üst Top Çapı',
-                        max_kalinlik: 'Maks. Kalınlık', calisma_sekli: 'Çalışma Şekli',
-                        mil_capi: 'Mil Çapı', tipi: 'Tip', tipi_aciklama: 'Tip Açıklama',
+                        tip: 'Tip', uzunluk: 'Uzunluk (mm)', tonaj: 'Tonaj',
+                        kapasite_mm: 'Kapasite (mm)', ust_top_capi: 'Üst Top Çapı (mm)',
+                        max_kalinlik: 'Maks. Kalınlık (mm)', calisma_sekli: 'Çalışma Şekli',
+                        mil_capi: 'Mil Çapı (mm)', tipi: 'Boru Tipi', tipi_aciklama: 'Tip Açıklama',
+                        mengene_acikligi: 'Mengene Açıklığı (mm)', makine_surucu: 'Makine Sürücüsü',
+                        aci_ayari: 'Açı Ayarı', makine_turu: 'Makine Türü',
                       }
                       return (
                         <div key={k}>
@@ -312,6 +314,14 @@ export default function AdminDetailPage() {
               </div>
             </dl>
           </div>
+
+          {/* Müşteri Notu */}
+          {listing.notes && (
+            <div className="card">
+              <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">Müşteri Notu</h2>
+              <p className="text-gray-700 text-sm leading-relaxed whitespace-pre-wrap">{listing.notes}</p>
+            </div>
+          )}
         </div>
 
         {/* Sağ kolon: Durum + Teklif */}
