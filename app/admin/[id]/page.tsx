@@ -265,7 +265,6 @@ export default function AdminDetailPage() {
                 </dl>
               </div>
             )}
-            </dl>
           </div>
 
           {/* İletişim */}
