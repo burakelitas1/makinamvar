@@ -168,12 +168,21 @@ export default function SatPage() {
       }
 
       const { abkant_tip, abkant_uzunluk, abkant_tonaj, giyotin_tip, giyotin_uzunluk, giyotin_kapasite, silindir_uzunluk, silindir_tip, silindir_max_kalinlik, silindir_calisma_sekli, boru_mil_capi, boru_tipi, boru_tipi_aciklama, boru_calisma_sekli, testere_mengene_acikligi, testere_makine_surucu, testere_aci_ayari, press_tip, diger_makine_turu, brand_select, brand_other, brand_free, brand, model, ...rest } = data
-      const resolvedModel = isPress ? '' : (model || '')
+      const resolvedModel = model || ''
+      const resolvedCapacity = isAbkant
+        ? [abkant_tonaj ? `${abkant_tonaj} ton` : '', abkant_uzunluk ? `${abkant_uzunluk} mm` : ''].filter(Boolean).join(' / ')
+        : isGiyotin
+        ? [giyotin_kapasite ? `${giyotin_kapasite} mm` : '', giyotin_uzunluk ? `${giyotin_uzunluk} mm` : ''].filter(Boolean).join(' / ')
+        : isSilindir
+        ? [silindir_uzunluk ? `${silindir_uzunluk} mm` : '', silindir_max_kalinlik ? `${silindir_max_kalinlik} mm` : ''].filter(Boolean).join(' / ')
+        : isBoruBukum
+        ? (boru_mil_capi ? `Ø${boru_mil_capi} mm` : '')
+        : (rest.capacity || '')
 
       const res = await fetch('/api/listings', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...rest, brand: resolvedBrand, model: resolvedModel, photos: photoUrls, extra_fields }),
+        body: JSON.stringify({ ...rest, brand: resolvedBrand, model: resolvedModel, capacity: resolvedCapacity, photos: photoUrls, extra_fields }),
       })
 
       if (!res.ok) {
@@ -505,6 +514,11 @@ export default function SatPage() {
                   {errors.capacity && <p className="error-msg">{errors.capacity.message}</p>}
                 </div>
               )}
+
+              <div>
+                <label className="label">Model <span className="text-gray-400 font-normal">(isteğe bağlı)</span></label>
+                <input className="input-field" placeholder="örn. HST-3006, V-30, AD-2560" {...register('model')} />
+              </div>
 
               <div>
                 <label className="label">Üretim Yılı *</label>
