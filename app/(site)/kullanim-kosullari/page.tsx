@@ -1,3 +1,5 @@
+export const metadata = { title: 'Kullanım Koşulları', description: 'Trink Makina platform kullanım koşulları ve üyelik sözleşmesi.' }
+
 export default function KullanimKosullariPage() {
   return (
     <div className="bg-gray-50 min-h-screen">

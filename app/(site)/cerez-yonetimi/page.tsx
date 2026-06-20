@@ -1,3 +1,5 @@
+export const metadata = { title: 'Çerez Yönetimi', description: 'Trink Makina çerez kullanım politikası ve yönetim seçenekleri.' }
+
 export default function CerezYonetimiPage() {
   return (
     <div className="bg-gray-50 min-h-screen">

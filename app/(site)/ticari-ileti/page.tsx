@@ -1,3 +1,5 @@
+export const metadata = { title: 'Ticari İleti İzni', description: 'Trink Makina ticari elektronik ileti gönderimi hakkında bilgi ve izin yönetimi.' }
+
 export default function TicariIletiPage() {
   return (
     <div className="bg-gray-50 min-h-screen">
