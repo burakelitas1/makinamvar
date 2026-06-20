@@ -68,6 +68,28 @@ export default function AdminDetailPage() {
     setOfferSending(false)
   }
 
+  async function downloadPhoto(url: string, index: number) {
+    try {
+      const res = await fetch(url)
+      const blob = await res.blob()
+      const ext = blob.type.includes('png') ? 'png' : 'jpg'
+      const a = document.createElement('a')
+      a.href = URL.createObjectURL(blob)
+      a.download = `${listing?.brand ?? 'makine'}-${listing?.model ?? ''}-foto${index + 1}.${ext}`
+      a.click()
+      URL.revokeObjectURL(a.href)
+    } catch {
+      alert('Fotoğraf indirilemedi.')
+    }
+  }
+
+  async function downloadAllPhotos(urls: string[]) {
+    for (let i = 0; i < urls.length; i++) {
+      await downloadPhoto(urls[i], i)
+      if (i < urls.length - 1) await new Promise((r) => setTimeout(r, 400))
+    }
+  }
+
   async function updateStatus(status: string) {
     setStatusUpdating(true)
     await fetch(`/api/listings/${id}/status`, {
@@ -148,7 +170,27 @@ export default function AdminDetailPage() {
           {/* Fotoğraflar */}
           {listing.photos.length > 0 && (
             <div className="card">
-              <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">Fotoğraflar</h2>
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">Fotoğraflar</h2>
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    onClick={() => downloadPhoto(listing.photos[activePhoto], activePhoto)}
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-navy-700 hover:bg-navy-600 border border-navy-600 text-gray-300 hover:text-white text-xs font-medium rounded-lg transition-colors"
+                  >
+                    ⬇ İndir
+                  </button>
+                  {listing.photos.length > 1 && (
+                    <button
+                      type="button"
+                      onClick={() => downloadAllPhotos(listing.photos)}
+                      className="flex items-center gap-1.5 px-3 py-1.5 bg-navy-700 hover:bg-navy-600 border border-navy-600 text-gray-300 hover:text-white text-xs font-medium rounded-lg transition-colors"
+                    >
+                      ⬇ Tümünü İndir ({listing.photos.length})
+                    </button>
+                  )}
+                </div>
+              </div>
               <div className="relative aspect-video rounded-lg overflow-hidden bg-navy-900 mb-3">
                 <Image
                   src={listing.photos[activePhoto]}
