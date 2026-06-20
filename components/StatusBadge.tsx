@@ -7,6 +7,7 @@ const colors: Record<ListingStatus, string> = {
   'yanit-bekliyor':  'bg-purple-100 text-purple-800 border border-purple-200',
   kabul:             'bg-green-100 text-green-800 border border-green-200',
   red:               'bg-red-100 text-red-800 border border-red-200',
+  satildi:           'bg-gray-100 text-gray-600 border border-gray-200',
 }
 
 export default function StatusBadge({ status }: { status: ListingStatus }) {
