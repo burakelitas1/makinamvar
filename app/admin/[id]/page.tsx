@@ -132,11 +132,6 @@ export default function AdminDetailPage() {
         </span>
       </div>
 
-      {/* GEÇICI DEBUG - sonra silinecek */}
-      <details className="mb-4 bg-navy-900 border border-navy-600 rounded-lg p-3">
-        <summary className="text-xs text-gray-400 cursor-pointer">🔍 Debug: Ham veri</summary>
-        <pre className="text-xs text-green-400 mt-2 overflow-auto max-h-64">{JSON.stringify(listing, null, 2)}</pre>
-      </details>
 
       {/* Duplikat uyarısı */}
       {duplicates.length > 0 && (
@@ -242,7 +237,7 @@ export default function AdminDetailPage() {
               ].map(({ label, value }) => (
                 <div key={label}>
                   <dt className="text-xs text-gray-500 mb-0.5">{label}</dt>
-                  <dd className="text-white font-medium">{value}</dd>
+                  <dd className="text-gray-900 font-medium">{value}</dd>
                 </div>
               ))}
             </dl>
@@ -254,7 +249,7 @@ export default function AdminDetailPage() {
             <dl className="space-y-3">
               <div>
                 <dt className="text-xs text-gray-500 mb-0.5">Ad Soyad</dt>
-                <dd className="text-white font-medium">{listing.contact_name}</dd>
+                <dd className="text-gray-900 font-medium">{listing.contact_name}</dd>
               </div>
               <div>
                 <dt className="text-xs text-gray-500 mb-0.5">Cep Telefonu</dt>
