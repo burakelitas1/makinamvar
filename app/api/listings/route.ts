@@ -50,7 +50,10 @@ export async function POST(req: Request) {
       .select()
       .single()
 
-    if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+    if (error) {
+      console.error('Supabase insert error:', JSON.stringify(error))
+      return NextResponse.json({ error: error.message, details: error.details, hint: error.hint, code: error.code }, { status: 500 })
+    }
 
     try {
       await sendAdminNotification(data as Listing)

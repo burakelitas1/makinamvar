@@ -7,7 +7,7 @@ type Settings = Record<string, string>
 const FIELDS = [
   { section: 'İletişim Bilgileri', items: [
     { key: 'phone', label: 'Telefon Numarası', placeholder: '0850 123 45 67' },
-    { key: 'email', label: 'E-posta Adresi', placeholder: 'info@makinamvar.com' },
+    { key: 'email', label: 'E-posta Adresi', placeholder: 'info@trinkmakina.com' },
     { key: 'address', label: 'Adres', placeholder: 'Mahalle, Cadde, İl' },
     { key: 'working_hours', label: 'Çalışma Saatleri', placeholder: 'Hafta içi 10:00 – 17:00' },
   ]},
@@ -36,7 +36,7 @@ export default function AyarlarPage() {
   async function save() {
     setSaving(true); setMsg('')
     const res = await fetch('/api/admin/settings', {
-      method: 'PUT',
+      method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(settings),
     })

@@ -2,6 +2,7 @@
 
 import { useRef, useState } from 'react'
 import Image from 'next/image'
+import imageCompression from 'browser-image-compression'
 
 interface Props {
   onFilesChange: (files: File[]) => void
@@ -12,14 +13,24 @@ export default function PhotoUpload({ onFilesChange, maxFiles = 5 }: Props) {
   const [previews, setPreviews] = useState<{ url: string; file: File }[]>([])
   const inputRef = useRef<HTMLInputElement>(null)
   const [dragging, setDragging] = useState(false)
+  const [compressing, setCompressing] = useState(false)
 
-  function addFiles(incoming: FileList | null) {
+  async function addFiles(incoming: FileList | null) {
     if (!incoming) return
     const allowed = Array.from(incoming)
       .filter((f) => f.type.startsWith('image/'))
       .slice(0, maxFiles - previews.length)
     if (!allowed.length) return
-    const newPreviews = allowed.map((file) => ({ file, url: URL.createObjectURL(file) }))
+
+    setCompressing(true)
+    const compressed = await Promise.all(
+      allowed.map((file) =>
+        imageCompression(file, { maxSizeMB: 0.8, maxWidthOrHeight: 1920, useWebWorker: true })
+      )
+    )
+    setCompressing(false)
+
+    const newPreviews = compressed.map((file) => ({ file, url: URL.createObjectURL(file) }))
     const updated = [...previews, ...newPreviews].slice(0, maxFiles)
     setPreviews(updated)
     onFilesChange(updated.map((p) => p.file))
@@ -58,6 +69,7 @@ export default function PhotoUpload({ onFilesChange, maxFiles = 5 }: Props) {
             Sürükle & bırak veya tıkla · Kalan: {remaining} fotoğraf
           </p>
           <p className="text-gray-300 text-xs mt-0.5">JPG, PNG · Max 10MB</p>
+          {compressing && <p className="text-blue-500 text-xs mt-1 font-medium">Fotoğraflar optimize ediliyor…</p>}
         </div>
       )}
 

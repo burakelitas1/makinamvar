@@ -1,12 +1,13 @@
 import { NextResponse } from 'next/server'
 import { createServiceClient } from '@/lib/supabase-server'
 
-const VALID_STATUSES = ['bekliyor', 'teklif-verildi', 'kabul', 'red']
+const VALID_STATUSES = ['bekliyor', 'teklif-verildi', 'yanit-bekliyor', 'kabul', 'red', 'satildi']
 
-export async function PUT(
+export async function POST(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params
   const { status } = await req.json()
 
   if (!VALID_STATUSES.includes(status)) {
@@ -17,7 +18,7 @@ export async function PUT(
   const { error } = await supabase
     .from('listings')
     .update({ status })
-    .eq('id', params.id)
+    .eq('id', id)
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
   return NextResponse.json({ ok: true })

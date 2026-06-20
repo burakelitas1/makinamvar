@@ -26,7 +26,7 @@ export default function SSSPage() {
     setSaving(true); setMsg('')
     if (editId) {
       await fetch(`/api/admin/faqs/${editId}`, {
-        method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(form),
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(form),
       })
     } else {
       await fetch('/api/admin/faqs', {

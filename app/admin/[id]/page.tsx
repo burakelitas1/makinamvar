@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import Image from 'next/image'
 import type { Listing } from '@/lib/types'
-import { machineTypeLabels, conditionLabels, statusLabels, sellReasonLabels } from '@/lib/types'
+import { machineTypeLabels, conditionLabels, statusLabels, sellReasonLabels, statusColors } from '@/lib/types'
 import StatusBadge from '@/components/StatusBadge'
 import Link from 'next/link'
 
@@ -13,6 +13,7 @@ export default function AdminDetailPage() {
   const router = useRouter()
   const [listing, setListing] = useState<Listing | null>(null)
   const [loading, setLoading] = useState(true)
+  const [duplicates, setDuplicates] = useState<Listing[]>([])
   const [offerPrice, setOfferPrice] = useState('')
   const [offerNotes, setOfferNotes] = useState('')
   const [offerSending, setOfferSending] = useState(false)
@@ -23,7 +24,23 @@ export default function AdminDetailPage() {
   useEffect(() => {
     fetch(`/api/listings/${id}`)
       .then((r) => r.json())
-      .then((d) => { setListing(d); setLoading(false) })
+      .then((d) => {
+        setListing(d)
+        setLoading(false)
+        // Duplicate check
+        fetch('/api/listings')
+          .then((r) => r.json())
+          .then((all: Listing[]) => {
+            const dups = all.filter((l) =>
+              l.id !== d.id && (
+                l.contact_phone === d.contact_phone ||
+                l.contact_name.trim().toLowerCase() === d.contact_name.trim().toLowerCase() ||
+                (l.machine_type === d.machine_type && l.brand.toLowerCase() === d.brand.toLowerCase())
+              )
+            )
+            setDuplicates(dups)
+          })
+      })
       .catch(() => setLoading(false))
   }, [id])
 
@@ -43,6 +60,7 @@ export default function AdminDetailPage() {
       setOfferMsg('Teklif başarıyla gönderildi!')
       const updated = await fetch(`/api/listings/${id}`).then((r) => r.json())
       setListing(updated)
+      router.refresh()
     } else {
       const j = await res.json()
       setOfferMsg(j.error ?? 'Hata oluştu')
@@ -53,13 +71,14 @@ export default function AdminDetailPage() {
   async function updateStatus(status: string) {
     setStatusUpdating(true)
     await fetch(`/api/listings/${id}/status`, {
-      method: 'PUT',
+      method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ status }),
     })
     const updated = await fetch(`/api/listings/${id}`).then((r) => r.json())
     setListing(updated)
     setStatusUpdating(false)
+    router.refresh()
   }
 
   if (loading) {
@@ -90,6 +109,37 @@ export default function AdminDetailPage() {
           {listing.brand} {listing.model}
         </span>
       </div>
+
+      {/* Duplikat uyarısı */}
+      {duplicates.length > 0 && (
+        <div className="mb-6 bg-yellow-500/10 border border-yellow-500/40 rounded-xl p-4">
+          <div className="flex items-start gap-3">
+            <span className="text-yellow-400 text-xl flex-shrink-0">⚠️</span>
+            <div>
+              <p className="text-yellow-300 font-semibold text-sm mb-2">
+                Bu talep ile benzer {duplicates.length} kayıt bulundu
+              </p>
+              <div className="space-y-1.5">
+                {duplicates.map((d) => {
+                  const reasons = []
+                  if (d.contact_phone === listing.contact_phone) reasons.push('aynı telefon')
+                  if (d.contact_name.trim().toLowerCase() === listing.contact_name.trim().toLowerCase()) reasons.push('aynı isim')
+                  if (d.machine_type === listing.machine_type && d.brand.toLowerCase() === listing.brand.toLowerCase()) reasons.push('aynı makine')
+                  return (
+                    <div key={d.id} className="flex items-center gap-2 text-xs">
+                      <span className="text-yellow-500">{reasons.join(', ')}</span>
+                      <span className="text-gray-500">—</span>
+                      <Link href={`/admin/${d.id}`} className="text-yellow-400 hover:text-yellow-300 underline">
+                        {d.contact_name} · {d.brand} {d.model} · {new Date(d.created_at).toLocaleDateString('tr-TR')}
+                      </Link>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="grid lg:grid-cols-3 gap-6">
         {/* Sol kolon: Detaylar */}
@@ -195,12 +245,35 @@ export default function AdminDetailPage() {
               {listing.offer_sent_at && (
                 <p className="text-gray-500 text-xs mt-1">
                   Teklif: {new Date(listing.offer_sent_at).toLocaleString('tr-TR')}
+                  {' '}({Math.floor((Date.now() - new Date(listing.offer_sent_at).getTime()) / 86400000)} gün önce)
                 </p>
               )}
             </div>
 
+            {listing.customer_response && (
+              <div className="mt-4 p-3 rounded-lg bg-navy-800 border border-navy-600 space-y-2">
+                <p className="text-xs text-gray-400 uppercase tracking-wider font-semibold">Müşteri Yanıtı</p>
+                <span className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold ${
+                  listing.customer_response === 'kabul' ? 'bg-green-100 text-green-800' :
+                  listing.customer_response === 'red' ? 'bg-red-100 text-red-800' :
+                  'bg-purple-100 text-purple-800'
+                }`}>
+                  {listing.customer_response === 'kabul' ? '✅ Kabul Etti' :
+                   listing.customer_response === 'red' ? '❌ Reddetti' : '💬 Karşı Teklif'}
+                </span>
+                {listing.counter_offer_price && (
+                  <p className="text-white font-bold text-lg">
+                    Karşı teklif: {new Intl.NumberFormat('tr-TR', { style: 'currency', currency: 'TRY', maximumFractionDigits: 0 }).format(listing.counter_offer_price)}
+                  </p>
+                )}
+                {listing.customer_note && (
+                  <p className="text-gray-300 text-sm italic">"{listing.customer_note}"</p>
+                )}
+              </div>
+            )}
+
             <div className="space-y-2">
-              {(['bekliyor', 'teklif-verildi', 'kabul', 'red'] as const).map((s) => (
+              {(['bekliyor', 'teklif-verildi', 'yanit-bekliyor', 'kabul', 'red', 'satildi'] as const).map((s) => (
                 <button
                   key={s}
                   onClick={() => updateStatus(s)}
