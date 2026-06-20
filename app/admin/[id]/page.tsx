@@ -221,17 +221,17 @@ export default function AdminDetailPage() {
             <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">Makine Bilgileri</h2>
             <dl className="grid grid-cols-2 gap-4">
               {[
-                { label: 'Tür', value: machineTypeLabels[listing.machine_type] },
-                { label: 'Marka', value: listing.brand },
-                { label: 'Model', value: listing.model },
-                { label: 'Üretim Yılı', value: listing.year },
-                { label: 'Kapasite', value: listing.capacity },
-                { label: 'Durum', value: conditionLabels[listing.condition] },
+                { label: 'Tür', value: (machineTypeLabels as Record<string, string>)[listing.machine_type] ?? listing.machine_type ?? '—' },
+                { label: 'Marka', value: listing.brand || '—' },
+                { label: 'Model', value: listing.model || '—' },
+                { label: 'Üretim Yılı', value: listing.year ?? '—' },
+                { label: 'Kapasite', value: listing.capacity || '—' },
+                { label: 'Durum', value: (conditionLabels as Record<string, string>)[listing.condition] ?? listing.condition ?? '—' },
                 { label: 'Satış Nedeni', value: listing.sell_reason ? (sellReasonLabels[listing.sell_reason] ?? listing.sell_reason) : '—' },
-                { label: 'Konum', value: `${listing.location_city} / ${listing.location_district}` },
+                { label: 'Konum', value: (listing.location_city && listing.location_district) ? `${listing.location_city} / ${listing.location_district}` : (listing.location_city || listing.location_district || '—') },
                 {
                   label: 'Başvuru Tarihi',
-                  value: new Date(listing.created_at).toLocaleString('tr-TR'),
+                  value: listing.created_at ? new Date(listing.created_at).toLocaleString('tr-TR') : '—',
                 },
               ].map(({ label, value }) => (
                 <div key={label}>

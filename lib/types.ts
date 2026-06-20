@@ -1,4 +1,4 @@
-export type MachineType = 'abkant' | 'giyotin' | 'press' | 'silindir' | 'boru-bukum' | 'testere'
+export type MachineType = 'abkant' | 'giyotin' | 'press' | 'silindir' | 'boru-bukum' | 'testere' | 'diger'
 export type MachineCondition = 'calisiyor' | 'arizali' | 'bakim-gerekli'
 export type ListingStatus = 'bekliyor' | 'teklif-verildi' | 'yanit-bekliyor' | 'kabul' | 'red' | 'satildi'
 export type CustomerResponse = 'kabul' | 'red' | 'karsi-teklif'
@@ -46,6 +46,7 @@ export const machineTypeLabels: Record<MachineType, string> = {
   silindir:    'Silindir Makineleri',
   'boru-bukum':'Boru Büküm Makineleri',
   testere:     'Testereler',
+  diger:       'Diğer',
 }
 
 export const conditionLabels: Record<MachineCondition, string> = {
