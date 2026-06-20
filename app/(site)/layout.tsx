@@ -7,7 +7,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
       <header className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between gap-4">
           <a href="/" className="flex items-center flex-shrink-0" aria-label="Trink Makina Ana Sayfa">
-            <Image src="/logo-horizontal.svg" alt="Trink Makina" width={180} height={36} priority />
+            <Image src="/logo-horizontal.svg" alt="Trink Makina" width={130} height={26} priority />
           </a>
           <p className="hidden lg:block text-sm text-gray-500 font-medium flex-1 ml-6">
             Makinenizi bugün satın, nakit ödemenizi hemen alın
