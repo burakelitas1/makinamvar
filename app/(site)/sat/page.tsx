@@ -73,7 +73,7 @@ export default function SatPage() {
     watch,
     setValue,
     formState: { errors },
-  } = useForm<FormData>({ resolver: zodResolver(schema) })
+  } = useForm<FormData>({ resolver: zodResolver(schema), mode: 'onBlur' })
 
   const machineType = watch('machine_type')
   const brandSelect = watch('brand_select')
@@ -211,7 +211,7 @@ export default function SatPage() {
       <div className="bg-gradient-to-r from-[#2C3E50] to-[#34495e] py-10">
         <div className="max-w-2xl mx-auto px-4 text-center">
           <h1 className="text-2xl sm:text-3xl font-black text-white mb-2">Makineni Sat</h1>
-          <p className="text-blue-200 text-sm sm:text-base">
+          <p className="text-blue-100 text-sm sm:text-base">
             Bilgileri doldur, 24 saat içinde SMS ve mail ile teklif al
           </p>
         </div>
