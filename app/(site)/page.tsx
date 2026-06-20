@@ -105,13 +105,23 @@ const DEFAULT_FAQS = [
 ]
 
 export default async function HomePage() {
-  const supabase = createServiceClient()
+  let dbTestimonials = null
+  let dbFaqs = null
+  let dbSettings = null
 
-  const [{ data: dbTestimonials }, { data: dbFaqs }, { data: dbSettings }] = await Promise.all([
-    supabase.from('testimonials').select('name,detail,text,date').eq('active', true).order('order_num'),
-    supabase.from('faqs').select('question,answer').eq('active', true).order('order_num'),
-    supabase.from('site_settings').select('key,value'),
-  ])
+  try {
+    const supabase = createServiceClient()
+    const results = await Promise.all([
+      supabase.from('testimonials').select('name,detail,text,date').eq('active', true).order('order_num'),
+      supabase.from('faqs').select('question,answer').eq('active', true).order('order_num'),
+      supabase.from('site_settings').select('key,value'),
+    ])
+    dbTestimonials = results[0].data
+    dbFaqs = results[1].data
+    dbSettings = results[2].data
+  } catch {
+    // Supabase unavailable — render page with defaults
+  }
 
   const settings: Record<string, string> = {}
   dbSettings?.forEach((r) => { settings[r.key] = r.value })
@@ -145,7 +155,7 @@ export default async function HomePage() {
       <section className="relative min-h-[500px] flex items-center overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: "url('/hero-factory.svg')", filter: 'blur(2px)', transform: 'scale(1.08)' }}
+          style={{ backgroundImage: "url('/hero-fabrika.webp')" }}
         />
         <div className="absolute inset-0" style={{ background: 'rgba(30, 45, 65, 0.84)' }} />
 
