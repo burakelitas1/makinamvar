@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import Image from 'next/image'
 import type { Listing } from '@/lib/types'
@@ -20,6 +20,17 @@ export default function AdminDetailPage() {
   const [offerMsg, setOfferMsg] = useState('')
   const [statusUpdating, setStatusUpdating] = useState(false)
   const [activePhoto, setActivePhoto] = useState(0)
+  const infoCardRef = useRef<HTMLDivElement>(null)
+
+  async function downloadInfoCard() {
+    if (!infoCardRef.current || !listing) return
+    const html2canvas = (await import('html2canvas')).default
+    const canvas = await html2canvas(infoCardRef.current, { backgroundColor: '#ffffff', scale: 2 })
+    const a = document.createElement('a')
+    a.href = canvas.toDataURL('image/png')
+    a.download = `${listing.brand}-${listing.model || listing.machine_type}-bilgi.png`
+    a.click()
+  }
 
   useEffect(() => {
     fetch(`/api/listings/${id}`)
@@ -219,7 +230,14 @@ export default function AdminDetailPage() {
 
           {/* Makine Bilgileri */}
           <div className="card">
-            <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">Makine Bilgileri</h2>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">Makine Bilgileri</h2>
+              <button type="button" onClick={downloadInfoCard}
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-navy-700 hover:bg-navy-600 border border-navy-600 text-gray-300 hover:text-white text-xs font-medium rounded-lg transition-colors">
+                ⬇ Bilgi Kartı İndir
+              </button>
+            </div>
+            <div ref={infoCardRef} className="bg-white p-2 rounded-lg">
             <dl className="grid grid-cols-2 gap-4">
               {[
                 { label: 'Tür', value: (machineTypeLabels as Record<string, string>)[listing.machine_type] ?? listing.machine_type ?? '—' },
@@ -265,6 +283,7 @@ export default function AdminDetailPage() {
                 </dl>
               </div>
             )}
+            </div>{/* /infoCardRef */}
           </div>
 
           {/* İletişim */}
