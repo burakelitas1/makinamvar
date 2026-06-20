@@ -46,6 +46,7 @@ export async function POST(req: Request) {
         contact_phone: body.contact_phone,
         contact_email: body.contact_email,
         photos: body.photos ?? [],
+        extra_fields: body.extra_fields ?? null,
       })
       .select()
       .single()

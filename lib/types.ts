@@ -28,6 +28,7 @@ export interface Listing {
   customer_response?: CustomerResponse | null
   customer_note?: string | null
   counter_offer_price?: number | null
+  extra_fields?: Record<string, string> | null
 }
 
 export const sellReasonLabels: Record<string, string> = {

@@ -241,6 +241,31 @@ export default function AdminDetailPage() {
                 </div>
               ))}
             </dl>
+            {/* Makineye özel teknik detaylar */}
+            {listing.extra_fields && Object.keys(listing.extra_fields).length > 0 && (
+              <div className="mt-4 pt-4 border-t border-gray-100">
+                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Teknik Detaylar</p>
+                <dl className="grid grid-cols-2 gap-3">
+                  {Object.entries(listing.extra_fields as Record<string, string>)
+                    .filter(([, v]) => v)
+                    .map(([k, v]) => {
+                      const labels: Record<string, string> = {
+                        tip: 'Tip', uzunluk: 'Uzunluk', tonaj: 'Tonaj',
+                        kapasite_mm: 'Kapasite (mm)', ust_top_capi: 'Üst Top Çapı',
+                        max_kalinlik: 'Maks. Kalınlık', calisma_sekli: 'Çalışma Şekli',
+                        mil_capi: 'Mil Çapı', tipi: 'Tip', tipi_aciklama: 'Tip Açıklama',
+                      }
+                      return (
+                        <div key={k}>
+                          <dt className="text-xs text-gray-500 mb-0.5">{labels[k] ?? k}</dt>
+                          <dd className="text-gray-900 font-medium">{v}</dd>
+                        </div>
+                      )
+                    })}
+                </dl>
+              </div>
+            )}
+            </dl>
           </div>
 
           {/* İletişim */}
