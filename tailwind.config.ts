@@ -31,6 +31,7 @@ const config: Config = {
           light:   '#F39C12',
           dark:    '#D35400',
         },
+        'brand-blue': '#2C3E50',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
