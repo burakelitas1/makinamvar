@@ -31,21 +31,21 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
               <div className="mb-3">
                 <Image src="/logo-horizontal.svg" alt="Trink Makina" width={150} height={30} style={{ filter: 'brightness(0) invert(1)' }} />
               </div>
-              <p className="text-gray-300 text-sm leading-relaxed">
+              <p className="text-gray-200 text-sm leading-relaxed">
                 Türkiye&apos;nin İlk Sac İşleme Makineleri Alım Platformu
               </p>
             </div>
             <nav aria-label="Makine türleri">
-              <h4 className="font-bold mb-4 text-sm text-gray-400 uppercase tracking-wider">Makine Türleri</h4>
-              <ul className="space-y-2 text-gray-300 text-sm">
+              <h4 className="font-bold mb-4 text-sm text-gray-300 uppercase tracking-wider">Makine Türleri</h4>
+              <ul className="space-y-2 text-gray-200 text-sm">
                 {['Abkant Pres', 'Giyotin Makas', 'Pres Makineleri', 'Silindir Makineleri', 'Boru Büküm Makineleri', 'Testereler'].map(m => (
                   <li key={m}><a href="/sat" className="hover:text-white transition-colors">{m}</a></li>
                 ))}
               </ul>
             </nav>
             <nav aria-label="Gizlilik politikaları">
-              <h4 className="font-bold mb-4 text-sm text-gray-400 uppercase tracking-wider">Gizlilik Politikaları</h4>
-              <ul className="space-y-2 text-gray-300 text-sm">
+              <h4 className="font-bold mb-4 text-sm text-gray-300 uppercase tracking-wider">Gizlilik Politikaları</h4>
+              <ul className="space-y-2 text-gray-200 text-sm">
                 <li><a href="/kvkk" className="hover:text-white transition-colors">Kişisel Verilerin Korunması</a></li>
                 <li><a href="/kullanim-kosullari" className="hover:text-white transition-colors">Kullanım Koşulları</a></li>
                 <li><a href="/cerez-yonetimi" className="hover:text-white transition-colors">Çerez Yönetimi</a></li>
@@ -53,13 +53,13 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
               </ul>
             </nav>
             <address className="not-italic">
-              <h4 className="font-bold mb-4 text-sm text-gray-400 uppercase tracking-wider">İletişim</h4>
-              <ul className="space-y-3 text-gray-300 text-sm">
+              <h4 className="font-bold mb-4 text-sm text-gray-300 uppercase tracking-wider">İletişim</h4>
+              <ul className="space-y-3 text-gray-200 text-sm">
                 <li className="flex items-start gap-2">
                   <span aria-hidden="true">📞</span>
                   <div>
                     <a href="tel:+908501234567" className="hover:text-white transition-colors">0850 123 45 67</a>
-                    <p className="text-gray-500 text-xs mt-0.5">Hafta içi 10:00 – 17:00</p>
+                    <p className="text-gray-400 text-xs mt-0.5">Hafta içi 10:00 – 17:00</p>
                   </div>
                 </li>
                 <li className="flex items-start gap-2">
@@ -73,13 +73,13 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
               </ul>
             </address>
           </div>
-          <div className="border-t border-gray-700 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-gray-500 text-xs">
+          <div className="border-t border-gray-700 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-gray-400 text-xs">
             <span>© {new Date().getFullYear()} Trink Makina — Bir Varmak Makine kuruluşudur.</span>
             <nav aria-label="Alt bağlantılar" className="flex flex-wrap gap-x-4 gap-y-1 justify-center">
-              <a href="/kvkk" className="hover:text-gray-300 transition-colors">Kişisel Verilerin Korunması</a>
-              <a href="/kullanim-kosullari" className="hover:text-gray-300 transition-colors">Kullanım Koşulları</a>
-              <a href="/cerez-yonetimi" className="hover:text-gray-300 transition-colors">Çerez Yönetimi</a>
-              <a href="/ticari-ileti" className="hover:text-gray-300 transition-colors">Ticari İleti İzni</a>
+              <a href="/kvkk" className="hover:text-gray-200 transition-colors">Kişisel Verilerin Korunması</a>
+              <a href="/kullanim-kosullari" className="hover:text-gray-200 transition-colors">Kullanım Koşulları</a>
+              <a href="/cerez-yonetimi" className="hover:text-gray-200 transition-colors">Çerez Yönetimi</a>
+              <a href="/ticari-ileti" className="hover:text-gray-200 transition-colors">Ticari İleti İzni</a>
             </nav>
           </div>
         </div>
