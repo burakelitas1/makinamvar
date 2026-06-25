@@ -155,7 +155,7 @@ export default async function HomePage() {
       <section className="relative min-h-[500px] flex items-center overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: "url('/hero-fabrika.webp')" }}
+          style={{ backgroundImage: "url('/hero-factory.svg')" }}
         />
         <div className="absolute inset-0" style={{ background: 'rgba(30, 45, 65, 0.84)' }} />
 
