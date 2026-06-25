@@ -21,7 +21,7 @@ export default function CityDistrictSelect({ cityValue, districtValue, onCityCha
 
   const filtered = query.length === 0
     ? CITIES
-    : CITIES.filter(c => c.toLowerCase().includes(query.toLowerCase()))
+    : CITIES.filter(c => c.toLocaleLowerCase('tr').includes(query.toLocaleLowerCase('tr')))
 
   useEffect(() => {
     setQuery(cityValue)
