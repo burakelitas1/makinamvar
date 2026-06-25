@@ -6,8 +6,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
-import { CITIES } from '@/lib/cities'
 import PhotoUpload from '@/components/PhotoUpload'
+import CityDistrictSelect from '@/components/CityDistrictSelect'
 
 const schema = z.object({
   machine_type: z.enum(['abkant', 'giyotin', 'press', 'silindir', 'boru-bukum', 'testere', 'diger'], {
@@ -55,6 +55,7 @@ const schema = z.object({
     .regex(/^[\d\s\+\-\(\)]+$/, 'Geçerli telefon giriniz'),
   contact_email: z.string().email('Geçerli e-posta giriniz'),
   description: z.string().max(1000).optional(),
+  eksen_sayisi: z.string().optional(),
 })
 
 type FormData = z.infer<typeof schema>
@@ -85,6 +86,8 @@ export default function SatPage() {
   const isTestere = machineType === 'testere'
   const isDigerMakine = machineType === 'diger'
   const boruTipi = watch('boru_tipi')
+  const cityValue = watch('location_city') || ''
+  const districtValue = watch('location_district') || ''
 
   useEffect(() => {
     setValue('brand_select', '')
@@ -132,6 +135,7 @@ export default function SatPage() {
         tip: data.abkant_tip || null,
         uzunluk: data.abkant_uzunluk || null,
         tonaj: data.abkant_tonaj || null,
+        eksen_sayisi: data.eksen_sayisi || null,
       } : isGiyotin ? {
         tip: data.giyotin_tip || null,
         uzunluk: data.giyotin_uzunluk || null,
@@ -173,7 +177,7 @@ export default function SatPage() {
         return
       }
 
-      const { abkant_tip, abkant_uzunluk, abkant_tonaj, giyotin_tip, giyotin_uzunluk, giyotin_kapasite, silindir_uzunluk, silindir_tip, silindir_max_kalinlik, silindir_calisma_sekli, boru_mil_capi, boru_tipi, boru_tipi_aciklama, boru_calisma_sekli, testere_mengene_acikligi, testere_makine_surucu, testere_aci_ayari, press_tip, diger_makine_turu, brand_select, brand_other, brand_free, brand, model, ...rest } = data
+      const { abkant_tip, abkant_uzunluk, abkant_tonaj, eksen_sayisi, giyotin_tip, giyotin_uzunluk, giyotin_kapasite, silindir_uzunluk, silindir_tip, silindir_max_kalinlik, silindir_calisma_sekli, boru_mil_capi, boru_tipi, boru_tipi_aciklama, boru_calisma_sekli, testere_mengene_acikligi, testere_makine_surucu, testere_aci_ayari, press_tip, diger_makine_turu, brand_select, brand_other, brand_free, brand, model, ...rest } = data
       const resolvedModel = model || ''
       const resolvedCapacity = isAbkant
         ? [abkant_tonaj ? `${abkant_tonaj} ton` : '', abkant_uzunluk ? `${abkant_uzunluk} mm` : ''].filter(Boolean).join(' / ')
@@ -311,6 +315,20 @@ export default function SatPage() {
                       </select>
                     </div>
                   </div>
+                  {isOtherBrand && (
+                    <div>
+                      <label className="label">Eksen Sayısı</label>
+                      <select className="select-field" {...register('eksen_sayisi')}>
+                        <option value="">Seçiniz…</option>
+                        <option value="1">1 Eksen</option>
+                        <option value="2">2 Eksen</option>
+                        <option value="3">3 Eksen</option>
+                        <option value="4">4 Eksen</option>
+                        <option value="5">5 Eksen</option>
+                        <option value="6+">6+ Eksen</option>
+                      </select>
+                    </div>
+                  )}
                 </div>
               )}
 
@@ -554,10 +572,10 @@ export default function SatPage() {
               </div>
 
               <div>
-                <label className="label">Çalışma Durumu *</label>
+                <label className="label">Çalışma Durumunu Seçiniz *</label>
                 <div className="grid grid-cols-3 gap-2">
                   {[
-                    { val: 'calisiyor', label: 'Çalışıyor', icon: '✅', border: 'peer-checked:border-green-500 peer-checked:bg-green-50' },
+                    { val: 'calisiyor', label: 'Çalışıyor', icon: '⚙️', border: 'peer-checked:border-gray-700 peer-checked:bg-gray-100' },
                     { val: 'bakim-gerekli', label: 'Bakım Gerekli', icon: '🔧', border: 'peer-checked:border-yellow-500 peer-checked:bg-yellow-50' },
                     { val: 'arizali', label: 'Arızalı', icon: '⚠️', border: 'peer-checked:border-red-500 peer-checked:bg-red-50' },
                   ].map(({ val, label, icon, border }) => (
@@ -591,7 +609,7 @@ export default function SatPage() {
             <h2 className="text-base font-bold text-gray-900 border-b border-gray-100 pb-3 mb-5 flex items-center gap-2">
               <span className="w-6 h-6 bg-[#E67E22] text-white rounded-full text-xs font-bold flex items-center justify-center">2</span>
               Fotoğraflar
-              <span className="text-xs font-normal text-gray-400 ml-1">(max. 5 adet)</span>
+              <span className="text-xs font-normal text-gray-400 ml-1">(max. 6 adet)</span>
             </h2>
             <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
               <p className="text-sm font-semibold text-[#2C3E50] mb-2">Fotoğraf Gereksinimleri</p>
@@ -605,7 +623,7 @@ export default function SatPage() {
                 <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#E67E22] flex-shrink-0" />Makine etiketi / plakası</li>
               </ul>
             </div>
-            <PhotoUpload onFilesChange={setPhotos} maxFiles={5} />
+            <PhotoUpload onFilesChange={setPhotos} maxFiles={6} />
           </div>
 
           {/* Konum & İletişim */}
@@ -616,23 +634,14 @@ export default function SatPage() {
             </h2>
 
             <div className="space-y-4">
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="label">İl *</label>
-                  <select className="select-field" {...register('location_city')}>
-                    <option value="">İl seçiniz…</option>
-                    {CITIES.map((c) => (
-                      <option key={c} value={c}>{c}</option>
-                    ))}
-                  </select>
-                  {errors.location_city && <p className="error-msg">{errors.location_city.message}</p>}
-                </div>
-                <div>
-                  <label className="label">İlçe *</label>
-                  <input className="input-field" placeholder="İlçe" {...register('location_district')} />
-                  {errors.location_district && <p className="error-msg">{errors.location_district.message}</p>}
-                </div>
-              </div>
+              <CityDistrictSelect
+                cityValue={cityValue}
+                districtValue={districtValue}
+                onCityChange={(city) => { setValue('location_city', city, { shouldValidate: true }); setValue('location_district', '', { shouldValidate: false }) }}
+                onDistrictChange={(district) => setValue('location_district', district, { shouldValidate: true })}
+                cityError={errors.location_city?.message}
+                districtError={errors.location_district?.message}
+              />
 
               <div>
                 <label className="label">Ad Soyad *</label>

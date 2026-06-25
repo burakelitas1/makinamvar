@@ -274,6 +274,7 @@ export default function AdminDetailPage() {
                         mil_capi: 'Mil Çapı (mm)', tipi: 'Boru Tipi', tipi_aciklama: 'Tip Açıklama',
                         mengene_acikligi: 'Mengene Açıklığı (mm)', makine_surucu: 'Makine Sürücüsü',
                         aci_ayari: 'Açı Ayarı', makine_turu: 'Makine Türü',
+                        eksen_sayisi: 'Eksen Sayısı',
                       }
                       return (
                         <div key={k}>
