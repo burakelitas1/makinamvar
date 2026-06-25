@@ -43,9 +43,10 @@ const schema = z.object({
     .min(1950, 'En az 1950')
     .max(new Date().getFullYear(), 'Geçersiz yıl'),
   capacity: z.string().optional(),
-  condition: z.enum(['calisiyor', 'arizali', 'bakim-gerekli'], {
-    required_error: 'Çalışma durumu seçiniz',
-  }),
+  condition: z.string().refine(
+    v => ['calisiyor', 'arizali', 'bakim-gerekli'].includes(v),
+    { message: 'Çalışma durumu seçiniz' }
+  ) as z.ZodType<'calisiyor'|'arizali'|'bakim-gerekli'>,
   sell_reason: z.string().min(1, 'Lütfen satış nedeninizi seçiniz'),
   location_city: z.string().min(1, 'İl seçiniz'),
   location_district: z.string().min(2, 'İlçe giriniz').max(100),
