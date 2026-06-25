@@ -10,9 +10,10 @@ import PhotoUpload from '@/components/PhotoUpload'
 import CityDistrictSelect from '@/components/CityDistrictSelect'
 
 const schema = z.object({
-  machine_type: z.enum(['abkant', 'giyotin', 'press', 'silindir', 'boru-bukum', 'testere', 'diger'], {
-    required_error: 'Makine türü seçiniz',
-  }),
+  machine_type: z.string().refine(
+    v => ['abkant','giyotin','press','silindir','boru-bukum','testere','diger'].includes(v),
+    { message: 'Makine türü seçiniz' }
+  ) as z.ZodType<'abkant'|'giyotin'|'press'|'silindir'|'boru-bukum'|'testere'|'diger'>,
   abkant_tip: z.string().optional(),
   abkant_uzunluk: z.string().optional(),
   abkant_tonaj: z.string().optional(),
