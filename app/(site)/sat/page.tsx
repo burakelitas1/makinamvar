@@ -76,7 +76,14 @@ export default function SatPage() {
     watch,
     setValue,
     formState: { errors },
-  } = useForm<FormData>({ resolver: zodResolver(schema), mode: 'onBlur' })
+  } = useForm<FormData>({
+    resolver: zodResolver(schema),
+    mode: 'onBlur',
+    defaultValues: {
+      location_city: '',
+      location_district: '',
+    },
+  })
 
   const machineType = watch('machine_type')
   const brandSelect = watch('brand_select')
