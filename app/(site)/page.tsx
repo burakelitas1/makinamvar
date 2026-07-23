@@ -283,21 +283,24 @@ export default async function HomePage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {MACHINE_CATEGORIES.map(({ img, title, desc }, i) => (
               <ScrollReveal key={title} direction="up" delay={i * 60}>
-                <Link href="/sat" className="flip-card block h-[320px]">
-                  <div className="flip-card-inner rounded-[20px] overflow-hidden shadow-sm border border-[#E2E8F0]">
+                <Link href="/sat" className="flip-card block h-[280px]">
+                  <div className="flip-card-inner w-full h-full">
                     {/* Ön yüz: görsel */}
-                    <div className="flip-card-front absolute inset-0 bg-white rounded-[20px] overflow-hidden">
-                      <Image src={img} alt={title} fill className="object-cover" />
-                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#0F172A]/70 to-transparent px-6 py-5">
-                        <p className="text-white font-bold text-[17px]">{title}</p>
+                    <div className="flip-card-front absolute inset-0 bg-white border border-[#E2E8F0] rounded-[20px] overflow-hidden flex flex-col items-center justify-center p-6">
+                      <div className="relative w-full h-[180px]">
+                        <Image src={img} alt={title} fill className="object-contain" />
                       </div>
+                      <p className="font-semibold text-[#0F172A] text-[16px] mt-4 text-center">{title}</p>
                     </div>
-                    {/* Arka yüz: yazı */}
-                    <div className="flip-card-back absolute inset-0 bg-[#3B5BDB] rounded-[20px] flex flex-col items-center justify-center px-8 text-center">
-                      <h3 className="text-white font-bold text-[20px] mb-3">{title}</h3>
-                      <p className="text-white/80 text-[14px] leading-[22px] mb-6">{desc}</p>
-                      <span className="inline-flex items-center gap-2 bg-white text-[#3B5BDB] font-bold text-[13px] px-5 py-2.5 rounded-full">
-                        Teklif Al <ArrowRight className="w-3.5 h-3.5" strokeWidth={2.5} />
+                    {/* Arka yüz: eski kart stili */}
+                    <div className="flip-card-back absolute inset-0 bg-white border border-[#3B5BDB]/30 rounded-[20px] flex flex-col p-8 shadow-md">
+                      <div className="relative w-12 h-12 mb-5 flex-shrink-0">
+                        <Image src={img} alt={title} fill className="object-contain" />
+                      </div>
+                      <h3 className="font-semibold text-[#0F172A] mb-2 text-[18px] leading-snug">{title}</h3>
+                      <p className="text-[14px] text-[#475569] leading-[22px] flex-1">{desc}</p>
+                      <span className="text-[14px] text-[#3B5BDB] font-medium inline-flex items-center gap-1.5 mt-4">
+                        Ücretsiz Teklif Al <ArrowRight className="w-3.5 h-3.5" strokeWidth={2} />
                       </span>
                     </div>
                   </div>
