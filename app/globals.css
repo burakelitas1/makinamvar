@@ -2,6 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Scroll reveal animations ────────────────────────────── */
+.sr-base {
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.sr-up    { opacity: 0; transform: translateY(28px); }
+.sr-left  { opacity: 0; transform: translateX(-28px); }
+.sr-right { opacity: 0; transform: translateX(28px); }
+.sr-none  { opacity: 0; }
+
+.sr-visible {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sr-base { transition: none !important; opacity: 1 !important; transform: none !important; }
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
 @layer base {
