@@ -1,4 +1,4 @@
-export type MachineType = 'abkant' | 'giyotin' | 'press' | 'silindir' | 'boru-bukum' | 'testere'
+export type MachineType = 'abkant' | 'giyotin' | 'press' | 'silindir' | 'boru-bukum' | 'testere' | 'diger'
 export type MachineCondition = 'calisiyor' | 'arizali' | 'bakim-gerekli'
 export type ListingStatus = 'bekliyor' | 'teklif-verildi' | 'yanit-bekliyor' | 'kabul' | 'red' | 'satildi'
 export type CustomerResponse = 'kabul' | 'red' | 'karsi-teklif'
@@ -28,6 +28,7 @@ export interface Listing {
   customer_response?: CustomerResponse | null
   customer_note?: string | null
   counter_offer_price?: number | null
+  extra_fields?: Record<string, string> | null
 }
 
 export const sellReasonLabels: Record<string, string> = {
@@ -46,6 +47,7 @@ export const machineTypeLabels: Record<MachineType, string> = {
   silindir:    'Silindir Makineleri',
   'boru-bukum':'Boru Büküm Makineleri',
   testere:     'Testereler',
+  diger:       'Diğer',
 }
 
 export const conditionLabels: Record<MachineCondition, string> = {

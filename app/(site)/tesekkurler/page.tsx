@@ -1,5 +1,7 @@
 import Link from 'next/link'
 
+export const metadata = { title: 'Başvurunuz Alındı', robots: { index: false, follow: false } }
+
 export default function TesekkurlerPage() {
   return (
     <div className="bg-gradient-to-br from-[#0a1628] to-[#1a2f4e] min-h-screen flex items-center justify-center px-4 py-12">

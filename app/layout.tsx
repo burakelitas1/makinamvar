@@ -46,13 +46,13 @@ export const metadata: Metadata = {
     siteName: 'Trink Makina',
     title: 'Trink Makina — İkinci El Sac İşleme Makinesi Sat, Nakit Al',
     description: 'Abkant pres, giyotin makas, lazer kesim makinenizi 48 saat içinde nakite çevirin. Söküm ve nakliye bizden.',
-    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Trink Makina — Sac İşleme Makinesi Alım Platformu' }],
+    images: [{ url: '/logo-horizontal.svg', width: 1200, height: 630, alt: 'Trink Makina — Sac İşleme Makinesi Alım Platformu' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Trink Makina — Makinenizi Sat, Nakit Al',
     description: 'Abkant pres, giyotin makas, lazer kesim makinenizi 48 saatte nakite çevirin.',
-    images: ['/og-image.png'],
+    images: ['/logo-horizontal.svg'],
   },
   verification: {
     google: '',

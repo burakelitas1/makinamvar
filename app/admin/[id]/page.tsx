@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import Image from 'next/image'
 import type { Listing } from '@/lib/types'
@@ -20,6 +20,17 @@ export default function AdminDetailPage() {
   const [offerMsg, setOfferMsg] = useState('')
   const [statusUpdating, setStatusUpdating] = useState(false)
   const [activePhoto, setActivePhoto] = useState(0)
+  const infoCardRef = useRef<HTMLDivElement>(null)
+
+  async function downloadInfoCard() {
+    if (!infoCardRef.current || !listing) return
+    const html2canvas = (await import('html2canvas')).default
+    const canvas = await html2canvas(infoCardRef.current, { backgroundColor: '#ffffff', scale: 2 })
+    const a = document.createElement('a')
+    a.href = canvas.toDataURL('image/png')
+    a.download = `${listing.brand}-${listing.model || listing.machine_type}-bilgi.png`
+    a.click()
+  }
 
   useEffect(() => {
     fetch(`/api/listings/${id}`)
@@ -68,6 +79,28 @@ export default function AdminDetailPage() {
     setOfferSending(false)
   }
 
+  async function downloadPhoto(url: string, index: number) {
+    try {
+      const res = await fetch(url)
+      const blob = await res.blob()
+      const ext = blob.type.includes('png') ? 'png' : 'jpg'
+      const a = document.createElement('a')
+      a.href = URL.createObjectURL(blob)
+      a.download = `${listing?.brand ?? 'makine'}-${listing?.model ?? ''}-foto${index + 1}.${ext}`
+      a.click()
+      URL.revokeObjectURL(a.href)
+    } catch {
+      alert('Fotoğraf indirilemedi.')
+    }
+  }
+
+  async function downloadAllPhotos(urls: string[]) {
+    for (let i = 0; i < urls.length; i++) {
+      await downloadPhoto(urls[i], i)
+      if (i < urls.length - 1) await new Promise((r) => setTimeout(r, 400))
+    }
+  }
+
   async function updateStatus(status: string) {
     setStatusUpdating(true)
     await fetch(`/api/listings/${id}/status`, {
@@ -110,6 +143,7 @@ export default function AdminDetailPage() {
         </span>
       </div>
 
+
       {/* Duplikat uyarısı */}
       {duplicates.length > 0 && (
         <div className="mb-6 bg-yellow-500/10 border border-yellow-500/40 rounded-xl p-4">
@@ -148,7 +182,27 @@ export default function AdminDetailPage() {
           {/* Fotoğraflar */}
           {listing.photos.length > 0 && (
             <div className="card">
-              <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">Fotoğraflar</h2>
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">Fotoğraflar</h2>
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    onClick={() => downloadPhoto(listing.photos[activePhoto], activePhoto)}
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-navy-700 hover:bg-navy-600 border border-navy-600 text-gray-300 hover:text-white text-xs font-medium rounded-lg transition-colors"
+                  >
+                    ⬇ İndir
+                  </button>
+                  {listing.photos.length > 1 && (
+                    <button
+                      type="button"
+                      onClick={() => downloadAllPhotos(listing.photos)}
+                      className="flex items-center gap-1.5 px-3 py-1.5 bg-navy-700 hover:bg-navy-600 border border-navy-600 text-gray-300 hover:text-white text-xs font-medium rounded-lg transition-colors"
+                    >
+                      ⬇ Tümünü İndir ({listing.photos.length})
+                    </button>
+                  )}
+                </div>
+              </div>
               <div className="relative aspect-video rounded-lg overflow-hidden bg-navy-900 mb-3">
                 <Image
                   src={listing.photos[activePhoto]}
@@ -176,28 +230,63 @@ export default function AdminDetailPage() {
 
           {/* Makine Bilgileri */}
           <div className="card">
-            <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">Makine Bilgileri</h2>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">Makine Bilgileri</h2>
+              <button type="button" onClick={downloadInfoCard}
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-navy-700 hover:bg-navy-600 border border-navy-600 text-gray-300 hover:text-white text-xs font-medium rounded-lg transition-colors">
+                ⬇ Bilgi Kartı İndir
+              </button>
+            </div>
+            <div ref={infoCardRef} className="bg-white p-2 rounded-lg">
             <dl className="grid grid-cols-2 gap-4">
               {[
-                { label: 'Tür', value: machineTypeLabels[listing.machine_type] },
-                { label: 'Marka', value: listing.brand },
-                { label: 'Model', value: listing.model },
-                { label: 'Üretim Yılı', value: listing.year },
-                { label: 'Kapasite', value: listing.capacity },
-                { label: 'Durum', value: conditionLabels[listing.condition] },
+                { label: 'Tür', value: (machineTypeLabels as Record<string, string>)[listing.machine_type] ?? listing.machine_type ?? '—' },
+                { label: 'Marka', value: listing.brand || '—' },
+                { label: 'Model', value: listing.model || '—' },
+                { label: 'Üretim Yılı', value: listing.year ?? '—' },
+                { label: 'Kapasite', value: listing.capacity || '—' },
+                { label: 'Durum', value: (conditionLabels as Record<string, string>)[listing.condition] ?? listing.condition ?? '—' },
                 { label: 'Satış Nedeni', value: listing.sell_reason ? (sellReasonLabels[listing.sell_reason] ?? listing.sell_reason) : '—' },
-                { label: 'Konum', value: `${listing.location_city} / ${listing.location_district}` },
+                { label: 'Konum', value: (listing.location_city && listing.location_district) ? `${listing.location_city} / ${listing.location_district}` : (listing.location_city || listing.location_district || '—') },
                 {
                   label: 'Başvuru Tarihi',
-                  value: new Date(listing.created_at).toLocaleString('tr-TR'),
+                  value: listing.created_at ? new Date(listing.created_at).toLocaleString('tr-TR') : '—',
                 },
               ].map(({ label, value }) => (
                 <div key={label}>
                   <dt className="text-xs text-gray-500 mb-0.5">{label}</dt>
-                  <dd className="text-white font-medium">{value}</dd>
+                  <dd className="text-gray-900 font-medium">{value}</dd>
                 </div>
               ))}
             </dl>
+            {/* Makineye özel teknik detaylar */}
+            {listing.extra_fields && Object.keys(listing.extra_fields).length > 0 && (
+              <div className="mt-4 pt-4 border-t border-gray-100">
+                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Teknik Detaylar</p>
+                <dl className="grid grid-cols-2 gap-3">
+                  {Object.entries(listing.extra_fields as Record<string, string>)
+                    .filter(([, v]) => v)
+                    .map(([k, v]) => {
+                      const labels: Record<string, string> = {
+                        tip: 'Tip', uzunluk: 'Uzunluk (mm)', tonaj: 'Tonaj',
+                        kapasite_mm: 'Kapasite (mm)', ust_top_capi: 'Üst Top Çapı (mm)',
+                        max_kalinlik: 'Maks. Kalınlık (mm)', calisma_sekli: 'Çalışma Şekli',
+                        mil_capi: 'Mil Çapı (mm)', tipi: 'Boru Tipi', tipi_aciklama: 'Tip Açıklama',
+                        mengene_acikligi: 'Mengene Açıklığı (mm)', makine_surucu: 'Makine Sürücüsü',
+                        aci_ayari: 'Açı Ayarı', makine_turu: 'Makine Türü',
+                        eksen_sayisi: 'Eksen Sayısı',
+                      }
+                      return (
+                        <div key={k}>
+                          <dt className="text-xs text-gray-500 mb-0.5">{labels[k] ?? k}</dt>
+                          <dd className="text-gray-900 font-medium">{v}</dd>
+                        </div>
+                      )
+                    })}
+                </dl>
+              </div>
+            )}
+            </div>{/* /infoCardRef */}
           </div>
 
           {/* İletişim */}
@@ -206,7 +295,7 @@ export default function AdminDetailPage() {
             <dl className="space-y-3">
               <div>
                 <dt className="text-xs text-gray-500 mb-0.5">Ad Soyad</dt>
-                <dd className="text-white font-medium">{listing.contact_name}</dd>
+                <dd className="text-gray-900 font-medium">{listing.contact_name}</dd>
               </div>
               <div>
                 <dt className="text-xs text-gray-500 mb-0.5">Cep Telefonu</dt>
@@ -226,6 +315,14 @@ export default function AdminDetailPage() {
               </div>
             </dl>
           </div>
+
+          {/* Müşteri Notu */}
+          {listing.notes && (
+            <div className="card">
+              <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">Müşteri Notu</h2>
+              <p className="text-gray-700 text-sm leading-relaxed whitespace-pre-wrap">{listing.notes}</p>
+            </div>
+          )}
         </div>
 
         {/* Sağ kolon: Durum + Teklif */}

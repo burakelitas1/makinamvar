@@ -55,18 +55,14 @@ export async function POST(
     return NextResponse.json({ error: updateErr.message }, { status: 500 })
   }
 
-  try {
-    await sendOfferToCustomer(listing as Listing, Number(price), notes, token)
-  } catch (e) {
-    console.error('Teklif maili gönderilemedi:', e)
-  }
-
-  try {
-    const smsText = buildOfferSmsText(listing.contact_name, Number(price))
-    await sendSms(listing.contact_phone, smsText)
-  } catch (e) {
-    console.error('SMS gönderilemedi:', e)
-  }
+  await Promise.allSettled([
+    sendOfferToCustomer(listing as Listing, Number(price), notes, token).catch((e) =>
+      console.error('Teklif maili gönderilemedi:', e)
+    ),
+    sendSms(listing.contact_phone, buildOfferSmsText(listing.contact_name, Number(price))).catch((e) =>
+      console.error('SMS gönderilemedi:', e)
+    ),
+  ])
 
   return NextResponse.json({ ok: true })
 }

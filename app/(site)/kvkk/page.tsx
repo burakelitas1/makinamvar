@@ -1,3 +1,5 @@
+export const metadata = { title: 'Kişisel Verilerin Korunması (KVKK)', description: 'Trink Makina KVKK aydınlatma metni ve kişisel veri işleme politikası.' }
+
 export default function KVKKPage() {
   return (
     <div className="bg-gray-50 min-h-screen">
