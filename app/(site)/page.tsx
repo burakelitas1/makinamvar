@@ -118,9 +118,9 @@ export default async function HomePage() {
             </a>
           </div>
           <div className="flex flex-wrap items-center gap-x-8 gap-y-3 mt-10 text-[14px] text-[#475569]">
-            {['Tamamen ücretsiz', 'Taahhüt yok', '24 saatte sonuç', 'Söküm bizden'].map(t => (
+            {['Ücretsiz', 'Taahhütsüz', '24 Saat'].map(t => (
               <span key={t} className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4 text-[#22C55E] flex-shrink-0" />
+                <CheckCircle className="w-4 h-4 text-[#22C55E] flex-shrink-0" strokeWidth={2} />
                 {t}
               </span>
             ))}
@@ -139,7 +139,7 @@ export default async function HomePage() {
             {TRUST_ITEMS.map(({ icon: Icon, title, desc }) => (
               <div key={title} className="bg-white border border-[#E2E8F0] rounded-[20px] p-8 hover:shadow-sm transition-shadow">
                 <div className="w-10 h-10 rounded-xl bg-[#3B5BDB]/8 flex items-center justify-center mb-6">
-                  <Icon className="w-5 h-5 text-[#3B5BDB]" strokeWidth={1.5} />
+                  <Icon className="w-5 h-5 text-[#3B5BDB]" strokeWidth={2} />
                 </div>
                 <h3 className="font-semibold text-[#0F172A] mb-3 text-[16px] leading-snug">{title}</h3>
                 <p className="text-[14px] text-[#475569] leading-[22px]">{desc}</p>
