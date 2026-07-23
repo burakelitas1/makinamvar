@@ -56,9 +56,9 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
     <div className="bg-white min-h-screen">
       {/* Cover */}
       {post.cover_image && (
-        <div className="w-full bg-[#F8FAFC] flex justify-center">
+        <div className="w-full h-[220px] bg-[#F8FAFC] overflow-hidden">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={post.cover_image} alt={post.title} className="max-w-full max-h-[260px] w-auto object-contain" />
+          <img src={post.cover_image} alt={post.title} className="w-full h-full object-cover object-center" />
         </div>
       )}
 
