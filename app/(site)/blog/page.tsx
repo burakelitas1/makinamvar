@@ -61,7 +61,7 @@ export default async function BlogPage() {
                 {post.cover_image ? (
                   <div className="h-48 bg-[#F8FAFC] overflow-hidden">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={optimizeImage(post.cover_image, 600, 70)} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    <img src={post.cover_image} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                   </div>
                 ) : (
                   <div className="h-48 bg-gradient-to-br from-[#3B5BDB]/10 to-[#3B5BDB]/5 flex items-center justify-center">
