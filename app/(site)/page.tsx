@@ -124,6 +124,13 @@ export default async function HomePage() {
                     </span>
                   ))}
                 </div>
+                <p className="mt-4 text-[13px] text-[#94A3B8] font-light">
+                  bir{' '}
+                  <a href="https://varmakmakina.com/index.html" target="_blank" rel="noopener noreferrer" className="font-bold text-[#475569] hover:text-[#0F172A] transition-colors">
+                    Varmak Makina
+                  </a>
+                  {' '}kuruluşudur
+                </p>
               </ScrollReveal>
             </div>
 
