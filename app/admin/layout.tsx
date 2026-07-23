@@ -8,6 +8,7 @@ import { useRouter, usePathname } from 'next/navigation'
 const NAV = [
   { href: '/admin',             label: 'Dashboard',   icon: '📊' },
   { href: '/admin/talepler',    label: 'Talepler',    icon: '📋' },
+  { href: '/admin/blog',        label: 'Blog',        icon: '📝' },
   { href: '/admin/referanslar', label: 'Referanslar', icon: '💬' },
   { href: '/admin/sss',         label: 'SSS',         icon: '❓' },
   { href: '/admin/ayarlar',     label: 'Ayarlar',     icon: '⚙️' },
