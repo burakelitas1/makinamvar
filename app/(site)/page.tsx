@@ -230,19 +230,30 @@ export default async function HomePage() {
 
             {/* Sağ: makine fotoğrafı */}
             <ScrollReveal direction="right" delay={120} className="hidden lg:block">
-              <div className="relative rounded-[24px] overflow-hidden bg-[#F8FAFC] border border-[#E2E8F0]">
+              <Link href="/sat" className="group block relative rounded-[24px] overflow-hidden bg-[#F8FAFC] border border-[#E2E8F0] hover:border-[#3B5BDB]/40 hover:shadow-xl transition-all duration-300">
                 <Image
                   src="/abkant.png"
                   alt="Abkant pres değerlendirme süreci"
                   width={620}
                   height={480}
-                  className="w-full h-auto object-cover"
+                  className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                 />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#0F172A]/70 to-transparent px-8 py-6">
+                {/* Varsayılan koyu gradient */}
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#0F172A]/70 to-transparent px-8 py-6 transition-opacity duration-300 group-hover:opacity-0">
                   <p className="text-white font-semibold text-[15px]">Uzman gözüyle değerlendirme</p>
                   <p className="text-white/70 text-[13px] mt-1">Her makine teknik durumuna göre ayrıca incelenir.</p>
                 </div>
-              </div>
+                {/* Hover: mavi gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#3B5BDB]/80 via-[#3B5BDB]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                  <div className="px-8 py-8 w-full">
+                    <p className="text-white font-bold text-[18px] mb-1">Ücretsiz Teklif Al</p>
+                    <p className="text-white/80 text-[14px] flex items-center gap-2">
+                      Makinanızın değerini öğrenin
+                      <ArrowRight className="w-4 h-4" strokeWidth={2} />
+                    </p>
+                  </div>
+                </div>
+              </Link>
             </ScrollReveal>
           </div>
         </div>
