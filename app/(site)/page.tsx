@@ -50,7 +50,6 @@ const DEFAULT_FAQS = [
   { question: 'Hangi makine türlerine teklif veriyorsunuz?', answer: 'Abkant pres, giyotin makas, silindir, pres, boru büküm ve diğer sac işleme makineleri için teklif veriyoruz. Çalışır veya arızalı tüm makineleri değerlendiriyoruz.' },
   { question: 'Fotoğraf eklemek neden gerekli?', answer: 'Makinenizin farklı açılardan fotoğrafları, uzman ekibimizin daha doğru ve hızlı değerlendirme yapmasını sağlar. Daha fazla fotoğraf, daha doğru teklif demektir.' },
   { question: 'Söküm ve nakliye masraflarını kim karşılar?', answer: 'Anlaşma sağlandığında söküm, vinç ve nakliye işlemlerini tamamen biz karşılarız. Sizin herhangi bir masraf yapmanız gerekmez.' },
-  { question: 'Bilgilerim gizli tutuluyor mu?', answer: 'Evet. Paylaştığınız tüm bilgiler yalnızca değerlendirme sürecinde kullanılır. Üçüncü taraflarla paylaşılmaz.' },
   { question: 'Teklifi kabul etmezsem ne olur?', answer: 'Hiçbir şey. Teklifi reddetmek veya yanıtsız bırakmak tamamen serbesttir. Herhangi bir yükümlülük doğmaz.' },
   { question: 'Ödeme ne zaman yapılır?', answer: 'Teklifi onayladıktan ve evrak işlemleri tamamlandıktan sonra makine nakliye aracına yüklendiği gün ödeme yapılır.' },
 ]
