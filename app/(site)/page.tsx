@@ -317,6 +317,36 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* ── KARŞILAŞTIRMA ────────────────────────────────────── */}
+      <section className="py-[96px] bg-[#F8FAFC]">
+        <div className="max-w-[1280px] mx-auto px-6">
+          <ScrollReveal direction="up">
+            <div className="mb-12">
+              <h2 className="text-[42px] font-bold text-[#0F172A] leading-[50px] mb-4">İlan Vermekle Trink'ten Teklif Almak Arasındaki Fark</h2>
+              <p className="text-[18px] text-[#475569] leading-[30px]">Satış kararı vermeden önce iki yöntemi karşılaştırın.</p>
+            </div>
+          </ScrollReveal>
+          <ScrollReveal direction="up" delay={80}>
+            <div className="overflow-x-auto">
+              <div className="bg-white border border-[#E2E8F0] rounded-[20px] overflow-hidden min-w-[560px]">
+                <div className="grid grid-cols-3">
+                  <div className="px-8 py-4 text-[12px] font-medium text-[#94A3B8] uppercase tracking-wider border-b border-[#E2E8F0]" />
+                  <div className="px-8 py-4 text-[12px] font-medium text-[#475569] uppercase tracking-wider text-center border-l border-b border-[#E2E8F0]">İlanla Satış</div>
+                  <div className="px-8 py-4 text-[12px] font-medium text-[#3B5BDB] uppercase tracking-wider text-center border-l border-b border-[#E2E8F0]">Trink'ten Teklif</div>
+                </div>
+                {COMPARE_ROWS.map((row, i) => (
+                  <div key={row.label} className={`grid grid-cols-3 border-b border-[#E2E8F0] last:border-0 ${i % 2 === 1 ? 'bg-[#F8FAFC]' : ''}`}>
+                    <div className="px-8 py-5 text-[14px] font-medium text-[#0F172A]">{row.label}</div>
+                    <div className="px-8 py-5 text-[14px] text-[#475569] text-center border-l border-[#E2E8F0]">{row.onur}</div>
+                    <div className="px-8 py-5 text-[14px] text-[#3B5BDB] font-medium text-center border-l border-[#E2E8F0]">{row.us}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
       {/* ── MÜŞTERİ YORUMLARI ────────────────────────────────── */}
       <section className="bg-white py-[96px]">
         <div className="max-w-[1280px] mx-auto px-6">
@@ -350,36 +380,6 @@ export default async function HomePage() {
               </ScrollReveal>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* ── KARŞILAŞTIRMA ────────────────────────────────────── */}
-      <section className="py-[96px] bg-[#F8FAFC]">
-        <div className="max-w-[1280px] mx-auto px-6">
-          <ScrollReveal direction="up">
-            <div className="mb-12">
-              <h2 className="text-[42px] font-bold text-[#0F172A] leading-[50px] mb-4">İlan Vermekle Trink'ten Teklif Almak Arasındaki Fark</h2>
-              <p className="text-[18px] text-[#475569] leading-[30px]">Satış kararı vermeden önce iki yöntemi karşılaştırın.</p>
-            </div>
-          </ScrollReveal>
-          <ScrollReveal direction="up" delay={80}>
-            <div className="overflow-x-auto">
-              <div className="bg-white border border-[#E2E8F0] rounded-[20px] overflow-hidden min-w-[560px]">
-                <div className="grid grid-cols-3">
-                  <div className="px-8 py-4 text-[12px] font-medium text-[#94A3B8] uppercase tracking-wider border-b border-[#E2E8F0]" />
-                  <div className="px-8 py-4 text-[12px] font-medium text-[#475569] uppercase tracking-wider text-center border-l border-b border-[#E2E8F0]">İlanla Satış</div>
-                  <div className="px-8 py-4 text-[12px] font-medium text-[#3B5BDB] uppercase tracking-wider text-center border-l border-b border-[#E2E8F0]">Trink'ten Teklif</div>
-                </div>
-                {COMPARE_ROWS.map((row, i) => (
-                  <div key={row.label} className={`grid grid-cols-3 border-b border-[#E2E8F0] last:border-0 ${i % 2 === 1 ? 'bg-[#F8FAFC]' : ''}`}>
-                    <div className="px-8 py-5 text-[14px] font-medium text-[#0F172A]">{row.label}</div>
-                    <div className="px-8 py-5 text-[14px] text-[#475569] text-center border-l border-[#E2E8F0]">{row.onur}</div>
-                    <div className="px-8 py-5 text-[14px] text-[#3B5BDB] font-medium text-center border-l border-[#E2E8F0]">{row.us}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </ScrollReveal>
         </div>
       </section>
 
