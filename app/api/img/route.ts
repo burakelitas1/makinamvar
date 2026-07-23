@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { createServiceClient } from '@/lib/supabase-server'
 
 export const dynamic = 'force-dynamic'
-
-const ALLOWED_HOSTS = ['supabase.co', 'd8j0ntlcm91z4.cloudfront.net']
 
 export async function GET(request: NextRequest) {
   const url = request.nextUrl.searchParams.get('url')
@@ -15,14 +14,25 @@ export async function GET(request: NextRequest) {
     return new NextResponse('Invalid url', { status: 400 })
   }
 
-  const allowed = ALLOWED_HOSTS.some((h) => parsed.hostname.endsWith(h))
-  if (!allowed) return new NextResponse('Forbidden', { status: 403 })
+  if (!parsed.hostname.endsWith('supabase.co')) {
+    return new NextResponse('Forbidden', { status: 403 })
+  }
 
-  const response = await fetch(url, { headers: { 'User-Agent': 'TrinkMakina/1.0' } })
-  if (!response.ok) return new NextResponse('Upstream error', { status: response.status })
+  // Extract bucket and path from Supabase storage URL
+  // Format: /storage/v1/object/public/<bucket>/<path>
+  const match = parsed.pathname.match(/\/storage\/v1\/object\/public\/([^/]+)\/(.+)/)
+  if (!match) return new NextResponse('Invalid storage url', { status: 400 })
 
-  const contentType = response.headers.get('content-type') || 'image/jpeg'
-  const arrayBuffer = await response.arrayBuffer()
+  const [, bucket, path] = match
+  const supabase = createServiceClient()
+  const { data, error } = await supabase.storage.from(bucket).download(path)
+
+  if (error || !data) {
+    return new NextResponse('Not found', { status: 404 })
+  }
+
+  const arrayBuffer = await data.arrayBuffer()
+  const contentType = data.type || 'image/jpeg'
 
   return new NextResponse(arrayBuffer, {
     headers: {

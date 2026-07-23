@@ -78,7 +78,7 @@ export default async function HomePage() {
       supabase.from('testimonials').select('*').eq('active', true).order('date', { ascending: false }).limit(6),
       supabase.from('listings').select('*', { count: 'exact', head: true }).eq('status', 'satildi'),
       supabase.from('listings').select('*', { count: 'exact', head: true }),
-      supabase.from('posts').select('id,title,slug,cover_image,category,published_at,content').eq('published', true).order('published_at', { ascending: false }).limit(3),
+      supabase.from('posts').select('id,title,slug,cover_image,category,published_at,content').eq('published', true).order('created_at', { ascending: false }).limit(3),
     ])
     dbFaqs = faqsRes.data
     testimonials = testimonialsRes.data
