@@ -80,7 +80,7 @@ export default async function HomePage() {
   const BASE_SOLD  = 127
   const stats = [
     { value: `${(totalCount ?? 0) + BASE_TOTAL}+`, label: 'Değerlendirilen Makine' },
-    { value: '24 sa',                               label: 'Ortalama Teklif Süresi' },
+    { value: '7 sa',                                label: 'Ortalama Teklif Süresi' },
     { value: `${(soldCount ?? 0) + BASE_SOLD}+`,   label: 'Tamamlanan Satış' },
     { value: '%100',                                label: 'Ücretsiz Değerlendirme' },
   ]
