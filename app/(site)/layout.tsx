@@ -3,6 +3,12 @@ import Image from 'next/image'
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[9999] focus:bg-[#3B5BDB] focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:font-semibold focus:text-sm"
+      >
+        İçeriğe geç
+      </a>
       <header className="bg-white/80 backdrop-blur-[20px] border-b border-[#E2E8F0] sticky top-0 z-50 h-[80px]">
         <div className="max-w-[1280px] mx-auto px-6 h-full flex items-center justify-between gap-6">
           <a href="/" className="flex items-center flex-shrink-0" aria-label="Trink Makina Ana Sayfa">
@@ -21,7 +27,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
         </div>
       </header>
 
-      <main>{children}</main>
+      <main id="main-content">{children}</main>
 
       <footer className="bg-[#F8FAFC] border-t border-[#E2E8F0]">
         <div className="max-w-[1280px] mx-auto px-6 py-16">

@@ -6,6 +6,7 @@ import { createServiceClient } from '@/lib/supabase-server'
 import { ArrowRight, CheckCircle, Star } from 'lucide-react'
 
 export const revalidate = 3600
+export const dynamic = 'force-dynamic'
 
 const TRUST_ITEMS = [
   { img: '/07_uzman_degerlendirmesi.png', title: 'Uzman Değerlendirmesi', desc: 'Makinenizin teknik bilgileri, durumu ve piyasa koşulları birlikte incelenir.' },
@@ -56,19 +57,26 @@ const DEFAULT_FAQS = [
 ]
 
 export default async function HomePage() {
-  const supabase = createServiceClient()
+  let dbFaqs: { question: string; answer: string }[] | null = null
+  let testimonials: { id: string; name: string; detail: string; text: string; date: string }[] | null = null
+  let soldCount: number | null = null
+  let totalCount: number | null = null
 
-  const [
-    { data: dbFaqs },
-    { data: testimonials },
-    { count: soldCount },
-    { count: totalCount },
-  ] = await Promise.all([
-    supabase.from('faqs').select('question,answer').eq('active', true).order('order_num'),
-    supabase.from('testimonials').select('*').eq('active', true).order('date', { ascending: false }).limit(6),
-    supabase.from('listings').select('*', { count: 'exact', head: true }).eq('status', 'satildi'),
-    supabase.from('listings').select('*', { count: 'exact', head: true }),
-  ])
+  try {
+    const supabase = createServiceClient()
+    const [faqsRes, testimonialsRes, soldRes, totalRes] = await Promise.all([
+      supabase.from('faqs').select('question,answer').eq('active', true).order('order_num'),
+      supabase.from('testimonials').select('*').eq('active', true).order('date', { ascending: false }).limit(6),
+      supabase.from('listings').select('*', { count: 'exact', head: true }).eq('status', 'satildi'),
+      supabase.from('listings').select('*', { count: 'exact', head: true }),
+    ])
+    dbFaqs = faqsRes.data
+    testimonials = testimonialsRes.data
+    soldCount = soldRes.count
+    totalCount = totalRes.count
+  } catch {
+    // Supabase unavailable — fall through to defaults below
+  }
 
   const faqs = (dbFaqs && dbFaqs.length > 0) ? dbFaqs : DEFAULT_FAQS
   const displayTestimonials = (testimonials && testimonials.length > 0) ? testimonials : DEFAULT_TESTIMONIALS

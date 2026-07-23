@@ -1,7 +1,9 @@
 import { NextResponse } from 'next/server'
+import { cookies } from 'next/headers'
 import { createServiceClient } from '@/lib/supabase-server'
 import { sendOfferToCustomer } from '@/lib/email'
 import { sendSms, buildOfferSmsText } from '@/lib/sms'
+import { verifyAdminToken, COOKIE_NAME } from '@/lib/auth'
 import type { Listing } from '@/lib/types'
 
 function generateToken(): string {
@@ -14,6 +16,12 @@ export async function POST(
   req: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const cookieStore = await cookies()
+  const adminToken = cookieStore.get(COOKIE_NAME)?.value
+  if (!adminToken || !(await verifyAdminToken(adminToken))) {
+    return NextResponse.json({ error: 'Yetkisiz erişim' }, { status: 401 })
+  }
+
   const { id } = await params
   const { price, notes } = await req.json()
 

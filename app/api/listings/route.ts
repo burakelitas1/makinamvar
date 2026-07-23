@@ -1,9 +1,21 @@
 import { NextResponse } from 'next/server'
+import { cookies } from 'next/headers'
 import { createServiceClient } from '@/lib/supabase-server'
 import { sendAdminNotification } from '@/lib/email'
+import { verifyAdminToken, COOKIE_NAME } from '@/lib/auth'
 import type { Listing } from '@/lib/types'
 
+async function isAdminAuthorized(): Promise<boolean> {
+  const cookieStore = await cookies()
+  const token = cookieStore.get(COOKIE_NAME)?.value
+  return !!token && verifyAdminToken(token)
+}
+
 export async function GET() {
+  if (!(await isAdminAuthorized())) {
+    return NextResponse.json({ error: 'Yetkisiz erişim' }, { status: 401 })
+  }
+
   const supabase = createServiceClient()
   const { data, error } = await supabase
     .from('listings')

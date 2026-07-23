@@ -1,5 +1,5 @@
 'use client'
-export default function SiteError({ reset }: { reset: () => void }) {
+export default function SiteError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
       <div className="text-center">

@@ -9,7 +9,22 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Dosya bulunamadı' }, { status: 400 })
   }
 
-  const ext = file.name.split('.').pop() ?? 'jpg'
+  const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/heic', 'image/heif']
+  const MAX_SIZE_BYTES = 15 * 1024 * 1024 // 15 MB
+
+  if (!ALLOWED_TYPES.includes(file.type)) {
+    return NextResponse.json({ error: 'Yalnızca resim dosyaları yüklenebilir (JPEG, PNG, WEBP)' }, { status: 400 })
+  }
+
+  if (file.size > MAX_SIZE_BYTES) {
+    return NextResponse.json({ error: 'Dosya boyutu 15 MB sınırını aşıyor' }, { status: 400 })
+  }
+
+  const SAFE_EXT: Record<string, string> = {
+    'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp',
+    'image/gif': 'gif', 'image/heic': 'heic', 'image/heif': 'heif',
+  }
+  const ext = SAFE_EXT[file.type] ?? 'jpg'
   const path = `trink-makina/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
 
   const supabase = createServiceClient()

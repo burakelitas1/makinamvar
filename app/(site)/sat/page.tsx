@@ -620,21 +620,21 @@ export default function SatPage() {
               </div>
 
               <div>
-                <label className="label">Ad Soyad *</label>
-                <input className="input-field" placeholder="Ad Soyad" {...register('contact_name')} />
+                <label htmlFor="contact_name" className="label">Ad Soyad *</label>
+                <input id="contact_name" className="input-field" placeholder="Ad Soyad" autoComplete="name" {...register('contact_name')} />
                 {errors.contact_name && <p className="error-msg">{errors.contact_name.message}</p>}
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="label">Cep Telefonu *</label>
-                  <input className="input-field" placeholder="05XX XXX XX XX" type="tel" {...register('contact_phone')} />
+                  <label htmlFor="contact_phone" className="label">Cep Telefonu *</label>
+                  <input id="contact_phone" className="input-field" placeholder="05XX XXX XX XX" type="tel" autoComplete="tel" {...register('contact_phone')} />
                   <p className="text-[11px] text-[#94A3B8] mt-1">Sadece teklif süreciyle ilgili iletişim için kullanılacaktır.</p>
                   {errors.contact_phone && <p className="error-msg">{errors.contact_phone.message}</p>}
                 </div>
                 <div>
-                  <label className="label">E-posta *</label>
-                  <input className="input-field" placeholder="ornek@mail.com" type="email" {...register('contact_email')} />
+                  <label htmlFor="contact_email" className="label">E-posta *</label>
+                  <input id="contact_email" className="input-field" placeholder="ornek@mail.com" type="email" autoComplete="email" {...register('contact_email')} />
                   <p className="text-[11px] text-[#94A3B8] mt-1">Teklif detayları SMS ve e-posta ile iletilecektir.</p>
                   {errors.contact_email && <p className="error-msg">{errors.contact_email.message}</p>}
                 </div>
