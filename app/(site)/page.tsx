@@ -2,7 +2,10 @@ import Link from 'next/link'
 import TestimonialsCarousel from '@/components/TestimonialsCarousel'
 import FaqSection from '@/components/FaqSection'
 import { createServiceClient } from '@/lib/supabase-server'
-import { Clock, Truck, ShieldCheck, BarChart3, ArrowRight, CheckCircle } from 'lucide-react'
+import {
+  Clock, Truck, ShieldCheck, BarChart3, ArrowRight, CheckCircle,
+  Scissors, Layers, MoveDown, RefreshCw, GitBranch, Zap,
+} from 'lucide-react'
 
 export const revalidate = 3600
 
@@ -10,7 +13,7 @@ const TRUST_ITEMS = [
   {
     icon: BarChart3,
     title: 'Gerçek Piyasa Değeri',
-    desc: 'Uzman ekibimiz makinenizi piyasa verilerine göre değerlendirir. Tahminden değil, gerçek veriden yola çıkar.',
+    desc: 'Uzman ekibimiz piyasa verileriyle makinenizi değerlendirir. Tahminden değil, gerçek veriden yola çıkar.',
   },
   {
     icon: Clock,
@@ -32,18 +35,78 @@ const TRUST_ITEMS = [
 const STEPS = [
   {
     num: '01',
-    title: 'Makinenizi tanıtın',
-    desc: 'Makine türünü, teknik özelliklerini ve fotoğraflarını paylaşın. Form ortalama 3 dakika sürer.',
+    title: 'Makinenizi Tanıyalım',
+    desc: 'Makinenizin temel bilgilerini paylaşın. Form ortalama 3 dakika sürer.',
   },
   {
     num: '02',
-    title: 'Uzman değerlendirmesi',
-    desc: 'Teknik ekibimiz makinenizi inceler. 24 saat içinde size özel teklif SMS ve e-posta ile iletilir.',
+    title: 'Uzmanlarımız Değerlendirsin',
+    desc: 'Uzmanlarımız piyasa verileriyle birlikte makinenizi değerlendirsin.',
   },
   {
     num: '03',
-    title: 'Kararınızı verin',
-    desc: 'Teklifi değerlendirin. Kabul ederseniz söküm ve nakliye organize edilir, ödeme aynı gün yapılır.',
+    title: 'Profesyonel Teklifinizi Alın',
+    desc: 'Size özel profesyonel satın alma teklifiniz SMS ve e-posta ile iletilir.',
+  },
+]
+
+const MACHINE_CATEGORIES = [
+  {
+    icon: Layers,
+    title: 'Abkant Pres',
+    desc: 'Hidrolik, pnömatik ve CNC abkant presler.',
+  },
+  {
+    icon: Scissors,
+    title: 'Giyotin Makas',
+    desc: 'Hidrolik ve mekanik giyotin makas makineleri.',
+  },
+  {
+    icon: MoveDown,
+    title: 'Pres Makineleri',
+    desc: 'Eksantrik, hidrolik ve servo pres makineleri.',
+  },
+  {
+    icon: RefreshCw,
+    title: 'Silindir Makineleri',
+    desc: 'Sac kıvırma ve silindir bükme makineleri.',
+  },
+  {
+    icon: GitBranch,
+    title: 'Boru Büküm',
+    desc: 'Boru ve profil bükme makineleri.',
+  },
+  {
+    icon: Zap,
+    title: 'Testereler',
+    desc: 'Metal kesme ve şerit testere makineleri.',
+  },
+]
+
+const CASE_STUDIES = [
+  {
+    machine: 'Durma AD-S 3080',
+    category: 'Abkant Pres',
+    city: 'İstanbul',
+    industry: 'Metal İşleme',
+    time: '18 saat',
+    outcome: 'Profesyonel teklif iletildi',
+  },
+  {
+    machine: 'Ermaksan FBD 10025',
+    category: 'Giyotin Makas',
+    city: 'Bursa',
+    industry: 'Otomotiv',
+    time: '22 saat',
+    outcome: 'Satın alma gerçekleşti',
+  },
+  {
+    machine: 'RAS 72.22',
+    category: 'Silindir',
+    city: 'Konya',
+    industry: 'Makine İmalatı',
+    time: '16 saat',
+    outcome: 'Teklif kabul edildi',
   },
 ]
 
@@ -56,11 +119,13 @@ const COMPARE_ROWS = [
 ]
 
 const DEFAULT_FAQS = [
-  { question: 'Trink Makina nedir?', answer: 'Trink Makina, sac işleme makinelerinin değerini belirleyip profesyonel satın alma teklifi sunan dijital bir platformdur. Geleneksel ikinci el pazarlarından farklı olarak makine sahiplerini alıcıyla biz buluştururuz.' },
-  { question: 'Hangi makineler için teklif alabilirsiniz?', answer: 'Abkant pres, giyotin makas, silindir, pres, boru büküm ve diğer sac işleme makineleri için teklif alabilirsiniz. Çalışır veya arızalı tüm makineleri değerlendiriyoruz.' },
+  { question: 'Teklif almak ücretli mi?', answer: 'Hayır. Değerlendirme ve teklif alma süreci tamamen ücretsizdir. Satış gerçekleşmeden herhangi bir ücret alınmaz.' },
+  { question: 'Makinemi satmak zorunda mıyım?', answer: 'Hayır. Teklif almak herhangi bir yükümlülük doğurmaz. Teklifi inceleme, kabul etme, reddetme veya karşı teklif verme kararı tamamen size aittir.' },
+  { question: 'Teklif ne kadar sürede hazırlanır?', answer: 'Formu gönderdikten sonra 24 saat içinde size özel profesyonel satın alma teklifi SMS ve e-posta ile iletilir.' },
+  { question: 'Hangi makine türlerini değerlendiriyorsunuz?', answer: 'Abkant pres, giyotin makas, silindir, pres, boru büküm ve diğer sac işleme makineleri için teklif alabilirsiniz. Çalışır veya arızalı tüm makineleri değerlendiriyoruz.' },
   { question: 'Söküm ve nakliye gerçekten ücretsiz mi?', answer: 'Evet. Anlaşma sağlandığında söküm, vinç ve nakliye işlemlerini tamamen biz karşılarız. Sizin herhangi bir masraf yapmanız gerekmez.' },
-  { question: 'Teklif almak beni bağlar mı?', answer: 'Hayır. Teklif almak herhangi bir yükümlülük doğurmaz. Teklifi inceleme, kabul etme, reddetme veya karşı teklif verme kararı tamamen size aittir.' },
-  { question: 'Bu hizmet ücretli mi?', answer: 'Değerlendirme ve teklif alma süreci tamamen ücretsizdir. Satış gerçekleşmeden herhangi bir ücret alınmaz.' },
+  { question: 'Bilgilerim gizli kalıyor mu?', answer: 'Evet. Paylaştığınız tüm bilgiler yalnızca değerlendirme sürecinde kullanılır. Üçüncü taraflarla paylaşılmaz.' },
+  { question: 'Teklifi kabul etmezsem ne olur?', answer: 'Hiçbir şey. Teklifi reddetmek veya yanıtsız bırakmak tamamen serbesttir. Herhangi bir yükümlülük doğmaz.' },
   { question: 'Ödeme ne zaman yapılır?', answer: 'Teklifi onayladıktan ve evrak işlemleri tamamlandıktan sonra makine nakliye aracına yüklendiği gün ödeme yapılır.' },
 ]
 
@@ -96,28 +161,28 @@ export default async function HomePage() {
             Endüstriyel Değerleme Platformu
           </div>
           <h1 className="text-[40px] sm:text-[64px] font-extrabold text-[#0F172A] leading-[46px] sm:leading-[72px] tracking-tight mb-6 max-w-3xl">
-            Makinenizin Değerini<br />Ücretsiz Öğrenin
+            Makinenizin Gerçek<br />Piyasa Değerini Öğrenin
           </h1>
           <p className="text-[18px] text-[#475569] leading-[30px] mb-10 max-w-[480px] font-normal">
-            Teklif almak herhangi bir taahhüt gerektirmez.
-            <br />Sadece değeri öğrenin. Karar tamamen size ait.
+            Teklif almak ücretsizdir.
+            <br />Karar tamamen size aittir.
           </p>
           <div className="flex flex-col sm:flex-row items-start gap-4">
             <Link
               href="/sat"
-              className="inline-flex items-center gap-2 bg-[#3B5BDB] hover:bg-[#2F4AC7] text-white font-semibold px-8 h-[56px] rounded-[16px] text-[16px] transition-colors"
+              className="inline-flex items-center gap-2 bg-[#3B5BDB] hover:bg-[#2F4AC7] hover:-translate-y-0.5 text-white font-bold px-8 h-[56px] rounded-[16px] text-[16px] transition-all duration-200"
             >
-              Ücretsiz Teklif Al
-              <ArrowRight className="w-4 h-4" />
+              Profesyonel Teklif Al
+              <ArrowRight className="w-4 h-4" strokeWidth={2} />
             </Link>
             <a
               href="#nasil-calisir"
               className="inline-flex items-center gap-2 text-[#475569] hover:text-[#0F172A] font-medium px-8 h-[56px] rounded-[16px] text-[16px] transition-colors border border-[#E2E8F0] hover:border-[#CBD5E1]"
             >
-              Nasıl Çalışır
+              Nasıl Çalışıyor?
             </a>
           </div>
-          <div className="flex flex-wrap items-center gap-x-8 gap-y-3 mt-10 text-[14px] text-[#475569]">
+          <div className="flex items-center gap-8 mt-10 text-[14px] text-[#475569]">
             {['Ücretsiz', 'Taahhütsüz', '24 Saat'].map(t => (
               <span key={t} className="flex items-center gap-2">
                 <CheckCircle className="w-4 h-4 text-[#22C55E] flex-shrink-0" strokeWidth={2} />
@@ -129,7 +194,7 @@ export default async function HomePage() {
       </section>
 
       {/* GÜVEN */}
-      <section className="bg-[#F8FAFC] py-[120px] md:py-[120px]">
+      <section className="bg-[#F8FAFC] py-[120px]">
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="mb-16">
             <h2 className="text-[42px] font-bold text-[#0F172A] leading-[50px] mb-4">Neden Trink?</h2>
@@ -137,7 +202,7 @@ export default async function HomePage() {
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {TRUST_ITEMS.map(({ icon: Icon, title, desc }) => (
-              <div key={title} className="bg-white border border-[#E2E8F0] rounded-[20px] p-8 hover:shadow-sm transition-shadow">
+              <div key={title} className="bg-white border border-[#E2E8F0] rounded-[20px] p-8 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200">
                 <div className="w-10 h-10 rounded-xl bg-[#3B5BDB]/8 flex items-center justify-center mb-6">
                   <Icon className="w-5 h-5 text-[#3B5BDB]" strokeWidth={2} />
                 </div>
@@ -153,7 +218,7 @@ export default async function HomePage() {
       <section id="nasil-calisir" className="bg-white py-[120px]">
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="mb-16">
-            <h2 className="text-[42px] font-bold text-[#0F172A] leading-[50px] mb-4">Üç adımda teklif</h2>
+            <h2 className="text-[42px] font-bold text-[#0F172A] leading-[50px] mb-4">Nasıl Çalışıyoruz?</h2>
             <p className="text-[18px] text-[#475569] leading-[30px] max-w-md">Ortalama 3 dakikalık form. 24 saatte somut değer.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-12 mb-16">
@@ -167,20 +232,48 @@ export default async function HomePage() {
           </div>
           <Link
             href="/sat"
-            className="inline-flex items-center gap-2 bg-[#3B5BDB] hover:bg-[#2F4AC7] text-white font-semibold px-8 h-[56px] rounded-[16px] text-[16px] transition-colors"
+            className="inline-flex items-center gap-2 bg-[#3B5BDB] hover:bg-[#2F4AC7] hover:-translate-y-0.5 text-white font-bold px-8 h-[56px] rounded-[16px] text-[16px] transition-all duration-200"
           >
-            Teklifimi Öğren
-            <ArrowRight className="w-4 h-4" />
+            Ücretsiz Teklif Al
+            <ArrowRight className="w-4 h-4" strokeWidth={2} />
           </Link>
         </div>
       </section>
 
-      {/* KARŞILAŞTIRMA */}
+      {/* MAKİNE KATEGORİLERİ */}
       <section className="bg-[#F8FAFC] py-[120px]">
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="mb-16">
-            <h2 className="text-[42px] font-bold text-[#0F172A] leading-[50px] mb-4">Trink vs. Geleneksel</h2>
-            <p className="text-[18px] text-[#475569] leading-[30px]">Fark neden önemlidir.</p>
+            <h2 className="text-[42px] font-bold text-[#0F172A] leading-[50px] mb-4">Hangi Makineleri Değerlendiriyoruz?</h2>
+            <p className="text-[18px] text-[#475569] leading-[30px] max-w-md">Sac işleme makinelerinin tüm kategorilerini kapsıyoruz.</p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            {MACHINE_CATEGORIES.map(({ icon: Icon, title, desc }) => (
+              <Link
+                key={title}
+                href="/sat"
+                className="bg-white border border-[#E2E8F0] rounded-[20px] p-8 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-200 group"
+              >
+                <div className="w-10 h-10 rounded-xl bg-[#3B5BDB]/8 flex items-center justify-center mb-6">
+                  <Icon className="w-5 h-5 text-[#3B5BDB]" strokeWidth={2} />
+                </div>
+                <h3 className="font-semibold text-[#0F172A] mb-2 text-[18px] leading-snug">{title}</h3>
+                <p className="text-[14px] text-[#475569] leading-[22px] mb-4">{desc}</p>
+                <span className="text-[14px] text-[#3B5BDB] font-medium inline-flex items-center gap-1 group-hover:gap-2 transition-all duration-200">
+                  Teklif Al <ArrowRight className="w-3.5 h-3.5" strokeWidth={2} />
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* NEDEN TRİNK — KARŞILAŞTIRMA */}
+      <section className="bg-white py-[120px]">
+        <div className="max-w-[1280px] mx-auto px-6">
+          <div className="mb-16">
+            <h2 className="text-[42px] font-bold text-[#0F172A] leading-[50px] mb-4">Şeffaf Satın Alma Süreci</h2>
+            <p className="text-[18px] text-[#475569] leading-[30px]">Geleneksel yöntemlerden farkımız.</p>
           </div>
           <div className="max-w-3xl bg-white border border-[#E2E8F0] rounded-[20px] overflow-hidden">
             <div className="grid grid-cols-3 border-b border-[#E2E8F0]">
@@ -193,6 +286,39 @@ export default async function HomePage() {
                 <div className="px-6 py-4 text-[14px] font-medium text-[#0F172A]">{row.label}</div>
                 <div className="px-6 py-4 text-[14px] text-[#475569] text-center border-l border-[#E2E8F0]">{row.onur}</div>
                 <div className="px-6 py-4 text-[14px] text-[#3B5BDB] font-medium text-center border-l border-[#E2E8F0]">{row.us}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CASE STUDIES */}
+      <section className="bg-[#F8FAFC] py-[120px]">
+        <div className="max-w-[1280px] mx-auto px-6">
+          <div className="mb-16">
+            <h2 className="text-[42px] font-bold text-[#0F172A] leading-[50px] mb-4">Tamamlanan Değerlendirmeler</h2>
+            <p className="text-[18px] text-[#475569] leading-[30px] max-w-md">Gerçek makineler. Gerçek teklifler.</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {CASE_STUDIES.map((cs) => (
+              <div key={cs.machine} className="bg-white border border-[#E2E8F0] rounded-[20px] p-8">
+                <div className="inline-flex items-center px-3 py-1 rounded-full bg-[#3B5BDB]/8 text-[#3B5BDB] text-[12px] font-medium mb-6">
+                  {cs.category}
+                </div>
+                <h3 className="font-semibold text-[#0F172A] text-[18px] leading-[26px] mb-6">{cs.machine}</h3>
+                <dl className="space-y-3">
+                  {[
+                    { label: 'Şehir', value: cs.city },
+                    { label: 'Sektör', value: cs.industry },
+                    { label: 'Teklif Süresi', value: cs.time },
+                    { label: 'Sonuç', value: cs.outcome },
+                  ].map(({ label, value }) => (
+                    <div key={label} className="flex justify-between items-center text-[14px]">
+                      <dt className="text-[#94A3B8] font-medium">{label}</dt>
+                      <dd className="text-[#0F172A] font-medium">{value}</dd>
+                    </div>
+                  ))}
+                </dl>
               </div>
             ))}
           </div>
@@ -215,7 +341,7 @@ export default async function HomePage() {
       <section id="sss" className="bg-[#F8FAFC] py-[120px]">
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="mb-16">
-            <h2 className="text-[42px] font-bold text-[#0F172A] leading-[50px] mb-4">Sık sorulan sorular</h2>
+            <h2 className="text-[42px] font-bold text-[#0F172A] leading-[50px] mb-4">Süreç Hakkında Merak Ettikleriniz</h2>
             <p className="text-[18px] text-[#475569] leading-[30px]">Aklınızdaki soruları yanıtlayalım.</p>
           </div>
           <div className="max-w-2xl">
@@ -231,14 +357,14 @@ export default async function HomePage() {
             Makinenizin değerini merak mı ediyorsunuz?
           </h2>
           <p className="text-[18px] text-[#94A3B8] leading-[30px] mb-10 max-w-md">
-            Teklif almak taahhüt gerektirmez. Formu doldurun, biz değerlendiririz.
+            Karar sizin. Değerleme bizden.
           </p>
           <Link
             href="/sat"
-            className="inline-flex items-center gap-2 bg-[#3B5BDB] hover:bg-[#2F4AC7] text-white font-semibold px-8 h-[56px] rounded-[16px] text-[16px] transition-colors"
+            className="inline-flex items-center gap-2 bg-[#3B5BDB] hover:bg-[#2F4AC7] hover:-translate-y-0.5 text-white font-bold px-8 h-[56px] rounded-[16px] text-[16px] transition-all duration-200"
           >
-            Ücretsiz Teklif Al
-            <ArrowRight className="w-4 h-4" />
+            Profesyonel Teklif Al
+            <ArrowRight className="w-4 h-4" strokeWidth={2} />
           </Link>
         </div>
       </section>
