@@ -255,7 +255,7 @@ export default function SatPage() {
 
               {/* Abkant-specific sub-fields */}
               {isAbkant && (
-                <div className="bg-orange-50 border border-orange-200 rounded-xl p-4 space-y-3">
+                <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 space-y-3">
                   <p className="text-xs font-semibold text-[#3B5BDB] uppercase tracking-wide">Abkant Pres Detayları</p>
                   <div className="grid grid-cols-3 gap-3">
                     <div>
@@ -640,11 +640,11 @@ export default function SatPage() {
                 type="checkbox"
                 checked={kvkk}
                 onChange={(e) => setKvkk(e.target.checked)}
-                className="mt-0.5 w-4 h-4 rounded accent-orange-500 flex-shrink-0 cursor-pointer"
+                className="mt-0.5 w-4 h-4 rounded accent-blue-600 flex-shrink-0 cursor-pointer"
               />
               <span className={`text-xs leading-relaxed ${kvkk ? 'text-gray-500' : 'text-gray-400'}`}>
                 <span className="text-red-500 font-bold mr-0.5">*</span>
-                <a href="/kvkk" target="_blank" className="text-orange-500 hover:underline font-medium">Kişisel Verilerin Korunması</a>{' '}
+                <a href="/kvkk" target="_blank" className="text-[#3B5BDB] hover:underline font-medium">Kişisel Verilerin Korunması</a>{' '}
                 metnini okudum, paylaştığım bilgiler ile fotoğrafların Varmak Makine tarafından kullanılmasına onay veriyorum.
               </span>
             </label>
@@ -653,11 +653,11 @@ export default function SatPage() {
                 type="checkbox"
                 checked={kullanim}
                 onChange={(e) => setKullanim(e.target.checked)}
-                className="mt-0.5 w-4 h-4 rounded accent-orange-500 flex-shrink-0 cursor-pointer"
+                className="mt-0.5 w-4 h-4 rounded accent-blue-600 flex-shrink-0 cursor-pointer"
               />
               <span className={`text-xs leading-relaxed ${kullanim ? 'text-gray-500' : 'text-gray-400'}`}>
                 <span className="text-red-500 font-bold mr-0.5">*</span>
-                <a href="/kullanim-kosullari" target="_blank" className="text-orange-500 hover:underline font-medium">Kullanım Koşulları</a>'nı
+                <a href="/kullanim-kosullari" target="_blank" className="text-[#3B5BDB] hover:underline font-medium">Kullanım Koşulları</a>'nı
                 okudum ve kabul ediyorum.
               </span>
             </label>
