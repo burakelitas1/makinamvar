@@ -137,7 +137,7 @@ export default function AdminDetailPage() {
         <Link href="/admin" className="text-gray-400 hover:text-white transition-colors text-sm">
           ← Tüm Talepler
         </Link>
-        <span className="text-navy-600">/</span>
+        <span className="text-white">/</span>
         <span className="text-gray-300 text-sm">
           {listing.brand} {listing.model}
         </span>
@@ -188,7 +188,7 @@ export default function AdminDetailPage() {
                   <button
                     type="button"
                     onClick={() => downloadPhoto(listing.photos[activePhoto], activePhoto)}
-                    className="flex items-center gap-1.5 px-3 py-1.5 bg-navy-700 hover:bg-navy-600 border border-navy-600 text-gray-300 hover:text-white text-xs font-medium rounded-lg transition-colors"
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-[#475569] hover:bg-navy-600 border border-navy-600 text-gray-300 hover:text-white text-xs font-medium rounded-lg transition-colors"
                   >
                     ⬇ İndir
                   </button>
@@ -196,14 +196,14 @@ export default function AdminDetailPage() {
                     <button
                       type="button"
                       onClick={() => downloadAllPhotos(listing.photos)}
-                      className="flex items-center gap-1.5 px-3 py-1.5 bg-navy-700 hover:bg-navy-600 border border-navy-600 text-gray-300 hover:text-white text-xs font-medium rounded-lg transition-colors"
+                      className="flex items-center gap-1.5 px-3 py-1.5 bg-[#475569] hover:bg-navy-600 border border-navy-600 text-gray-300 hover:text-white text-xs font-medium rounded-lg transition-colors"
                     >
                       ⬇ Tümünü İndir ({listing.photos.length})
                     </button>
                   )}
                 </div>
               </div>
-              <div className="relative aspect-video rounded-lg overflow-hidden bg-navy-900 mb-3">
+              <div className="relative aspect-video rounded-lg overflow-hidden bg-[#1E293B] mb-3">
                 <Image
                   src={listing.photos[activePhoto]}
                   alt="Makine fotoğrafı"
@@ -233,7 +233,7 @@ export default function AdminDetailPage() {
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">Makine Bilgileri</h2>
               <button type="button" onClick={downloadInfoCard}
-                className="flex items-center gap-1.5 px-3 py-1.5 bg-navy-700 hover:bg-navy-600 border border-navy-600 text-gray-300 hover:text-white text-xs font-medium rounded-lg transition-colors">
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-[#475569] hover:bg-navy-600 border border-navy-600 text-gray-300 hover:text-white text-xs font-medium rounded-lg transition-colors">
                 ⬇ Bilgi Kartı İndir
               </button>
             </div>
@@ -348,7 +348,7 @@ export default function AdminDetailPage() {
             </div>
 
             {listing.customer_response && (
-              <div className="mt-4 p-3 rounded-lg bg-navy-800 border border-navy-600 space-y-2">
+              <div className="mt-4 p-3 rounded-lg bg-[#334155] border border-navy-600 space-y-2">
                 <p className="text-xs text-gray-400 uppercase tracking-wider font-semibold">Müşteri Yanıtı</p>
                 <span className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold ${
                   listing.customer_response === 'kabul' ? 'bg-green-100 text-green-800' :
@@ -378,7 +378,7 @@ export default function AdminDetailPage() {
                   className={`w-full py-2 px-3 rounded-lg text-sm font-medium transition-colors text-left
                     ${listing.status === s
                       ? 'bg-orange-500 text-white cursor-default'
-                      : 'bg-navy-700 text-gray-300 hover:bg-navy-600 border border-navy-600'
+                      : 'bg-[#475569] text-gray-300 hover:bg-navy-600 border border-navy-600'
                     } disabled:opacity-50`}
                 >
                   {statusLabels[s]}

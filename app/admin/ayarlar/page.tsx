@@ -53,8 +53,8 @@ export default function AyarlarPage() {
 
       <div className="space-y-8">
         {FIELDS.map((section) => (
-          <div key={section.section} className="bg-navy-900 border border-navy-700 rounded-xl p-6">
-            <h2 className="text-white font-semibold text-sm uppercase tracking-wider mb-5 pb-3 border-b border-navy-700">
+          <div key={section.section} className="bg-[#1E293B] border border-[#334155] rounded-xl p-6">
+            <h2 className="text-white font-semibold text-sm uppercase tracking-wider mb-5 pb-3 border-b border-[#334155]">
               {section.section}
             </h2>
             <div className="space-y-4">

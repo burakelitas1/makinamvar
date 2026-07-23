@@ -55,7 +55,7 @@ export default function SSSPage() {
       <p className="text-gray-400 text-sm mb-8">Sitede gösterilen SSS içeriklerini yönetin.</p>
 
       {/* Form */}
-      <div className="bg-navy-900 border border-navy-700 rounded-xl p-6 mb-8">
+      <div className="bg-[#1E293B] border border-[#334155] rounded-xl p-6 mb-8">
         <h2 className="text-white font-semibold mb-4">{editId ? 'SSS Düzenle' : 'Yeni SSS Ekle'}</h2>
         <div className="space-y-4">
           <div>
@@ -89,7 +89,7 @@ export default function SSSPage() {
           </button>
           {editId && (
             <button onClick={() => { setForm(EMPTY); setEditId(null) }}
-              className="px-6 py-2 rounded-lg bg-navy-700 text-gray-300 hover:bg-navy-600 text-sm transition-colors">
+              className="px-6 py-2 rounded-lg bg-[#475569] text-gray-300 hover:bg-navy-600 text-sm transition-colors">
               İptal
             </button>
           )}
@@ -100,25 +100,25 @@ export default function SSSPage() {
       {loading ? (
         <div className="text-gray-400 text-center py-10">Yükleniyor…</div>
       ) : items.length === 0 ? (
-        <div className="bg-navy-900 border border-navy-700 rounded-xl text-center py-10">
+        <div className="bg-[#1E293B] border border-[#334155] rounded-xl text-center py-10">
           <p className="text-gray-400">Henüz SSS yok. Yukarıdan ekleyin.</p>
         </div>
       ) : (
         <div className="space-y-3">
           {items.map((item, i) => (
-            <div key={item.id} className="bg-navy-900 border border-navy-700 rounded-xl p-5">
+            <div key={item.id} className="bg-[#1E293B] border border-[#334155] rounded-xl p-5">
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="text-xs bg-navy-700 text-gray-400 w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0">{i + 1}</span>
+                    <span className="text-xs bg-[#475569] text-gray-400 w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0">{i + 1}</span>
                     <p className="text-white font-semibold text-sm">{item.question}</p>
-                    {!item.active && <span className="text-xs bg-navy-700 text-gray-400 px-2 py-0.5 rounded-full">Gizli</span>}
+                    {!item.active && <span className="text-xs bg-[#475569] text-gray-400 px-2 py-0.5 rounded-full">Gizli</span>}
                   </div>
                   <p className="text-gray-400 text-sm line-clamp-2 ml-8">{item.answer}</p>
                 </div>
                 <div className="flex gap-2 flex-shrink-0">
                   <button onClick={() => edit(item)}
-                    className="text-xs px-3 py-1.5 bg-navy-700 text-gray-300 hover:bg-navy-600 rounded-lg transition-colors">
+                    className="text-xs px-3 py-1.5 bg-[#475569] text-gray-300 hover:bg-navy-600 rounded-lg transition-colors">
                     Düzenle
                   </button>
                   <button onClick={() => del(item.id)}

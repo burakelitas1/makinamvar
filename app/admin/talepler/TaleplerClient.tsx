@@ -100,10 +100,10 @@ export default function TaleplerClient({ listings, cities, brands }: Props) {
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2
               ${status === tab.key
                 ? 'bg-[#E67E22] text-white'
-                : 'bg-navy-800 text-gray-300 hover:bg-navy-700 border border-navy-700'}`}
+                : 'bg-[#334155] text-gray-300 hover:bg-[#475569] border border-[#334155]'}`}
           >
             {tab.label}
-            <span className={`text-xs px-1.5 py-0.5 rounded-full ${status === tab.key ? 'bg-white/20' : 'bg-navy-700'}`}>
+            <span className={`text-xs px-1.5 py-0.5 rounded-full ${status === tab.key ? 'bg-white/20' : 'bg-[#475569]'}`}>
               {tab.key === '' ? counts.all : (counts[tab.key] ?? 0)}
             </span>
           </button>
@@ -117,14 +117,14 @@ export default function TaleplerClient({ listings, cities, brands }: Props) {
           placeholder="Ad, telefon, marka, model, il ara…"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="flex-1 bg-navy-800 border border-navy-700 rounded-lg px-4 py-2 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-orange-500"
+          className="flex-1 bg-[#334155] border border-[#334155] rounded-lg px-4 py-2 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-orange-500"
         />
         <button
           onClick={() => setFiltersOpen(!filtersOpen)}
           className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border transition-colors
             ${filtersOpen || hasFilters
               ? 'bg-orange-500/10 border-orange-500 text-orange-400'
-              : 'bg-navy-800 border-navy-700 text-gray-300 hover:bg-navy-700'}`}
+              : 'bg-[#334155] border-[#334155] text-gray-300 hover:bg-[#475569]'}`}
         >
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4h18M6 8h12M10 12h4" />
@@ -140,14 +140,14 @@ export default function TaleplerClient({ listings, cities, brands }: Props) {
 
       {/* Filtre paneli */}
       {filtersOpen && (
-        <div className="bg-navy-900 border border-navy-700 rounded-xl p-5 mb-5 grid grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="bg-[#1E293B] border border-[#334155] rounded-xl p-5 mb-5 grid grid-cols-2 lg:grid-cols-3 gap-4">
           {/* Makine Türü */}
           <div>
             <label className="text-xs text-gray-400 mb-1.5 block">Makine Türü</label>
             <select
               value={machineType}
               onChange={(e) => setMachineType(e.target.value)}
-              className="w-full bg-navy-800 border border-navy-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-orange-500"
+              className="w-full bg-[#334155] border border-[#334155] rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-orange-500"
             >
               <option value="">Tümü</option>
               {MACHINE_TYPES.map((t) => (
@@ -165,7 +165,7 @@ export default function TaleplerClient({ listings, cities, brands }: Props) {
               value={brand}
               onChange={(e) => setBrand(e.target.value)}
               list="brand-list"
-              className="w-full bg-navy-800 border border-navy-700 rounded-lg px-3 py-2 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-orange-500"
+              className="w-full bg-[#334155] border border-[#334155] rounded-lg px-3 py-2 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-orange-500"
             />
             <datalist id="brand-list">
               {brands.map((b) => <option key={b} value={b} />)}
@@ -178,7 +178,7 @@ export default function TaleplerClient({ listings, cities, brands }: Props) {
             <select
               value={city}
               onChange={(e) => { setCity(e.target.value); setDistrict('') }}
-              className="w-full bg-navy-800 border border-navy-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-orange-500"
+              className="w-full bg-[#334155] border border-[#334155] rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-orange-500"
             >
               <option value="">Tüm İller</option>
               {cities.map((c) => <option key={c} value={c}>{c}</option>)}
@@ -193,7 +193,7 @@ export default function TaleplerClient({ listings, cities, brands }: Props) {
               placeholder="İlçe ara…"
               value={district}
               onChange={(e) => setDistrict(e.target.value)}
-              className="w-full bg-navy-800 border border-navy-700 rounded-lg px-3 py-2 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-orange-500"
+              className="w-full bg-[#334155] border border-[#334155] rounded-lg px-3 py-2 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-orange-500"
             />
           </div>
 
@@ -204,7 +204,7 @@ export default function TaleplerClient({ listings, cities, brands }: Props) {
               type="date"
               value={dateFrom}
               onChange={(e) => setDateFrom(e.target.value)}
-              className="w-full bg-navy-800 border border-navy-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-orange-500"
+              className="w-full bg-[#334155] border border-[#334155] rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-orange-500"
             />
           </div>
           <div>
@@ -213,7 +213,7 @@ export default function TaleplerClient({ listings, cities, brands }: Props) {
               type="date"
               value={dateTo}
               onChange={(e) => setDateTo(e.target.value)}
-              className="w-full bg-navy-800 border border-navy-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-orange-500"
+              className="w-full bg-[#334155] border border-[#334155] rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-orange-500"
             />
           </div>
 
@@ -237,14 +237,14 @@ export default function TaleplerClient({ listings, cities, brands }: Props) {
 
       {/* Tablo */}
       {!filtered.length ? (
-        <div className="bg-navy-900 rounded-xl text-center py-16 border border-navy-700">
+        <div className="bg-[#1E293B] rounded-xl text-center py-16 border border-[#334155]">
           <p className="text-gray-400">Bu filtreye ait talep bulunmuyor.</p>
         </div>
       ) : (
-        <div className="overflow-x-auto rounded-xl border border-navy-700">
+        <div className="overflow-x-auto rounded-xl border border-[#334155]">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-navy-800 text-gray-400 text-left">
+              <tr className="bg-[#334155] text-gray-400 text-left">
                 <th className="px-4 py-3 font-medium">Tarih</th>
                 <th className="px-4 py-3 font-medium">Makine</th>
                 <th className="px-4 py-3 font-medium">Marka / Model</th>
@@ -259,7 +259,7 @@ export default function TaleplerClient({ listings, cities, brands }: Props) {
                 const dupReasons = getDuplicateReasons(l, listings)
                 const isDup = dupReasons.length > 0
                 return (
-                  <tr key={l.id} className={`hover:bg-navy-800 transition-colors ${isDup ? 'bg-yellow-900/20' : 'bg-navy-900'}`}>
+                  <tr key={l.id} className={`hover:bg-[#334155] transition-colors ${isDup ? 'bg-yellow-900/20' : 'bg-[#1E293B]'}`}>
                     <td className="px-4 py-3 text-gray-400 whitespace-nowrap">
                       {new Date(l.created_at).toLocaleDateString('tr-TR')}
                     </td>

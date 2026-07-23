@@ -63,7 +63,7 @@ export default function ReferanslarPage() {
       <p className="text-gray-400 text-sm mb-8">Sitede gösterilen müşteri yorumlarını yönetin.</p>
 
       {/* Form */}
-      <div className="bg-navy-900 border border-navy-700 rounded-xl p-6 mb-8">
+      <div className="bg-[#1E293B] border border-[#334155] rounded-xl p-6 mb-8">
         <h2 className="text-white font-semibold mb-4">{editId ? 'Referansı Düzenle' : 'Yeni Referans Ekle'}</h2>
         <div className="grid md:grid-cols-2 gap-4 mb-4">
           <div>
@@ -100,7 +100,7 @@ export default function ReferanslarPage() {
           </button>
           {editId && (
             <button onClick={() => { setForm(EMPTY); setEditId(null) }}
-              className="px-6 py-2 rounded-lg bg-navy-700 text-gray-300 hover:bg-navy-600 text-sm transition-colors">
+              className="px-6 py-2 rounded-lg bg-[#475569] text-gray-300 hover:bg-navy-600 text-sm transition-colors">
               İptal
             </button>
           )}
@@ -111,20 +111,20 @@ export default function ReferanslarPage() {
       {loading ? (
         <div className="text-gray-400 text-center py-10">Yükleniyor…</div>
       ) : items.length === 0 ? (
-        <div className="bg-navy-900 border border-navy-700 rounded-xl text-center py-10">
+        <div className="bg-[#1E293B] border border-[#334155] rounded-xl text-center py-10">
           <p className="text-gray-400">Henüz referans yok. Yukarıdan ekleyin.</p>
         </div>
       ) : (
         <div className="space-y-3">
           {items.map((item) => (
-            <div key={item.id} className="bg-navy-900 border border-navy-700 rounded-xl p-5 flex gap-4 items-start">
+            <div key={item.id} className="bg-[#1E293B] border border-[#334155] rounded-xl p-5 flex gap-4 items-start">
               <div className="w-10 h-10 bg-[#2C3E50] rounded-full flex items-center justify-center text-white font-black text-sm flex-shrink-0">
                 {item.name[0]}
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1">
                   <p className="text-white font-semibold text-sm">{item.name}</p>
-                  {!item.active && <span className="text-xs bg-navy-700 text-gray-400 px-2 py-0.5 rounded-full">Gizli</span>}
+                  {!item.active && <span className="text-xs bg-[#475569] text-gray-400 px-2 py-0.5 rounded-full">Gizli</span>}
                 </div>
                 <p className="text-[#27AE60] text-xs mb-2">{item.detail}</p>
                 <p className="text-gray-300 text-sm line-clamp-2">{item.text}</p>
@@ -132,7 +132,7 @@ export default function ReferanslarPage() {
               </div>
               <div className="flex gap-2 flex-shrink-0">
                 <button onClick={() => edit(item)}
-                  className="text-xs px-3 py-1.5 bg-navy-700 text-gray-300 hover:bg-navy-600 rounded-lg transition-colors">
+                  className="text-xs px-3 py-1.5 bg-[#475569] text-gray-300 hover:bg-navy-600 rounded-lg transition-colors">
                   Düzenle
                 </button>
                 <button onClick={() => del(item.id)}

@@ -71,22 +71,22 @@ export default async function AdminDashboard() {
 
       {/* Ana istatistikler */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-        <div className="bg-navy-900 rounded-xl p-5 border border-navy-700">
+        <div className="bg-[#1E293B] rounded-xl p-5 border border-[#334155]">
           <p className="text-4xl font-black text-white">{total}</p>
           <p className="text-gray-400 text-xs mt-1">Toplam Talep</p>
           <p className="text-[#E67E22] text-xs mt-2 font-semibold">+{bugun} bugün</p>
         </div>
-        <div className="bg-navy-900 rounded-xl p-5 border border-navy-700">
+        <div className="bg-[#1E293B] rounded-xl p-5 border border-[#334155]">
           <p className="text-4xl font-black text-yellow-400">{bekliyor}</p>
           <p className="text-gray-400 text-xs mt-1">Bekliyor</p>
           <p className="text-gray-500 text-xs mt-2">İşlem bekleyen</p>
         </div>
-        <div className="bg-navy-900 rounded-xl p-5 border border-navy-700">
+        <div className="bg-[#1E293B] rounded-xl p-5 border border-[#334155]">
           <p className="text-4xl font-black text-green-400">{kabul}</p>
           <p className="text-gray-400 text-xs mt-1">Kabul Edildi</p>
           <p className="text-gray-500 text-xs mt-2">{kabulOrani}% kabul oranı</p>
         </div>
-        <div className="bg-navy-900 rounded-xl p-5 border border-navy-700">
+        <div className="bg-[#1E293B] rounded-xl p-5 border border-[#334155]">
           <p className="text-4xl font-black text-[#E67E22]">{donusumOrani}%</p>
           <p className="text-gray-400 text-xs mt-1">Dönüşüm Oranı</p>
           <p className="text-gray-500 text-xs mt-2">Teklif → Kabul</p>
@@ -97,7 +97,7 @@ export default async function AdminDashboard() {
       <div className="grid lg:grid-cols-2 gap-4 mb-6">
 
         {/* Durum dağılımı */}
-        <div className="bg-navy-900 rounded-xl p-5 border border-navy-700">
+        <div className="bg-[#1E293B] rounded-xl p-5 border border-[#334155]">
           <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">Durum Dağılımı</h2>
           <div className="space-y-3">
             {[
@@ -112,7 +112,7 @@ export default async function AdminDashboard() {
                   <span className="text-gray-400">{label}</span>
                   <span className={`font-bold ${textColor}`}>{value}</span>
                 </div>
-                <div className="h-1.5 bg-navy-700 rounded-full">
+                <div className="h-1.5 bg-[#475569] rounded-full">
                   <div
                     className={`h-1.5 rounded-full ${color}`}
                     style={{ width: total > 0 ? `${(value / total) * 100}%` : '0%' }}
@@ -124,7 +124,7 @@ export default async function AdminDashboard() {
         </div>
 
         {/* Son 30 gün trend */}
-        <div className="bg-navy-900 rounded-xl p-5 border border-navy-700">
+        <div className="bg-[#1E293B] rounded-xl p-5 border border-[#334155]">
           <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">Son 30 Gün Trendi</h2>
           <div className="flex items-end justify-center mb-4">
             <Sparkline data={son30Gun} color="#E67E22" />
@@ -151,7 +151,7 @@ export default async function AdminDashboard() {
           <Link
             key={s.href}
             href={s.href}
-            className="bg-navy-900 border border-navy-700 rounded-xl p-5 hover:border-[#E67E22] transition-colors group"
+            className="bg-[#1E293B] border border-[#334155] rounded-xl p-5 hover:border-[#E67E22] transition-colors group"
           >
             <div className="text-3xl mb-3">{s.icon}</div>
             <p className="text-white font-semibold text-sm group-hover:text-[#E67E22] transition-colors">{s.label}</p>
