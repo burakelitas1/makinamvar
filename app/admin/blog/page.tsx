@@ -26,12 +26,21 @@ function slugify(text: string) {
 
 const EMPTY = { title: '', slug: '', content: '', cover_image: '', category: '', author_name: '', published: false }
 
+async function uploadCoverImage(file: File): Promise<string> {
+  const fd = new FormData()
+  fd.append('file', file)
+  const res = await fetch('/api/upload', { method: 'POST', body: fd })
+  if (!res.ok) throw new Error((await res.json()).error ?? 'Yükleme hatası')
+  return (await res.json()).url
+}
+
 export default function BlogAdminPage() {
   const [posts, setPosts] = useState<Post[]>([])
   const [loading, setLoading] = useState(true)
   const [form, setForm] = useState(EMPTY)
   const [editId, setEditId] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
+  const [uploading, setUploading] = useState(false)
   const [msg, setMsg] = useState('')
 
   async function load() {
@@ -107,9 +116,34 @@ export default function BlogAdminPage() {
               onChange={(e) => setForm({ ...form, author_name: e.target.value })} />
           </div>
           <div className="md:col-span-2">
-            <label className="label">Kapak Görseli URL</label>
-            <input className="input-field" placeholder="https://..." value={form.cover_image}
-              onChange={(e) => setForm({ ...form, cover_image: e.target.value })} />
+            <label className="label">Kapak Görseli</label>
+            <div className="flex gap-2 items-start">
+              <input className="input-field flex-1" placeholder="https://... (URL) veya aşağıdan yükle" value={form.cover_image}
+                onChange={(e) => setForm({ ...form, cover_image: e.target.value })} />
+              <label className={`flex-shrink-0 cursor-pointer px-4 py-2 rounded-lg border border-[#E2E8F0] text-sm text-[#475569] hover:bg-[#F1F5F9] transition-colors ${uploading ? 'opacity-50 pointer-events-none' : ''}`}>
+                {uploading ? 'Yükleniyor…' : 'Görsel Yükle'}
+                <input type="file" accept="image/*" className="hidden" onChange={async (e) => {
+                  const file = e.target.files?.[0]
+                  if (!file) return
+                  setUploading(true)
+                  try {
+                    const url = await uploadCoverImage(file)
+                    setForm((f) => ({ ...f, cover_image: url }))
+                  } catch (err: unknown) {
+                    setMsg(err instanceof Error ? err.message : 'Yükleme hatası')
+                  } finally {
+                    setUploading(false)
+                    e.target.value = ''
+                  }
+                }} />
+              </label>
+            </div>
+            {form.cover_image && (
+              <div className="mt-2 relative w-full h-32 rounded-lg overflow-hidden border border-[#E2E8F0] bg-[#F8FAFC]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={form.cover_image} alt="Kapak önizleme" className="w-full h-full object-cover" />
+              </div>
+            )}
           </div>
         </div>
         <div className="mb-4">
