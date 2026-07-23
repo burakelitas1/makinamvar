@@ -1,9 +1,17 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import type { Metadata } from 'next'
 import FaqSection from '@/components/FaqSection'
 import ScrollReveal from '@/components/ScrollReveal'
+import CtaTrack from '@/components/CtaTrack'
 import { createServiceClient } from '@/lib/supabase-server'
 import { ArrowRight, CheckCircle, Star } from 'lucide-react'
+
+export const metadata: Metadata = {
+  title: 'İkinci El Sac İşleme Makinesi Sat — 24 Saatte Nakit Teklif | Trink Makina',
+  description: 'Abkant pres, giyotin makas, lazer kesim makinenizi kolayca satın. Ücretsiz değerlendirme, 24 saat içinde nakit teklif. Söküm ve nakliye tamamen bizden. Türkiye geneli hizmet.',
+  alternates: { canonical: 'https://trinkmakina.com' },
+}
 
 export const revalidate = 3600
 export const dynamic = 'force-dynamic'
@@ -123,10 +131,10 @@ export default async function HomePage() {
                   Makinenizin bilgilerini paylaşın. Uzman ekibimiz değerlendirsin ve 24 saat içinde satın alma teklifinizi hazırlasın. Teklifi kabul edip etmemek tamamen size ait.
                 </p>
                 <div className="flex flex-col sm:flex-row items-start gap-4">
-                  <Link href="/sat" className="inline-flex items-center gap-2 bg-[#3B5BDB] hover:bg-[#2F4AC7] hover:-translate-y-0.5 text-white font-bold px-8 h-[56px] rounded-[16px] text-[16px] transition-all duration-200">
+                  <CtaTrack href="/sat" className="inline-flex items-center gap-2 bg-[#3B5BDB] hover:bg-[#2F4AC7] hover:-translate-y-0.5 text-white font-bold px-8 h-[56px] rounded-[16px] text-[16px] transition-all duration-200">
                     Ücretsiz Teklif Al
                     <ArrowRight className="w-4 h-4" strokeWidth={2} />
-                  </Link>
+                  </CtaTrack>
                   <a href="#nasil-calisir" className="inline-flex items-center gap-2 text-[#475569] hover:text-[#0F172A] font-medium px-8 h-[56px] rounded-[16px] text-[16px] transition-colors border border-[#E2E8F0] hover:border-[#CBD5E1]">
                     Nasıl Çalışır?
                   </a>
@@ -155,6 +163,7 @@ export default async function HomePage() {
                 alt="Abkant pres teknik çizim"
                 width={520}
                 height={520}
+                sizes="(max-width: 1024px) 0px, 480px"
                 className="w-full max-w-[480px] h-auto"
                 priority
               />
@@ -206,7 +215,7 @@ export default async function HomePage() {
               <ScrollReveal key={title} direction="up" delay={i * 80}>
                 <div className="bg-white border border-[#E2E8F0] rounded-[20px] p-8 hover:-translate-y-1 hover:shadow-md hover:border-[#3B5BDB]/30 transition-all duration-300 flex flex-col h-full group">
                   <div className="w-14 h-14 mb-6 flex-shrink-0 transition-transform duration-300 group-hover:scale-110">
-                    <Image src={img} alt={title} width={56} height={56} className="w-full h-full object-contain" />
+                    <Image src={img} alt={title} width={56} height={56} sizes="56px" className="w-full h-full object-contain" />
                   </div>
                   <h3 className="font-semibold text-[#0F172A] mb-3 text-[16px] leading-snug">{title}</h3>
                   <p className="text-[14px] text-[#475569] leading-[22px] mt-auto">{desc}</p>
@@ -243,10 +252,10 @@ export default async function HomePage() {
                 ))}
               </div>
               <ScrollReveal direction="up" delay={100}>
-                <Link href="/sat" className="inline-flex items-center gap-2 bg-[#3B5BDB] hover:bg-[#2F4AC7] hover:-translate-y-0.5 text-white font-bold px-8 h-[56px] rounded-[16px] text-[16px] transition-all duration-200">
+                <CtaTrack href="/sat" className="inline-flex items-center gap-2 bg-[#3B5BDB] hover:bg-[#2F4AC7] hover:-translate-y-0.5 text-white font-bold px-8 h-[56px] rounded-[16px] text-[16px] transition-all duration-200">
                   Ücretsiz Teklif Al
                   <ArrowRight className="w-4 h-4" strokeWidth={2} />
-                </Link>
+                </CtaTrack>
               </ScrollReveal>
             </div>
 
@@ -258,6 +267,7 @@ export default async function HomePage() {
                   alt="Abkant pres değerlendirme süreci"
                   width={620}
                   height={480}
+                  sizes="(max-width: 1024px) 0px, 620px"
                   className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                 />
                 {/* Varsayılan koyu gradient */}
@@ -425,10 +435,10 @@ export default async function HomePage() {
             <p className="text-[18px] text-[#94A3B8] leading-[30px] mb-10 max-w-md">
               Ücretsiz formu tamamlayın. Teklifinizi görün, kararınızı daha sonra verin.
             </p>
-            <Link href="/sat" className="inline-flex items-center gap-2 bg-[#3B5BDB] hover:bg-[#2F4AC7] hover:-translate-y-0.5 text-white font-bold px-8 h-[56px] rounded-[16px] text-[16px] transition-all duration-200">
+            <CtaTrack href="/sat" className="inline-flex items-center gap-2 bg-[#3B5BDB] hover:bg-[#2F4AC7] hover:-translate-y-0.5 text-white font-bold px-8 h-[56px] rounded-[16px] text-[16px] transition-all duration-200">
               Ücretsiz Teklif Al
               <ArrowRight className="w-4 h-4" strokeWidth={2} />
-            </Link>
+            </CtaTrack>
           </ScrollReveal>
         </div>
       </section>

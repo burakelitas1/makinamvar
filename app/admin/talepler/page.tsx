@@ -1,3 +1,5 @@
+export const metadata = { robots: { index: false, follow: false } }
+
 import { createServiceClient } from '@/lib/supabase-server'
 import type { Listing } from '@/lib/types'
 import ExportButton from '@/components/ExportButton'

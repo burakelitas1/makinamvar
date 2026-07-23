@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -68,6 +68,28 @@ export default function SatPage() {
   const [error, setError] = useState('')
   const [kvkk, setKvkk] = useState(false)
   const [kullanim, setKullanim] = useState(false)
+  const hasStartedRef = useRef(false)
+
+  function dlPush(event: string, extra?: Record<string, unknown>) {
+    const w = window as Window & { dataLayer?: object[] }
+    if (Array.isArray(w.dataLayer)) w.dataLayer.push({ event, ...extra })
+  }
+
+  function handleFormFocus() {
+    if (!hasStartedRef.current) {
+      hasStartedRef.current = true
+      dlPush('form_start')
+    }
+  }
+
+  function handleSubmitClick() {
+    dlPush('form_submit')
+  }
+
+  function setErrorTracked(msg: string) {
+    if (msg) dlPush('form_error', { error_message: msg })
+    setError(msg)
+  }
 
   const {
     register,
@@ -118,11 +140,11 @@ export default function SatPage() {
 
   async function onSubmit(data: FormData) {
     if (photos.length === 0) {
-      setError('En az 1 fotoğraf yüklemeniz gerekmektedir.')
+      setErrorTracked('En az 1 fotoğraf yüklemeniz gerekmektedir.')
       return
     }
     if (!kvkk || !kullanim) {
-      setError('Devam etmek için onay kutucuklarını işaretlemeniz gerekmektedir.')
+      setErrorTracked('Devam etmek için onay kutucuklarını işaretlemeniz gerekmektedir.')
       return
     }
     setSubmitting(true)
@@ -154,7 +176,7 @@ export default function SatPage() {
 
       const needsCapacity = !isAbkant && !isGiyotin && !isSilindir && !isBoruBukum && !isTestere && !isDigerMakine
       if (needsCapacity && !data.capacity) {
-        setError('Tonaj / Kapasite giriniz')
+        setErrorTracked('Tonaj / Kapasite giriniz')
         setSubmitting(false)
         return
       }
@@ -164,7 +186,7 @@ export default function SatPage() {
         : data.brand_select === 'diger' ? (data.brand_other || 'Diğer') : (data.brand_select || '')
 
       if (!resolvedBrand) {
-        setError('Marka giriniz')
+        setErrorTracked('Marka giriniz')
         setSubmitting(false)
         return
       }
@@ -183,9 +205,10 @@ export default function SatPage() {
         throw new Error(j.error ?? 'Bir hata oluştu')
       }
 
+      dlPush('form_success')
       router.push('/tesekkurler')
     } catch (e: unknown) {
-      setError(e instanceof Error ? e.message : 'Bir hata oluştu, lütfen tekrar deneyin.')
+      setErrorTracked(e instanceof Error ? e.message : 'Bir hata oluştu, lütfen tekrar deneyin.')
       setSubmitting(false)
     }
   }
@@ -223,7 +246,7 @@ export default function SatPage() {
           ))}
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        <form onSubmit={handleSubmit(onSubmit)} onFocus={handleFormFocus} className="space-y-6">
 
           {/* Makine Bilgileri */}
           <div className="card">
@@ -682,7 +705,7 @@ export default function SatPage() {
             Teklif almak taahhüt oluşturmaz. Karar tamamen size aittir.
           </p>
 
-          <button type="submit" disabled={submitting} className="btn-primary w-full text-base py-4 rounded-xl">
+          <button type="submit" disabled={submitting} onClick={handleSubmitClick} className="btn-primary w-full text-base py-4 rounded-xl">
             {submitting ? (
               <span className="flex items-center justify-center gap-2">
                 <svg className="animate-spin w-5 h-5" viewBox="0 0 24 24" fill="none">

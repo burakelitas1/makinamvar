@@ -1,6 +1,7 @@
 import { createServiceClient } from '@/lib/supabase-server'
 import Link from 'next/link'
 
+export const metadata = { robots: { index: false, follow: false } }
 export const revalidate = 0
 
 function Sparkline({ data, color }: { data: number[]; color: string }) {

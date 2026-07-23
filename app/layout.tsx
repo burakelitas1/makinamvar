@@ -84,36 +84,7 @@ const ORG_SCHEMA = {
       },
       image: `${SITE_URL}/logo-horizontal.svg`,
       description: 'Türkiye genelinde ikinci el sac işleme makinesi alan platform. Abkant pres, giyotin makas, lazer kesim ve daha fazlası için nakit teklif.',
-      telephone: '+908501234567',
-      email: 'info@trinkmakina.com',
-      priceRange: 'Ücretsiz Değerlendirme',
-      address: {
-        '@type': 'PostalAddress',
-        streetAddress: 'Örnek Mah. Sanayi Cad. No:1',
-        addressLocality: 'Ataşehir',
-        addressRegion: 'İstanbul',
-        postalCode: '34758',
-        addressCountry: 'TR',
-      },
-      geo: {
-        '@type': 'GeoCoordinates',
-        latitude: 40.9923,
-        longitude: 29.1244,
-      },
       areaServed: { '@type': 'Country', name: 'Turkey' },
-      openingHoursSpecification: {
-        '@type': 'OpeningHoursSpecification',
-        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-        opens: '10:00',
-        closes: '17:00',
-      },
-      aggregateRating: {
-        '@type': 'AggregateRating',
-        ratingValue: '4.9',
-        reviewCount: '850',
-        bestRating: '5',
-        worstRating: '1',
-      },
       sameAs: [],
     },
     {
@@ -153,7 +124,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(ORG_SCHEMA) }}
         />
       </head>
-      <body className={`${manrope.variable} min-h-screen bg-white font-sans`}>
+      <body className={`${manrope.variable} min-h-screen bg-white font-sans overflow-x-hidden`}>
         {process.env.NEXT_PUBLIC_GTM_ID && (
           <noscript>
             <iframe
