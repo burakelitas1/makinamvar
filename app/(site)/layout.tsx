@@ -17,6 +17,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
           <nav className="hidden lg:flex items-center gap-8 text-[14px] font-medium text-[#475569]">
             <a href="#nasil-calisir" className="hover:text-[#0F172A] transition-colors">Nasıl Çalışır</a>
             <a href="#sss" className="hover:text-[#0F172A] transition-colors">SSS</a>
+            <a href="/blog" className="hover:text-[#0F172A] transition-colors">Blog</a>
           </nav>
           <a
             href="/sat"

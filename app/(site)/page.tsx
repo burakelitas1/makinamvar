@@ -69,19 +69,22 @@ export default async function HomePage() {
   let testimonials: { id: string; name: string; detail: string; text: string; date: string }[] | null = null
   let soldCount: number | null = null
   let totalCount: number | null = null
+  let recentPosts: { id: string; title: string; slug: string; cover_image: string | null; category: string | null; published_at: string | null; content: string }[] = []
 
   try {
     const supabase = createServiceClient()
-    const [faqsRes, testimonialsRes, soldRes, totalRes] = await Promise.all([
+    const [faqsRes, testimonialsRes, soldRes, totalRes, postsRes] = await Promise.all([
       supabase.from('faqs').select('question,answer').eq('active', true).order('order_num'),
       supabase.from('testimonials').select('*').eq('active', true).order('date', { ascending: false }).limit(6),
       supabase.from('listings').select('*', { count: 'exact', head: true }).eq('status', 'satildi'),
       supabase.from('listings').select('*', { count: 'exact', head: true }),
+      supabase.from('posts').select('id,title,slug,cover_image,category,published_at,content').eq('published', true).order('published_at', { ascending: false }).limit(3),
     ])
     dbFaqs = faqsRes.data
     testimonials = testimonialsRes.data
     soldCount = soldRes.count
     totalCount = totalRes.count
+    recentPosts = postsRes.data ?? []
   } catch {
     // Supabase unavailable — fall through to defaults below
   }
@@ -418,6 +421,63 @@ export default async function HomePage() {
           </ScrollReveal>
         </div>
       </section>
+
+      {/* ── BLOG ─────────────────────────────────────────────── */}
+      {recentPosts.length > 0 && (
+        <section className="py-[80px] bg-[#F8FAFC]">
+          <div className="max-w-[1280px] mx-auto px-6">
+            <ScrollReveal direction="up">
+              <div className="flex items-end justify-between mb-10">
+                <div>
+                  <p className="text-[12px] font-semibold text-[#3B5BDB] uppercase tracking-wider mb-2">Blog</p>
+                  <h2 className="text-[36px] font-bold text-[#0F172A] leading-tight">Uzman Rehberleri</h2>
+                </div>
+                <Link href="/blog" className="hidden sm:inline-flex items-center gap-1.5 text-[#3B5BDB] hover:text-[#2F4AC7] font-semibold text-[14px] transition-colors">
+                  Tüm yazılar
+                  <ArrowRight className="w-4 h-4" strokeWidth={2} />
+                </Link>
+              </div>
+            </ScrollReveal>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {recentPosts.map((post, i) => (
+                <ScrollReveal key={post.id} direction="up" delay={i * 80}>
+                  <Link href={`/blog/${post.slug}`}
+                    className="group flex flex-col bg-white border border-[#E2E8F0] rounded-[20px] overflow-hidden hover:-translate-y-1 hover:shadow-md hover:border-[#3B5BDB]/30 transition-all duration-300 h-full">
+                    {post.cover_image ? (
+                      <div className="relative h-44 bg-[#F8FAFC] overflow-hidden">
+                        <Image src={post.cover_image} alt={post.title} fill className="object-cover group-hover:scale-105 transition-transform duration-300" />
+                      </div>
+                    ) : (
+                      <div className="h-44 bg-gradient-to-br from-[#3B5BDB]/10 to-[#3B5BDB]/5 flex items-center justify-center">
+                        <span className="text-[48px] opacity-20">📰</span>
+                      </div>
+                    )}
+                    <div className="flex flex-col flex-1 p-6">
+                      {post.category && (
+                        <span className="text-[11px] font-semibold text-[#3B5BDB] uppercase tracking-wider mb-2">{post.category}</span>
+                      )}
+                      <h3 className="font-bold text-[#0F172A] text-[16px] leading-snug mb-3 flex-1">{post.title}</h3>
+                      <p className="text-[#475569] text-[13px] line-clamp-2 mb-4">
+                        {post.content.replace(/#+\s/g, '').slice(0, 100)}…
+                      </p>
+                      {post.published_at && (
+                        <p className="text-[12px] text-[#94A3B8] mt-auto">
+                          {new Date(post.published_at).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' })}
+                        </p>
+                      )}
+                    </div>
+                  </Link>
+                </ScrollReveal>
+              ))}
+            </div>
+            <div className="mt-8 text-center sm:hidden">
+              <Link href="/blog" className="inline-flex items-center gap-1.5 text-[#3B5BDB] font-semibold text-[14px]">
+                Tüm yazılar <ArrowRight className="w-4 h-4" strokeWidth={2} />
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ── ALT CTA ──────────────────────────────────────────── */}
       <section className="relative bg-[#0F172A] py-[80px] overflow-hidden">
