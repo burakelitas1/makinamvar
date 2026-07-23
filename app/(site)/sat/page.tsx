@@ -589,7 +589,7 @@ export default function SatPage() {
                 <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#3B5BDB] flex-shrink-0" />Makine etiketi veya plakası</li>
               </ul>
             </div>
-            <PhotoUpload onFilesChange={setPhotos} maxFiles={5} />
+            <PhotoUpload onFilesChange={setPhotos} maxFiles={6} />
           </div>
 
           {/* Konum & İletişim */}
