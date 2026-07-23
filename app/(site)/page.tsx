@@ -37,6 +37,12 @@ const COMPARE_ROWS = [
   { label: 'Karar',               onur: 'İlan süreci başlar',   us: 'Teklif almak taahhüt oluşturmaz' },
 ]
 
+const DEFAULT_TESTIMONIALS = [
+  { id: '1', name: 'Mehmet K.', detail: 'Bursa OSB | 2018 Model Abkant Pres', text: 'Makineyi satmayı düşünüyordum ama nereden başlayacağımı bilemedim. Trink ile çok hızlı ilgilendiler, 24 saatten kısa sürede teklif geldi. Fiyattan memnun kaldım.', date: 'Mart 2025' },
+  { id: '2', name: 'Ali R.',    detail: 'İzmir | Giyotin Makas',              text: 'Eskiden böyle bir hizmet yoktu. İlanla uğraşmak yerine direkt teklif almak çok daha pratik. Lojistiği de kendileri halletti, hiç uğraşmadım.', date: 'Ocak 2025' },
+  { id: '3', name: 'Hasan T.', detail: 'Konya | Silindir Makinesi',           text: 'Teklifi aldıktan sonra kabul etmek zorunda değilsiniz diyorlar, bu güveni çok beğendim. Sonunda anlaştık ve ödeme anında yapıldı.', date: 'Şubat 2025' },
+]
+
 const DEFAULT_FAQS = [
   { question: 'Teklif almak ücretli mi?', answer: 'Hayır. Değerlendirme ve teklif alma süreci tamamen ücretsizdir. Satış gerçekleşmeden herhangi bir ücret alınmaz.' },
   { question: 'Teklif alınca makinemi satmak zorunda mıyım?', answer: 'Hayır. Teklif almak herhangi bir yükümlülük doğurmaz. Teklifi inceleme, kabul etme, reddetme veya karşı teklif verme kararı tamamen size aittir.' },
@@ -65,6 +71,7 @@ export default async function HomePage() {
   ])
 
   const faqs = (dbFaqs && dbFaqs.length > 0) ? dbFaqs : DEFAULT_FAQS
+  const displayTestimonials = (testimonials && testimonials.length > 0) ? testimonials : DEFAULT_TESTIMONIALS
 
   const faqSchema = {
     '@context': 'https://schema.org',
@@ -312,45 +319,43 @@ export default async function HomePage() {
       </section>
 
       {/* ── MÜŞTERİ YORUMLARI ────────────────────────────────── */}
-      {testimonials && testimonials.length > 0 && (
-        <section className="bg-white py-[96px]">
-          <div className="max-w-[1280px] mx-auto px-6">
-            <ScrollReveal direction="up">
-              <div className="mb-14">
-                <h2 className="text-[42px] font-bold text-[#0F172A] leading-[50px] mb-4">Müşterilerimiz Ne Diyor?</h2>
-                <p className="text-[18px] text-[#475569] leading-[30px]">Trink ile çalışan makine sahiplerinin deneyimleri.</p>
-              </div>
-            </ScrollReveal>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {testimonials.map((t: { id: string; name: string; detail: string; text: string; date: string }, i: number) => (
-                <ScrollReveal key={t.id} direction="up" delay={i * 70}>
-                  <div className="bg-[#F8FAFC] border border-[#E2E8F0] rounded-[20px] p-8 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-300 flex flex-col h-full">
-                    <div className="flex gap-0.5 mb-5">
-                      {Array.from({ length: 5 }).map((_, s) => (
-                        <Star key={s} className="w-4 h-4 text-[#F59E0B] fill-[#F59E0B]" />
-                      ))}
+      <section className="bg-white py-[96px]">
+        <div className="max-w-[1280px] mx-auto px-6">
+          <ScrollReveal direction="up">
+            <div className="mb-14">
+              <h2 className="text-[42px] font-bold text-[#0F172A] leading-[50px] mb-4">Müşterilerimiz Ne Diyor?</h2>
+              <p className="text-[18px] text-[#475569] leading-[30px]">Trink ile çalışan makine sahiplerinin deneyimleri.</p>
+            </div>
+          </ScrollReveal>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {displayTestimonials.map((t: { id: string; name: string; detail: string; text: string; date: string }, i: number) => (
+              <ScrollReveal key={t.id} direction="up" delay={i * 70}>
+                <div className="bg-[#F8FAFC] border border-[#E2E8F0] rounded-[20px] p-8 hover:-translate-y-0.5 hover:shadow-sm transition-all duration-300 flex flex-col h-full">
+                  <div className="flex gap-0.5 mb-5">
+                    {Array.from({ length: 5 }).map((_, s) => (
+                      <Star key={s} className="w-4 h-4 text-[#F59E0B] fill-[#F59E0B]" />
+                    ))}
+                  </div>
+                  <p className="text-[15px] text-[#475569] leading-[26px] flex-1 mb-6 italic">&ldquo;{t.text}&rdquo;</p>
+                  <div className="flex items-center gap-3 mt-auto">
+                    <div className="w-9 h-9 rounded-full bg-[#3B5BDB]/10 flex items-center justify-center text-[#3B5BDB] font-bold text-sm flex-shrink-0">
+                      {t.name[0]}
                     </div>
-                    <p className="text-[15px] text-[#475569] leading-[26px] flex-1 mb-6 italic">&ldquo;{t.text}&rdquo;</p>
-                    <div className="flex items-center gap-3 mt-auto">
-                      <div className="w-9 h-9 rounded-full bg-[#3B5BDB]/10 flex items-center justify-center text-[#3B5BDB] font-bold text-sm flex-shrink-0">
-                        {t.name[0]}
-                      </div>
-                      <div>
-                        <p className="font-semibold text-[#0F172A] text-[14px]">{t.name}</p>
-                        {t.detail && <p className="text-[#22C55E] text-[12px]">{t.detail}</p>}
-                        {t.date && <p className="text-[#94A3B8] text-[11px]">{t.date}</p>}
-                      </div>
+                    <div>
+                      <p className="font-semibold text-[#0F172A] text-[14px]">{t.name}</p>
+                      {t.detail && <p className="text-[#22C55E] text-[12px]">{t.detail}</p>}
+                      {t.date && <p className="text-[#94A3B8] text-[11px]">{t.date}</p>}
                     </div>
                   </div>
-                </ScrollReveal>
-              ))}
-            </div>
+                </div>
+              </ScrollReveal>
+            ))}
           </div>
-        </section>
-      )}
+        </div>
+      </section>
 
       {/* ── KARŞILAŞTIRMA ────────────────────────────────────── */}
-      <section className={`py-[96px] ${testimonials && testimonials.length > 0 ? 'bg-[#F8FAFC]' : 'bg-white'}`}>
+      <section className="py-[96px] bg-[#F8FAFC]">
         <div className="max-w-[1280px] mx-auto px-6">
           <ScrollReveal direction="up">
             <div className="mb-12">
@@ -380,7 +385,7 @@ export default async function HomePage() {
       </section>
 
       {/* ── SSS ──────────────────────────────────────────────── */}
-      <section id="sss" className={`py-[96px] ${testimonials && testimonials.length > 0 ? 'bg-white' : 'bg-[#F8FAFC]'}`}>
+      <section id="sss" className="py-[96px] bg-white">
         <div className="max-w-[1280px] mx-auto px-6">
           <ScrollReveal direction="up">
             <div className="mb-14 text-center">
