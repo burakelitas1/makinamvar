@@ -40,4 +40,4 @@ const nextConfig = {
 }
 
 module.exports = nextConfig
-// cache-bust: 1
+// cache-bust: 2
