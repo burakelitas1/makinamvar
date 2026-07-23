@@ -31,14 +31,15 @@ export default async function BlogPage() {
   let posts: Post[] = []
   try {
     const supabase = createServiceClient()
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from('posts')
       .select('id,title,slug,cover_image,category,author_name,published_at,content')
       .eq('published', true)
-      .order('created_at', { ascending: false })
+      .order('published_at', { ascending: false, nullsFirst: false })
+    if (error) console.error('Blog fetch error:', error)
     posts = data ?? []
-  } catch {
-    // fall through to empty state
+  } catch (e) {
+    console.error('Blog page error:', e)
   }
 
   return (
