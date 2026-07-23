@@ -102,7 +102,7 @@ export default async function HomePage() {
                   Sac İşleme Makinelerine Ücretsiz Teklif
                 </div>
                 <h1 className="text-[40px] sm:text-[56px] font-extrabold text-[#0F172A] leading-[46px] sm:leading-[64px] tracking-tight mb-5">
-                  Makineniz İçin Teklifinizi Öğrenin.
+                  Makinanızın Güncel Değerini Öğrenin.
                 </h1>
                 <p className="text-[18px] text-[#475569] leading-[30px] mb-10 max-w-[480px]">
                   Makinenizin bilgilerini paylaşın. Uzman ekibimiz değerlendirsin ve 24 saat içinde satın alma teklifinizi hazırlasın. Teklifi kabul edip etmemek tamamen size ait.
@@ -375,7 +375,7 @@ export default async function HomePage() {
         <div className="relative max-w-[1280px] mx-auto px-6">
           <ScrollReveal direction="up">
             <h2 className="text-[42px] font-bold text-white leading-[50px] mb-5 max-w-xl">
-              Makineniz İçin Teklifinizi Öğrenin.
+              Makinanızın Güncel Değerini Öğrenin.
             </h2>
             <p className="text-[18px] text-[#94A3B8] leading-[30px] mb-10 max-w-md">
               Ücretsiz formu tamamlayın. Teklifinizi görün, kararınızı daha sonra verin.
