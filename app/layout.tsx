@@ -1,10 +1,18 @@
 import type { Metadata, Viewport } from 'next'
+import { Manrope } from 'next/font/google'
 import './globals.css'
+
+const manrope = Manrope({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700', '800'],
+  variable: '--font-manrope',
+  display: 'swap',
+})
 
 const SITE_URL = 'https://trinkmakina.com'
 
 export const viewport: Viewport = {
-  themeColor: '#E67E22',
+  themeColor: '#3B5BDB',
   width: 'device-width',
   initialScale: 1,
 }
@@ -135,7 +143,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(ORG_SCHEMA) }}
         />
       </head>
-      <body className="min-h-screen bg-white">
+      <body className={`${manrope.variable} min-h-screen bg-white font-sans`}>
         {children}
       </body>
     </html>

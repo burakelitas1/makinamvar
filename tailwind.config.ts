@@ -24,7 +24,37 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-manrope)', 'Inter', 'system-ui', 'sans-serif'],
+      },
+      fontSize: {
+        'hero-xl': ['64px', { lineHeight: '72px', fontWeight: '800' }],
+        'hero-mobile': ['40px', { lineHeight: '46px', fontWeight: '800' }],
+        'h1': ['56px', { lineHeight: '64px', fontWeight: '700' }],
+        'h2': ['42px', { lineHeight: '50px', fontWeight: '700' }],
+        'h3': ['32px', { lineHeight: '40px', fontWeight: '600' }],
+        'h4': ['24px', { lineHeight: '32px', fontWeight: '600' }],
+        'h5': ['20px', { lineHeight: '28px', fontWeight: '600' }],
+        'body-lg': ['18px', { lineHeight: '30px', fontWeight: '400' }],
+        'body': ['16px', { lineHeight: '28px', fontWeight: '400' }],
+        'small': ['14px', { lineHeight: '22px', fontWeight: '400' }],
+        'caption': ['12px', { lineHeight: '18px', fontWeight: '400' }],
+      },
+      maxWidth: {
+        'container': '1280px',
+      },
+      borderRadius: {
+        'card': '20px',
+        'input': '16px',
+        'btn': '16px',
+      },
+      spacing: {
+        'section': '120px',
+        'section-tablet': '80px',
+        'section-mobile': '64px',
+      },
+      height: {
+        'input': '56px',
+        'btn': '56px',
       },
     },
   },
