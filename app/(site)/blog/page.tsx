@@ -54,8 +54,9 @@ export default async function BlogPage() {
               <Link key={post.id} href={`/blog/${post.slug}`}
                 className="group flex flex-col border border-[#E2E8F0] rounded-[20px] overflow-hidden hover:-translate-y-1 hover:shadow-md hover:border-[#3B5BDB]/30 transition-all duration-300">
                 {post.cover_image ? (
-                  <div className="relative h-48 bg-[#F8FAFC] overflow-hidden">
-                    <Image src={post.cover_image} alt={post.title} fill className="object-cover group-hover:scale-105 transition-transform duration-300" />
+                  <div className="h-48 bg-[#F8FAFC] overflow-hidden">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={post.cover_image} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                   </div>
                 ) : (
                   <div className="h-48 bg-gradient-to-br from-[#3B5BDB]/10 to-[#3B5BDB]/5 flex items-center justify-center">
