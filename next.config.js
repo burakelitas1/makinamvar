@@ -5,13 +5,13 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: '*.supabase.co',
-        pathname: '/storage/v1/object/public/**',
       },
       {
         protocol: 'https',
         hostname: 'd8j0ntlcm91z4.cloudfront.net',
       },
     ],
+    unoptimized: true,
     formats: ['image/avif', 'image/webp'],
   },
   async headers() {
