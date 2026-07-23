@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import FaqSection from '@/components/FaqSection'
 import TechnicalPattern from '@/components/TechnicalPattern'
 import {
@@ -8,7 +9,6 @@ import {
   SilindirIllustration,
   BoruBukumIllustration,
   TesterelerIllustration,
-  HeroPressbrakeIllustration,
   FinalCtaPressbrake,
 } from '@/components/MachineIllustrations'
 import { createServiceClient } from '@/lib/supabase-server'
@@ -160,21 +160,28 @@ export default async function HomePage() {
 
             {/* Right: press brake illustration (desktop only) */}
             <div className="hidden lg:flex items-center justify-center relative">
-              <HeroPressbrakeIllustration className="w-full max-w-[400px] h-auto opacity-80" />
+              <Image
+                src="/abkant-pres-blueprint.png"
+                alt="Abkant pres teknik çizim"
+                width={520}
+                height={520}
+                className="w-full max-w-[480px] h-auto"
+                priority
+              />
               {/* Floating labels */}
-              <div className="absolute top-[4%] left-[2%] flex items-center gap-2">
+              <div className="absolute top-[8%] left-[0%] flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-[#3B5BDB]" />
                 <span className="text-[11px] font-semibold text-[#3B5BDB] tracking-wider uppercase bg-white/90 rounded-full px-3 py-1 border border-[#3B5BDB]/20">
                   Makine bilgileri
                 </span>
               </div>
-              <div className="absolute top-[33%] right-0 flex items-center gap-2">
+              <div className="absolute top-[38%] right-[-4%] flex items-center gap-2">
                 <span className="text-[11px] font-semibold text-[#3B5BDB] tracking-wider uppercase bg-white/90 rounded-full px-3 py-1 border border-[#3B5BDB]/20">
                   Uzman değerlendirmesi
                 </span>
                 <div className="w-2 h-2 rounded-full bg-[#3B5BDB]" />
               </div>
-              <div className="absolute bottom-[10%] right-[2%] flex items-center gap-2">
+              <div className="absolute bottom-[8%] right-[2%] flex items-center gap-2">
                 <span className="text-[11px] font-semibold text-[#3B5BDB] tracking-wider uppercase bg-white/90 rounded-full px-3 py-1 border border-[#3B5BDB]/20">
                   Satın alma teklifi
                 </span>
