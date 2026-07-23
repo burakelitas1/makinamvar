@@ -3,6 +3,11 @@ import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { createServiceClient } from '@/lib/supabase-server'
 
+function optimizeImage(url: string, width: number, quality = 70): string {
+  if (!url.includes('supabase.co/storage/v1/object/public/')) return url
+  return url.replace('/storage/v1/object/public/', '/storage/v1/render/image/public/') + `?width=${width}&quality=${quality}&resize=cover`
+}
+
 type Post = {
   id: string
   title: string
@@ -53,7 +58,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
       {post.cover_image && (
         <div className="relative w-full h-[200px] md:h-[300px] bg-[#F8FAFC] overflow-hidden">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={post.cover_image} alt={post.title} className="w-full h-full object-cover" />
+          <img src={optimizeImage(post.cover_image, 1200, 75)} alt={post.title} className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A]/50 to-transparent" />
         </div>
       )}

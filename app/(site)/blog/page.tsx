@@ -3,6 +3,11 @@ import Image from 'next/image'
 import type { Metadata } from 'next'
 import { createServiceClient } from '@/lib/supabase-server'
 
+function optimizeImage(url: string, width: number, quality = 70): string {
+  if (!url.includes('supabase.co/storage/v1/object/public/')) return url
+  return url.replace('/storage/v1/object/public/', '/storage/v1/render/image/public/') + `?width=${width}&quality=${quality}&resize=cover`
+}
+
 export const metadata: Metadata = {
   title: 'Blog — Makine Satış Rehberi | Trink Makina',
   description: 'İkinci el sac işleme makineleri hakkında uzman rehberleri, değerleme ipuçları ve sektör haberleri. Trink Makina blogu.',
@@ -56,7 +61,7 @@ export default async function BlogPage() {
                 {post.cover_image ? (
                   <div className="h-48 bg-[#F8FAFC] overflow-hidden">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={post.cover_image} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    <img src={optimizeImage(post.cover_image, 600, 70)} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                   </div>
                 ) : (
                   <div className="h-48 bg-gradient-to-br from-[#3B5BDB]/10 to-[#3B5BDB]/5 flex items-center justify-center">
