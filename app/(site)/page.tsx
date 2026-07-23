@@ -9,6 +9,7 @@ import {
   SilindirIllustration,
   BoruBukumIllustration,
   TesterelerIllustration,
+  FinalCtaPressbrake,
 } from '@/components/MachineIllustrations'
 import { createServiceClient } from '@/lib/supabase-server'
 import {
@@ -320,13 +321,7 @@ export default async function HomePage() {
         <TechnicalPattern id="cta-pattern" color="navy" />
         {/* Large decorative press brake (right side, desktop only) */}
         <div className="hidden lg:block absolute right-8 top-1/2 -translate-y-1/2 pointer-events-none" aria-hidden="true">
-          <Image
-            src="/abkant-pres-blueprint.png"
-            alt=""
-            width={280}
-            height={280}
-            className="w-[280px] h-auto [filter:invert(1)_saturate(0)_opacity(0.18)] [mix-blend-mode:screen]"
-          />
+          <FinalCtaPressbrake className="w-[260px] h-auto opacity-[0.10]" />
         </div>
         <div className="relative max-w-[1280px] mx-auto px-6">
           <h2 className="text-[42px] font-bold text-white leading-[50px] mb-5 max-w-xl">
