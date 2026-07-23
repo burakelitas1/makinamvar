@@ -325,7 +325,7 @@ export default async function HomePage() {
             alt=""
             width={280}
             height={280}
-            className="w-[280px] h-auto opacity-[0.12] brightness-0 invert"
+            className="w-[280px] h-auto [filter:invert(1)_saturate(0)_opacity(0.18)] [mix-blend-mode:screen]"
           />
         </div>
         <div className="relative max-w-[1280px] mx-auto px-6">
