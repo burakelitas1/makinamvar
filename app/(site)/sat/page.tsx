@@ -6,14 +6,13 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
+import { CITIES } from '@/lib/cities'
 import PhotoUpload from '@/components/PhotoUpload'
-import CityDistrictSelect from '@/components/CityDistrictSelect'
 
 const schema = z.object({
-  machine_type: z.string().refine(
-    v => ['abkant','giyotin','press','silindir','boru-bukum','testere','diger'].includes(v),
-    { message: 'Makine türü seçiniz' }
-  ) as z.ZodType<'abkant'|'giyotin'|'press'|'silindir'|'boru-bukum'|'testere'|'diger'>,
+  machine_type: z.enum(['abkant', 'giyotin', 'press', 'silindir', 'boru-bukum', 'testere', 'diger'], {
+    required_error: 'Makine türü seçiniz',
+  }),
   abkant_tip: z.string().optional(),
   abkant_uzunluk: z.string().optional(),
   abkant_tonaj: z.string().optional(),
@@ -43,10 +42,9 @@ const schema = z.object({
     .min(1950, 'En az 1950')
     .max(new Date().getFullYear(), 'Geçersiz yıl'),
   capacity: z.string().optional(),
-  condition: z.string().refine(
-    v => ['calisiyor', 'arizali', 'bakim-gerekli'].includes(v),
-    { message: 'Çalışma durumu seçiniz' }
-  ) as z.ZodType<'calisiyor'|'arizali'|'bakim-gerekli'>,
+  condition: z.enum(['calisiyor', 'arizali', 'bakim-gerekli'], {
+    required_error: 'Çalışma durumu seçiniz',
+  }),
   sell_reason: z.string().min(1, 'Lütfen satış nedeninizi seçiniz'),
   location_city: z.string().min(1, 'İl seçiniz'),
   location_district: z.string().min(2, 'İlçe giriniz').max(100),
@@ -57,7 +55,6 @@ const schema = z.object({
     .regex(/^[\d\s\+\-\(\)]+$/, 'Geçerli telefon giriniz'),
   contact_email: z.string().email('Geçerli e-posta giriniz'),
   description: z.string().max(1000).optional(),
-  eksen_sayisi: z.string().optional(),
 })
 
 type FormData = z.infer<typeof schema>
@@ -76,14 +73,7 @@ export default function SatPage() {
     watch,
     setValue,
     formState: { errors },
-  } = useForm<FormData>({
-    resolver: zodResolver(schema),
-    mode: 'onBlur',
-    defaultValues: {
-      location_city: '',
-      location_district: '',
-    },
-  })
+  } = useForm<FormData>({ resolver: zodResolver(schema) })
 
   const machineType = watch('machine_type')
   const brandSelect = watch('brand_select')
@@ -95,8 +85,6 @@ export default function SatPage() {
   const isTestere = machineType === 'testere'
   const isDigerMakine = machineType === 'diger'
   const boruTipi = watch('boru_tipi')
-  const cityValue = watch('location_city') || ''
-  const districtValue = watch('location_district') || ''
 
   useEffect(() => {
     setValue('brand_select', '')
@@ -144,7 +132,6 @@ export default function SatPage() {
         tip: data.abkant_tip || null,
         uzunluk: data.abkant_uzunluk || null,
         tonaj: data.abkant_tonaj || null,
-        eksen_sayisi: data.eksen_sayisi || null,
       } : isGiyotin ? {
         tip: data.giyotin_tip || null,
         uzunluk: data.giyotin_uzunluk || null,
@@ -161,12 +148,6 @@ export default function SatPage() {
         calisma_sekli: data.boru_calisma_sekli || null,
       } : isPress ? {
         tip: data.press_tip || null,
-      } : isTestere ? {
-        mengene_acikligi: data.testere_mengene_acikligi || null,
-        makine_surucu: data.testere_makine_surucu || null,
-        aci_ayari: data.testere_aci_ayari || null,
-      } : isDigerMakine ? {
-        makine_turu: data.diger_makine_turu || null,
       } : null
 
       const needsCapacity = !isAbkant && !isGiyotin && !isSilindir && !isBoruBukum && !isTestere && !isDigerMakine
@@ -186,24 +167,13 @@ export default function SatPage() {
         return
       }
 
-      const { abkant_tip, abkant_uzunluk, abkant_tonaj, eksen_sayisi, giyotin_tip, giyotin_uzunluk, giyotin_kapasite, silindir_uzunluk, silindir_tip, silindir_max_kalinlik, silindir_calisma_sekli, boru_mil_capi, boru_tipi, boru_tipi_aciklama, boru_calisma_sekli, testere_mengene_acikligi, testere_makine_surucu, testere_aci_ayari, press_tip, diger_makine_turu, brand_select, brand_other, brand_free, brand, model, ...rest } = data
-      const resolvedModel = model || ''
-      const resolvedCapacity = isAbkant
-        ? [abkant_tonaj ? `${abkant_tonaj} ton` : '', abkant_uzunluk ? `${abkant_uzunluk} mm` : ''].filter(Boolean).join(' / ')
-        : isGiyotin
-        ? [giyotin_kapasite ? `${giyotin_kapasite} mm` : '', giyotin_uzunluk ? `${giyotin_uzunluk} mm` : ''].filter(Boolean).join(' / ')
-        : isSilindir
-        ? [silindir_uzunluk ? `${silindir_uzunluk} mm` : '', silindir_max_kalinlik ? `${silindir_max_kalinlik} mm` : ''].filter(Boolean).join(' / ')
-        : isBoruBukum
-        ? [boru_calisma_sekli || '', boru_mil_capi ? `Ø${boru_mil_capi} mm` : ''].filter(Boolean).join(' / ')
-        : isTestere
-        ? (testere_mengene_acikligi ? `Mengene ${testere_mengene_acikligi} mm` : '')
-        : (rest.capacity || '')
+      const { abkant_tip, abkant_uzunluk, abkant_tonaj, giyotin_tip, giyotin_uzunluk, giyotin_kapasite, silindir_uzunluk, silindir_tip, silindir_max_kalinlik, silindir_calisma_sekli, boru_mil_capi, boru_tipi, boru_tipi_aciklama, boru_calisma_sekli, testere_mengene_acikligi, testere_makine_surucu, testere_aci_ayari, press_tip, diger_makine_turu, brand_select, brand_other, brand_free, brand, model, ...rest } = data
+      const resolvedModel = isPress ? '' : (model || '')
 
       const res = await fetch('/api/listings', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...rest, brand: resolvedBrand, model: resolvedModel, capacity: resolvedCapacity, notes: rest.description || null, photos: photoUrls, extra_fields }),
+        body: JSON.stringify({ ...rest, brand: resolvedBrand, model: resolvedModel, photos: photoUrls, extra_fields }),
       })
 
       if (!res.ok) {
@@ -221,11 +191,11 @@ export default function SatPage() {
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Sayfa başlığı */}
-      <div className="bg-gradient-to-r from-[#2C3E50] to-[#34495e] py-10">
+      <div className="bg-[#0F172A] py-10">
         <div className="max-w-2xl mx-auto px-4 text-center">
-          <h1 className="text-2xl sm:text-3xl font-black text-white mb-2">Makineni Sat</h1>
-          <p className="text-blue-100 text-sm sm:text-base">
-            Bilgileri doldur, 24 saat içinde SMS ve mail ile teklif al
+          <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">Ücretsiz Değerlendirme Talebi</h1>
+          <p className="text-[#94A3B8] text-sm sm:text-base">
+            Makinenizi tanıtın. 24 saat içinde size özel satın alma teklifi iletilir.
           </p>
         </div>
       </div>
@@ -236,7 +206,7 @@ export default function SatPage() {
           {['Makine Bilgileri', 'Fotoğraflar', 'İletişim'].map((step, i) => (
             <div key={step} className="flex items-center gap-2">
               <div className="flex items-center gap-1.5">
-                <div className="w-6 h-6 rounded-full bg-[#E67E22] text-white text-xs font-bold flex items-center justify-center">
+                <div className="w-6 h-6 rounded-full bg-[#3B5BDB] text-white text-xs font-bold flex items-center justify-center">
                   {i + 1}
                 </div>
                 <span className="text-xs font-medium text-gray-600 hidden sm:block">{step}</span>
@@ -251,7 +221,7 @@ export default function SatPage() {
           {/* Makine Bilgileri */}
           <div className="card">
             <h2 className="text-base font-bold text-gray-900 border-b border-gray-100 pb-3 mb-5 flex items-center gap-2">
-              <span className="w-6 h-6 bg-[#E67E22] text-white rounded-full text-xs font-bold flex items-center justify-center">1</span>
+              <span className="w-6 h-6 bg-[#3B5BDB] text-white rounded-full text-xs font-bold flex items-center justify-center">1</span>
               Makine Bilgileri
             </h2>
 
@@ -286,7 +256,7 @@ export default function SatPage() {
               {/* Abkant-specific sub-fields */}
               {isAbkant && (
                 <div className="bg-orange-50 border border-orange-200 rounded-xl p-4 space-y-3">
-                  <p className="text-xs font-semibold text-[#E67E22] uppercase tracking-wide">Abkant Pres Detayları</p>
+                  <p className="text-xs font-semibold text-[#3B5BDB] uppercase tracking-wide">Abkant Pres Detayları</p>
                   <div className="grid grid-cols-3 gap-3">
                     <div>
                       <label className="label">Tipi</label>
@@ -324,20 +294,6 @@ export default function SatPage() {
                       </select>
                     </div>
                   </div>
-                  {isOtherBrand && (
-                    <div>
-                      <label className="label">Eksen Sayısı</label>
-                      <select className="select-field" {...register('eksen_sayisi')}>
-                        <option value="">Seçiniz…</option>
-                        <option value="1">1 Eksen</option>
-                        <option value="2">2 Eksen</option>
-                        <option value="3">3 Eksen</option>
-                        <option value="4">4 Eksen</option>
-                        <option value="5">5 Eksen</option>
-                        <option value="6+">6+ Eksen</option>
-                      </select>
-                    </div>
-                  )}
                 </div>
               )}
 
@@ -551,11 +507,6 @@ export default function SatPage() {
               )}
 
               <div>
-                <label className="label">Model <span className="text-gray-400 font-normal">(isteğe bağlı)</span></label>
-                <input className="input-field" placeholder="örn. HST-3006, V-30, AD-2560" {...register('model')} />
-              </div>
-
-              <div>
                 <label className="label">Üretim Yılı *</label>
                 <input
                   className="input-field"
@@ -581,10 +532,10 @@ export default function SatPage() {
               </div>
 
               <div>
-                <label className="label">Çalışma Durumunu Seçiniz *</label>
+                <label className="label">Çalışma Durumu *</label>
                 <div className="grid grid-cols-3 gap-2">
                   {[
-                    { val: 'calisiyor', label: 'Çalışıyor', icon: '⚙️', border: 'peer-checked:border-gray-700 peer-checked:bg-gray-100' },
+                    { val: 'calisiyor', label: 'Çalışıyor', icon: '✅', border: 'peer-checked:border-green-500 peer-checked:bg-green-50' },
                     { val: 'bakim-gerekli', label: 'Bakım Gerekli', icon: '🔧', border: 'peer-checked:border-yellow-500 peer-checked:bg-yellow-50' },
                     { val: 'arizali', label: 'Arızalı', icon: '⚠️', border: 'peer-checked:border-red-500 peer-checked:bg-red-50' },
                   ].map(({ val, label, icon, border }) => (
@@ -616,41 +567,50 @@ export default function SatPage() {
           {/* Fotoğraflar */}
           <div className="card">
             <h2 className="text-base font-bold text-gray-900 border-b border-gray-100 pb-3 mb-5 flex items-center gap-2">
-              <span className="w-6 h-6 bg-[#E67E22] text-white rounded-full text-xs font-bold flex items-center justify-center">2</span>
+              <span className="w-6 h-6 bg-[#3B5BDB] text-white rounded-full text-xs font-bold flex items-center justify-center">2</span>
               Fotoğraflar
-              <span className="text-xs font-normal text-gray-400 ml-1">(max. 6 adet)</span>
+              <span className="text-xs font-normal text-gray-400 ml-1">(max. 5 adet)</span>
             </h2>
             <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
               <p className="text-sm font-semibold text-[#2C3E50] mb-2">Fotoğraf Gereksinimleri</p>
               <p className="text-xs text-gray-500 mb-3">Doğru ve hızlı değerlendirme yapılabilmesi için makinenin aşağıdaki açılardan net biçimde fotoğraflanmış olması gerekmektedir.</p>
               <ul className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-sm text-gray-600">
-                <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#E67E22] flex-shrink-0" />Ön cephe</li>
-                <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#E67E22] flex-shrink-0" />Sağ cephe</li>
-                <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#E67E22] flex-shrink-0" />Sol cephe</li>
-                <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#E67E22] flex-shrink-0" />Arka cephe</li>
-                <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#E67E22] flex-shrink-0" />Ekran / Kumanda Panosu</li>
-                <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#E67E22] flex-shrink-0" />Makine etiketi / plakası</li>
+                <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#3B5BDB] flex-shrink-0" />Ön cephe</li>
+                <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#3B5BDB] flex-shrink-0" />Sağ cephe</li>
+                <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#3B5BDB] flex-shrink-0" />Sol cephe</li>
+                <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#3B5BDB] flex-shrink-0" />Arka cephe</li>
+                <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#3B5BDB] flex-shrink-0" />Ekran / Kumanda Panosu</li>
+                <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#3B5BDB] flex-shrink-0" />Makine etiketi / plakası</li>
               </ul>
             </div>
-            <PhotoUpload onFilesChange={setPhotos} maxFiles={6} />
+            <PhotoUpload onFilesChange={setPhotos} maxFiles={5} />
           </div>
 
           {/* Konum & İletişim */}
           <div className="card">
             <h2 className="text-base font-bold text-gray-900 border-b border-gray-100 pb-3 mb-5 flex items-center gap-2">
-              <span className="w-6 h-6 bg-[#E67E22] text-white rounded-full text-xs font-bold flex items-center justify-center">3</span>
+              <span className="w-6 h-6 bg-[#3B5BDB] text-white rounded-full text-xs font-bold flex items-center justify-center">3</span>
               Konum ve İletişim
             </h2>
 
             <div className="space-y-4">
-              <CityDistrictSelect
-                cityValue={cityValue}
-                districtValue={districtValue}
-                onCityChange={(city) => { setValue('location_city', city, { shouldValidate: true }); setValue('location_district', '', { shouldValidate: false }) }}
-                onDistrictChange={(district) => setValue('location_district', district, { shouldValidate: true })}
-                cityError={errors.location_city?.message}
-                districtError={errors.location_district?.message}
-              />
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="label">İl *</label>
+                  <select className="select-field" {...register('location_city')}>
+                    <option value="">İl seçiniz…</option>
+                    {CITIES.map((c) => (
+                      <option key={c} value={c}>{c}</option>
+                    ))}
+                  </select>
+                  {errors.location_city && <p className="error-msg">{errors.location_city.message}</p>}
+                </div>
+                <div>
+                  <label className="label">İlçe *</label>
+                  <input className="input-field" placeholder="İlçe" {...register('location_district')} />
+                  {errors.location_district && <p className="error-msg">{errors.location_district.message}</p>}
+                </div>
+              </div>
 
               <div>
                 <label className="label">Ad Soyad *</label>

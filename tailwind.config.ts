@@ -9,29 +9,19 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        navy: {
-          600: '#1e3a5f',
-          700: '#172d4a',
-          800: '#112238',
-          900: '#0d1b2a',
-          950: '#080f18',
+        brand: {
+          DEFAULT: '#3B5BDB',
+          dark:    '#2F4AC7',
+          light:   '#4C6EF5',
         },
+        'brand-blue': '#3B5BDB',
+        'brand-cyan': '#06B6D4',
+        surface: '#F8FAFC',
         anthracite: {
-          DEFAULT: '#2C3E50',
-          light:   '#3D5166',
-          dark:    '#1a252f',
+          DEFAULT: '#0F172A',
+          mid:     '#2C3E50',
+          light:   '#475569',
         },
-        emerald: {
-          DEFAULT: '#27AE60',
-          light:   '#2ECC71',
-          dark:    '#1E8449',
-        },
-        industrial: {
-          DEFAULT: '#E67E22',
-          light:   '#F39C12',
-          dark:    '#D35400',
-        },
-        'brand-blue': '#2C3E50',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
