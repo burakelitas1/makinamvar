@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import { CITIES } from '@/lib/cities'
 import PhotoUpload from '@/components/PhotoUpload'
+import { CheckCircle2, Wrench, AlertCircle } from 'lucide-react'
 
 const schema = z.object({
   machine_type: z.enum(['abkant', 'giyotin', 'press', 'silindir', 'boru-bukum', 'testere', 'diger'], {
@@ -535,15 +536,15 @@ export default function SatPage() {
                 <label className="label">Çalışma Durumu *</label>
                 <div className="grid grid-cols-3 gap-2">
                   {[
-                    { val: 'calisiyor', label: 'Çalışıyor', icon: '✅', border: 'peer-checked:border-green-500 peer-checked:bg-green-50' },
-                    { val: 'bakim-gerekli', label: 'Bakım Gerekli', icon: '🔧', border: 'peer-checked:border-yellow-500 peer-checked:bg-yellow-50' },
-                    { val: 'arizali', label: 'Arızalı', icon: '⚠️', border: 'peer-checked:border-red-500 peer-checked:bg-red-50' },
-                  ].map(({ val, label, icon, border }) => (
+                    { val: 'calisiyor',    label: 'Çalışıyor',    Icon: CheckCircle2 },
+                    { val: 'bakim-gerekli', label: 'Bakım Gerekli', Icon: Wrench },
+                    { val: 'arizali',      label: 'Arızalı',       Icon: AlertCircle },
+                  ].map(({ val, label, Icon }) => (
                     <label key={val} className="cursor-pointer">
                       <input type="radio" value={val} {...register('condition')} className="peer hidden" />
-                      <div className={`border-2 border-gray-200 rounded-lg p-3 text-center ${border} hover:border-gray-300 transition-colors`}>
-                        <div className="text-xl mb-1">{icon}</div>
-                        <div className="text-xs font-semibold text-gray-700">{label}</div>
+                      <div className="border-2 border-[#E2E8F0] rounded-[16px] p-4 text-center peer-checked:border-[#3B5BDB] peer-checked:bg-[#3B5BDB]/5 hover:border-[#CBD5E1] transition-all duration-200">
+                        <Icon className="w-5 h-5 mx-auto mb-2 text-[#94A3B8]" strokeWidth={2} />
+                        <div className="text-[13px] font-semibold text-[#0F172A]">{label}</div>
                       </div>
                     </label>
                   ))}
