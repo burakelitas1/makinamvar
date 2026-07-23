@@ -306,11 +306,11 @@ export default async function HomePage() {
       {/* SSS */}
       <section id="sss" className="bg-[#F8FAFC] py-[96px]">
         <div className="max-w-[1280px] mx-auto px-6">
-          <div className="mb-14">
+          <div className="mb-14 text-center">
             <h2 className="text-[42px] font-bold text-[#0F172A] leading-[50px] mb-4">Sık Sorulan Sorular</h2>
             <p className="text-[18px] text-[#475569] leading-[30px]">Aklınızdaki soruları yanıtlayalım.</p>
           </div>
-          <div className="max-w-2xl">
+          <div className="max-w-3xl mx-auto">
             <FaqSection faqs={faqs} />
           </div>
         </div>
