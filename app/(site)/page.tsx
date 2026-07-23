@@ -232,7 +232,7 @@ export default async function HomePage() {
             <ScrollReveal direction="right" delay={120} className="hidden lg:block">
               <div className="relative rounded-[24px] overflow-hidden bg-[#F8FAFC] border border-[#E2E8F0]">
                 <Image
-                  src="/abkant-pres-blueprint.png"
+                  src="/abkant.png"
                   alt="Abkant pres değerlendirme süreci"
                   width={620}
                   height={480}
