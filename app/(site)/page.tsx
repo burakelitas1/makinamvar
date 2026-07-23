@@ -12,41 +12,41 @@ export const revalidate = 3600
 const TRUST_ITEMS = [
   {
     icon: BarChart3,
-    title: 'Gerçek Piyasa Değeri',
-    desc: 'Uzman ekibimiz piyasa verileriyle makinenizi değerlendirir. Tahminden değil, gerçek veriden yola çıkar.',
+    title: 'Gerçek Verilere Dayalı Değerleme',
+    desc: 'Makineniz benzer satışlar, piyasa talebi ve teknik durumu birlikte değerlendirilerek fiyatlandırılır.',
   },
   {
     icon: Clock,
-    title: '24 Saatte Teklif',
-    desc: 'Formu gönderdikten sonra 24 saat içinde size özel satın alma teklifi iletilir.',
+    title: '24 Saat İçinde Net Teklif',
+    desc: 'Eksik bilgi istemeden, uzatmayan bir süreç.',
   },
   {
     icon: Truck,
-    title: 'Söküm Bizden',
-    desc: 'Anlaşma sağlandığında söküm, vinç ve nakliye tamamen tarafımızca karşılanır.',
+    title: 'Lojistik Süreci Biz Yönetiyoruz',
+    desc: 'Söküm, vinç organizasyonu ve nakliye tarafımızdan planlanır.',
   },
   {
     icon: ShieldCheck,
-    title: 'Taahhüt Yok',
-    desc: 'Teklif almak hiçbir yükümlülük doğurmaz. Kabul edip etmemek tamamen sizin kararınız.',
+    title: 'Karar Tamamen Size Ait',
+    desc: 'Teklifi kabul etmek zorunda değilsiniz.',
   },
 ]
 
 const STEPS = [
   {
     num: '01',
-    title: 'Makinenizi Tanıyalım',
-    desc: 'Makinenizin temel bilgilerini paylaşın. Form ortalama 3 dakika sürer.',
+    title: 'Makinenizi Anlatın',
+    desc: 'Yaklaşık 3 dakikalık formu doldurun.',
   },
   {
     num: '02',
-    title: 'Uzmanlarımız Değerlendirsin',
-    desc: 'Uzmanlarımız piyasa verileriyle birlikte makinenizi değerlendirsin.',
+    title: 'Uzmanlarımız İncelesin',
+    desc: 'Makineniz piyasa verileriyle birlikte analiz edilir.',
   },
   {
     num: '03',
-    title: 'Profesyonel Teklifinizi Alın',
-    desc: 'Size özel profesyonel satın alma teklifiniz SMS ve e-posta ile iletilir.',
+    title: 'Teklifinizi Teslim Edelim',
+    desc: '24 saat içinde profesyonel satın alma teklifinizi alın.',
   },
 ]
 
@@ -54,32 +54,32 @@ const MACHINE_CATEGORIES = [
   {
     icon: Layers,
     title: 'Abkant Pres',
-    desc: 'Hidrolik, pnömatik ve CNC abkant presler.',
+    desc: 'CNC, hidrolik ve pnömatik abkant presler.',
   },
   {
     icon: Scissors,
     title: 'Giyotin Makas',
-    desc: 'Hidrolik ve mekanik giyotin makas makineleri.',
+    desc: 'Hidrolik ve mekanik giyotin kesim makineleri.',
   },
   {
     icon: MoveDown,
-    title: 'Pres Makineleri',
-    desc: 'Eksantrik, hidrolik ve servo pres makineleri.',
+    title: 'Presler',
+    desc: 'Eksantrik, hidrolik ve servo pres sistemleri.',
   },
   {
     icon: RefreshCw,
-    title: 'Silindir Makineleri',
+    title: 'Silindir',
     desc: 'Sac kıvırma ve silindir bükme makineleri.',
   },
   {
     icon: GitBranch,
     title: 'Boru Büküm',
-    desc: 'Boru ve profil bükme makineleri.',
+    desc: 'Boru ve profil şekillendirme sistemleri.',
   },
   {
     icon: Zap,
     title: 'Testereler',
-    desc: 'Metal kesme ve şerit testere makineleri.',
+    desc: 'Şerit testere ve metal kesim makineleri.',
   },
 ]
 
@@ -160,19 +160,21 @@ export default async function HomePage() {
           <div className="inline-flex items-center gap-2 bg-[#3B5BDB]/8 border border-[#3B5BDB]/20 rounded-full px-4 py-1.5 text-[#3B5BDB] text-[12px] font-medium tracking-wider uppercase mb-10">
             Endüstriyel Değerleme Platformu
           </div>
-          <h1 className="text-[40px] sm:text-[64px] font-extrabold text-[#0F172A] leading-[46px] sm:leading-[72px] tracking-tight mb-6 max-w-3xl">
-            Makinenizin Gerçek<br />Piyasa Değerini Öğrenin
+          <h1 className="text-[40px] sm:text-[64px] font-extrabold text-[#0F172A] leading-[46px] sm:leading-[72px] tracking-tight mb-4 max-w-3xl">
+            Makinenizi Değerinde Satın.
           </h1>
-          <p className="text-[18px] text-[#475569] leading-[30px] mb-10 max-w-[480px] font-normal">
-            Teklif almak ücretsizdir.
-            <br />Karar tamamen size aittir.
+          <p className="text-[20px] sm:text-[24px] font-semibold text-[#475569] leading-[32px] mb-6 max-w-2xl">
+            Tahminle Değil. Gerçek Piyasa Verileriyle.
+          </p>
+          <p className="text-[18px] text-[#475569] leading-[30px] mb-10 max-w-[520px] font-normal">
+            Uzman ekibimiz makinenizi inceler, gerçek piyasa verileriyle değerlendirir ve size 24 saat içinde profesyonel satın alma teklifi sunar.
           </p>
           <div className="flex flex-col sm:flex-row items-start gap-4">
             <Link
               href="/sat"
               className="inline-flex items-center gap-2 bg-[#3B5BDB] hover:bg-[#2F4AC7] hover:-translate-y-0.5 text-white font-bold px-8 h-[56px] rounded-[16px] text-[16px] transition-all duration-200"
             >
-              Profesyonel Teklif Al
+              Ücretsiz Değerleme Başlat
               <ArrowRight className="w-4 h-4" strokeWidth={2} />
             </Link>
             <a
@@ -182,8 +184,8 @@ export default async function HomePage() {
               Nasıl Çalışıyor?
             </a>
           </div>
-          <div className="flex items-center gap-8 mt-10 text-[14px] text-[#475569]">
-            {['Ücretsiz', 'Taahhütsüz', '24 Saat'].map(t => (
+          <div className="flex flex-wrap items-center gap-x-8 gap-y-3 mt-10 text-[14px] text-[#475569]">
+            {['Ücretsiz Değerleme', 'Satma Zorunluluğu Yok', '24 Saatte Sonuç'].map(t => (
               <span key={t} className="flex items-center gap-2">
                 <CheckCircle className="w-4 h-4 text-[#22C55E] flex-shrink-0" strokeWidth={2} />
                 {t}
@@ -197,8 +199,8 @@ export default async function HomePage() {
       <section className="bg-[#F8FAFC] py-[120px]">
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="mb-16">
-            <h2 className="text-[42px] font-bold text-[#0F172A] leading-[50px] mb-4">Neden Trink?</h2>
-            <p className="text-[18px] text-[#475569] leading-[30px] max-w-md">Geleneksel yöntemlerin belirsizliğini kaldırıyoruz.</p>
+            <h2 className="text-[42px] font-bold text-[#0F172A] leading-[50px] mb-4">Makine Satışındaki Belirsizliği Ortadan Kaldırıyoruz.</h2>
+            <p className="text-[18px] text-[#475569] leading-[30px] max-w-xl">Tahmini fiyatlar yerine gerçek piyasa verileri, uzman analizi ve profesyonel satın alma süreci sunuyoruz.</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {TRUST_ITEMS.map(({ icon: Icon, title, desc }) => (
@@ -219,7 +221,7 @@ export default async function HomePage() {
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="mb-16">
             <h2 className="text-[42px] font-bold text-[#0F172A] leading-[50px] mb-4">Nasıl Çalışıyoruz?</h2>
-            <p className="text-[18px] text-[#475569] leading-[30px] max-w-md">Ortalama 3 dakikalık form. 24 saatte somut değer.</p>
+            <p className="text-[18px] text-[#475569] leading-[30px] max-w-md">3 dakikalık form. 24 saatte profesyonel teklif.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-12 mb-16">
             {STEPS.map((step) => (
@@ -234,7 +236,7 @@ export default async function HomePage() {
             href="/sat"
             className="inline-flex items-center gap-2 bg-[#3B5BDB] hover:bg-[#2F4AC7] hover:-translate-y-0.5 text-white font-bold px-8 h-[56px] rounded-[16px] text-[16px] transition-all duration-200"
           >
-            Ücretsiz Teklif Al
+            Ücretsiz Değerleme Başlat
             <ArrowRight className="w-4 h-4" strokeWidth={2} />
           </Link>
         </div>
@@ -245,7 +247,7 @@ export default async function HomePage() {
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="mb-16">
             <h2 className="text-[42px] font-bold text-[#0F172A] leading-[50px] mb-4">Hangi Makineleri Değerlendiriyoruz?</h2>
-            <p className="text-[18px] text-[#475569] leading-[30px] max-w-md">Sac işleme makinelerinin tüm kategorilerini kapsıyoruz.</p>
+            <p className="text-[18px] text-[#475569] leading-[30px] max-w-xl">Türkiye genelinde ikinci el sac işleme makinelerinin tüm ana kategorilerinde değerleme ve satın alma hizmeti sunuyoruz.</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
             {MACHINE_CATEGORIES.map(({ icon: Icon, title, desc }) => (
@@ -260,7 +262,7 @@ export default async function HomePage() {
                 <h3 className="font-semibold text-[#0F172A] mb-2 text-[18px] leading-snug">{title}</h3>
                 <p className="text-[14px] text-[#475569] leading-[22px] mb-4">{desc}</p>
                 <span className="text-[14px] text-[#3B5BDB] font-medium inline-flex items-center gap-1 group-hover:gap-2 transition-all duration-200">
-                  Teklif Al <ArrowRight className="w-3.5 h-3.5" strokeWidth={2} />
+                  Değerleme İste <ArrowRight className="w-3.5 h-3.5" strokeWidth={2} />
                 </span>
               </Link>
             ))}
@@ -363,7 +365,7 @@ export default async function HomePage() {
             href="/sat"
             className="inline-flex items-center gap-2 bg-[#3B5BDB] hover:bg-[#2F4AC7] hover:-translate-y-0.5 text-white font-bold px-8 h-[56px] rounded-[16px] text-[16px] transition-all duration-200"
           >
-            Profesyonel Teklif Al
+            Ücretsiz Değerleme Başlat
             <ArrowRight className="w-4 h-4" strokeWidth={2} />
           </Link>
         </div>
