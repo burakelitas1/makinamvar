@@ -194,15 +194,16 @@ export default function SatPage() {
       {/* Sayfa başlığı */}
       <div className="bg-[#0F172A] py-10">
         <div className="max-w-2xl mx-auto px-4 text-center">
-          <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">Ücretsiz Değerlendirme Talebi</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">Ücretsiz Teklif Talebi</h1>
           <p className="text-[#94A3B8] text-sm sm:text-base">
-            Makinenizi tanıtın. 24 saat içinde size özel satın alma teklifi iletilir.
+            Makinenizin bilgilerini paylaşın. Uzman ekibimiz değerlendirsin, satın alma teklifinizi 24 saat içinde iletsin.
           </p>
         </div>
       </div>
 
       <div className="max-w-2xl mx-auto px-4 py-8">
         {/* İlerleme göstergesi */}
+        <p className="text-center text-[13px] text-[#94A3B8] mb-4">Yaklaşık 3 dakika sürer.</p>
         <div className="flex items-center justify-center gap-2 mb-8">
           {['Makine Bilgileri', 'Fotoğraflar', 'İletişim'].map((step, i) => (
             <div key={step} className="flex items-center gap-2">
@@ -519,7 +520,7 @@ export default function SatPage() {
               </div>
 
               <div>
-                <label className="label">Satış Gerekçesi *</label>
+                <label className="label">Teklif Alma Nedeniniz *</label>
                 <select className="select-field" {...register('sell_reason')}>
                   <option value="">Lütfen seçiniz…</option>
                   <option value="kapasite-artisi">Kapasite güncelleme — yeni makine tedarik edildi</option>
@@ -533,7 +534,7 @@ export default function SatPage() {
               </div>
 
               <div>
-                <label className="label">Çalışma Durumu *</label>
+                <label className="label">Makinenin Çalışma Durumu *</label>
                 <div className="grid grid-cols-3 gap-2">
                   {[
                     { val: 'calisiyor',    label: 'Çalışıyor',    Icon: CheckCircle2 },
@@ -552,13 +553,12 @@ export default function SatPage() {
                 {errors.condition && <p className="error-msg">{errors.condition.message}</p>}
               </div>
 
-              {/* Makine Hakkında Detaylar */}
               <div>
-                <label className="label">Makine Hakkında Detaylar <span className="text-gray-400 font-normal">(isteğe bağlı)</span></label>
+                <label className="label">Eklemek İstediğiniz Bilgiler <span className="text-gray-400 font-normal">(isteğe bağlı)</span></label>
                 <textarea
                   className="input-field resize-none"
                   rows={4}
-                  placeholder="Makine hakkında eklemek istediğiniz bilgileri buraya yazabilirsiniz…"
+                  placeholder="Bakım geçmişi, yapılan revizyonlar, ekipman durumu veya teklifimizi etkileyebilecek diğer bilgileri paylaşabilirsiniz."
                   {...register('description')}
                 />
               </div>
@@ -573,15 +573,15 @@ export default function SatPage() {
               <span className="text-xs font-normal text-gray-400 ml-1">(max. 5 adet)</span>
             </h2>
             <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
-              <p className="text-sm font-semibold text-[#2C3E50] mb-2">Fotoğraf Gereksinimleri</p>
-              <p className="text-xs text-gray-500 mb-3">Doğru ve hızlı değerlendirme yapılabilmesi için makinenin aşağıdaki açılardan net biçimde fotoğraflanmış olması gerekmektedir.</p>
+              <p className="text-sm font-semibold text-[#2C3E50] mb-2">Daha Doğru Teklif İçin Fotoğraflar</p>
+              <p className="text-xs text-gray-500 mb-3">Makinenizin farklı açılardan çekilmiş net fotoğrafları, değerlendirme sürecini hızlandırır ve teklif doğruluğunu artırır.</p>
               <ul className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-sm text-gray-600">
-                <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#3B5BDB] flex-shrink-0" />Ön cephe</li>
-                <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#3B5BDB] flex-shrink-0" />Sağ cephe</li>
-                <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#3B5BDB] flex-shrink-0" />Sol cephe</li>
-                <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#3B5BDB] flex-shrink-0" />Arka cephe</li>
-                <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#3B5BDB] flex-shrink-0" />Ekran / Kumanda Panosu</li>
-                <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#3B5BDB] flex-shrink-0" />Makine etiketi / plakası</li>
+                <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#3B5BDB] flex-shrink-0" />Ön görünüm</li>
+                <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#3B5BDB] flex-shrink-0" />Sağ görünüm</li>
+                <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#3B5BDB] flex-shrink-0" />Sol görünüm</li>
+                <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#3B5BDB] flex-shrink-0" />Arka görünüm</li>
+                <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#3B5BDB] flex-shrink-0" />Kontrol paneli</li>
+                <li className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#3B5BDB] flex-shrink-0" />Makine etiketi veya plakası</li>
               </ul>
             </div>
             <PhotoUpload onFilesChange={setPhotos} maxFiles={5} />
@@ -591,9 +591,10 @@ export default function SatPage() {
           <div className="card">
             <h2 className="text-base font-bold text-gray-900 border-b border-gray-100 pb-3 mb-5 flex items-center gap-2">
               <span className="w-6 h-6 bg-[#3B5BDB] text-white rounded-full text-xs font-bold flex items-center justify-center">3</span>
-              Konum ve İletişim
+              Teklif İletişim Bilgileri
             </h2>
 
+            <p className="text-[13px] text-[#475569] mb-5">Teklifinizi paylaşabilmemiz için iletişim bilgilerinizi girin.</p>
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-3">
                 <div>
@@ -623,11 +624,13 @@ export default function SatPage() {
                 <div>
                   <label className="label">Cep Telefonu *</label>
                   <input className="input-field" placeholder="05XX XXX XX XX" type="tel" {...register('contact_phone')} />
+                  <p className="text-[11px] text-[#94A3B8] mt-1">Sadece teklif süreciyle ilgili iletişim için kullanılacaktır.</p>
                   {errors.contact_phone && <p className="error-msg">{errors.contact_phone.message}</p>}
                 </div>
                 <div>
                   <label className="label">E-posta *</label>
                   <input className="input-field" placeholder="ornek@mail.com" type="email" {...register('contact_email')} />
+                  <p className="text-[11px] text-[#94A3B8] mt-1">Teklif detayları SMS ve e-posta ile iletilecektir.</p>
                   {errors.contact_email && <p className="error-msg">{errors.contact_email.message}</p>}
                 </div>
               </div>
@@ -646,7 +649,7 @@ export default function SatPage() {
               <span className={`text-xs leading-relaxed ${kvkk ? 'text-gray-500' : 'text-gray-400'}`}>
                 <span className="text-red-500 font-bold mr-0.5">*</span>
                 <a href="/kvkk" target="_blank" className="text-[#3B5BDB] hover:underline font-medium">Kişisel Verilerin Korunması</a>{' '}
-                metnini okudum, paylaştığım bilgiler ile fotoğrafların Varmak Makine tarafından kullanılmasına onay veriyorum.
+                metnini okudum ve kişisel verilerimin teklif süreci kapsamında işlenmesini kabul ediyorum.
               </span>
             </label>
             <label className="flex items-start gap-3 cursor-pointer">
@@ -666,9 +669,13 @@ export default function SatPage() {
 
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-700 rounded-lg p-4 text-sm">
-              ⚠️ {error}
+              {error}
             </div>
           )}
+
+          <p className="text-center text-[13px] text-[#475569]">
+            Teklif almak taahhüt oluşturmaz. Karar tamamen size aittir.
+          </p>
 
           <button type="submit" disabled={submitting} className="btn-primary w-full text-base py-4 rounded-xl">
             {submitting ? (
@@ -677,10 +684,10 @@ export default function SatPage() {
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
                 </svg>
-                Gönderiliyor…
+                Teklifiniz hazırlanıyor…
               </span>
             ) : (
-              'Teklif İste — Ücretsiz'
+              'Ücretsiz Teklif Al'
             )}
           </button>
         </form>
