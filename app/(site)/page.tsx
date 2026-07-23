@@ -21,12 +21,12 @@ const STEPS = [
 ]
 
 const MACHINE_CATEGORIES = [
-  { img: '/01_abkant_pres.png',       title: 'Abkant Pres',           desc: 'CNC, hidrolik ve pnömatik abkant presler.' },
-  { img: '/02_giyotin_makas.png',     title: 'Giyotin Makas',          desc: 'Hidrolik ve mekanik giyotin kesim makineleri.' },
-  { img: '/03_pres_makinesi.png',     title: 'Pres Makineleri',        desc: 'Eksantrik, hidrolik ve servo pres sistemleri.' },
-  { img: '/04_silindir_makinesi.png', title: 'Silindir Makineleri',    desc: 'Sac kıvırma ve silindir bükme makineleri.' },
-  { img: '/05_boru_bukum.png',        title: 'Boru Büküm Makineleri', desc: 'Boru ve profil şekillendirme sistemleri.' },
-  { img: '/06_serit_testere.png',     title: 'Testereler',             desc: 'Şerit testere ve metal kesim makineleri.' },
+  { img: '/abkant1.png',         title: 'Abkant Pres',           desc: 'CNC, hidrolik ve pnömatik abkant presler.' },
+  { img: '/giyotin.png',         title: 'Giyotin Makas',          desc: 'Hidrolik ve mekanik giyotin kesim makineleri.' },
+  { img: '/pres.png',            title: 'Pres Makineleri',        desc: 'Eksantrik, hidrolik ve servo pres sistemleri.' },
+  { img: '/silindir.png',        title: 'Silindir Makineleri',    desc: 'Sac kıvırma ve silindir bükme makineleri.' },
+  { img: '/boru-bukum-new.png',  title: 'Boru Büküm Makineleri', desc: 'Boru ve profil şekillendirme sistemleri.' },
+  { img: '/testere.png',         title: 'Testereler',             desc: 'Şerit testere ve metal kesim makineleri.' },
 ]
 
 const COMPARE_ROWS = [
@@ -276,15 +276,24 @@ export default async function HomePage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {MACHINE_CATEGORIES.map(({ img, title, desc }, i) => (
               <ScrollReveal key={title} direction="up" delay={i * 60}>
-                <Link href="/sat" className="bg-white border border-[#E2E8F0] rounded-[20px] p-8 hover:-translate-y-1 hover:shadow-md hover:border-[#3B5BDB]/30 transition-all duration-300 group flex flex-col h-full">
-                  <div className="w-16 h-16 mb-6 flex-shrink-0 transition-transform duration-300 group-hover:scale-110">
-                    <Image src={img} alt={title} width={64} height={64} className="w-full h-full object-contain" />
+                <Link href="/sat" className="flip-card block h-[320px]">
+                  <div className="flip-card-inner rounded-[20px] overflow-hidden shadow-sm border border-[#E2E8F0]">
+                    {/* Ön yüz: görsel */}
+                    <div className="flip-card-front absolute inset-0 bg-white rounded-[20px] overflow-hidden">
+                      <Image src={img} alt={title} fill className="object-cover" />
+                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#0F172A]/70 to-transparent px-6 py-5">
+                        <p className="text-white font-bold text-[17px]">{title}</p>
+                      </div>
+                    </div>
+                    {/* Arka yüz: yazı */}
+                    <div className="flip-card-back absolute inset-0 bg-[#3B5BDB] rounded-[20px] flex flex-col items-center justify-center px-8 text-center">
+                      <h3 className="text-white font-bold text-[20px] mb-3">{title}</h3>
+                      <p className="text-white/80 text-[14px] leading-[22px] mb-6">{desc}</p>
+                      <span className="inline-flex items-center gap-2 bg-white text-[#3B5BDB] font-bold text-[13px] px-5 py-2.5 rounded-full">
+                        Teklif Al <ArrowRight className="w-3.5 h-3.5" strokeWidth={2.5} />
+                      </span>
+                    </div>
                   </div>
-                  <h3 className="font-semibold text-[#0F172A] mb-2 text-[18px] leading-snug">{title}</h3>
-                  <p className="text-[14px] text-[#475569] leading-[22px] mb-6 flex-1">{desc}</p>
-                  <span className="text-[14px] text-[#3B5BDB] font-medium inline-flex items-center gap-1.5 group-hover:gap-2.5 transition-all duration-200 mt-auto">
-                    Ücretsiz Teklif Al <ArrowRight className="w-3.5 h-3.5" strokeWidth={2} />
-                  </span>
                 </Link>
               </ScrollReveal>
             ))}
