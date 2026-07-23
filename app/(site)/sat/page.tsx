@@ -9,7 +9,7 @@ import { supabase } from '@/lib/supabase'
 import { CITIES } from '@/lib/cities'
 import PhotoUpload from '@/components/PhotoUpload'
 import { CheckCircle2, Wrench, AlertCircle } from 'lucide-react'
-import { FormHeaderIllustration } from '@/components/MachineIllustrations'
+import Image from 'next/image'
 
 const schema = z.object({
   machine_type: z.enum(['abkant', 'giyotin', 'press', 'silindir', 'boru-bukum', 'testere', 'diger'], {
@@ -194,9 +194,9 @@ export default function SatPage() {
     <div className="bg-gray-50 min-h-screen">
       {/* Sayfa başlığı */}
       <div className="relative bg-[#0F172A] py-10 overflow-hidden">
-        {/* Decorative machine illustration (desktop, low opacity) */}
+        {/* Form header illustration (desktop only) */}
         <div className="hidden sm:block absolute right-0 top-0 h-full pointer-events-none" aria-hidden="true">
-          <FormHeaderIllustration className="h-full w-auto opacity-100" />
+          <Image src="/15_abkant_form_header.png" alt="" width={600} height={160} className="h-full w-auto object-contain object-right" />
         </div>
         <div className="relative max-w-2xl mx-auto px-4 text-center">
           <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">Ücretsiz Teklif Talebi</h1>

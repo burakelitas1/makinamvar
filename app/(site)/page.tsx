@@ -1,77 +1,31 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import FaqSection from '@/components/FaqSection'
-import TechnicalPattern from '@/components/TechnicalPattern'
-import {
-  AbkantPresIllustration,
-  GiyotinMakasIllustration,
-  PresIllustration,
-  SilindirIllustration,
-  BoruBukumIllustration,
-  TesterelerIllustration,
-  FinalCtaPressbrake,
-} from '@/components/MachineIllustrations'
 import { createServiceClient } from '@/lib/supabase-server'
-import {
-  Clock, Truck, ShieldCheck, Settings2, ArrowRight, CheckCircle,
-} from 'lucide-react'
+import { ArrowRight, CheckCircle } from 'lucide-react'
 
 export const revalidate = 3600
 
 const TRUST_ITEMS = [
-  {
-    icon: Settings2,
-    title: 'Uzman Değerlendirmesi',
-    desc: 'Makinenizin teknik bilgileri, durumu ve piyasa koşulları birlikte incelenir.',
-  },
-  {
-    icon: Clock,
-    title: '24 Saatte Teklif',
-    desc: 'Formu tamamladıktan sonra satın alma teklifiniz en geç 24 saat içinde paylaşılır.',
-  },
-  {
-    icon: Truck,
-    title: 'Lojistiği Biz Planlarız',
-    desc: 'Anlaşma sağlanırsa söküm, vinç ve nakliye organizasyonunu biz yönetiriz.',
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Karar Size Ait',
-    desc: 'Teklifi kabul edebilir, reddedebilir veya karşı teklifinizi iletebilirsiniz.',
-  },
+  { img: '/07_uzman_degerlendirmesi.png', title: 'Uzman Değerlendirmesi', desc: 'Makinenizin teknik bilgileri, durumu ve piyasa koşulları birlikte incelenir.' },
+  { img: '/08_24_saatte_teklif.png',      title: '24 Saatte Teklif',       desc: 'Formu tamamladıktan sonra satın alma teklifiniz en geç 24 saat içinde paylaşılır.' },
+  { img: '/09_lojistik.png',              title: 'Lojistiği Biz Planlarız', desc: 'Anlaşma sağlanırsa söküm, vinç ve nakliye organizasyonunu biz yönetiriz.' },
+  { img: '/10_karar_size_ait.png',        title: 'Karar Size Ait',         desc: 'Teklifi kabul edebilir, reddedebilir veya karşı teklifinizi iletebilirsiniz.' },
 ]
 
 const STEPS = [
-  {
-    num: '01',
-    title: 'Makinenizi Tanıtın',
-    desc: 'Temel bilgileri ve fotoğrafları mevcut form üzerinden paylaşın.',
-  },
-  {
-    num: '02',
-    title: 'Uzmanlarımız Değerlendirsin',
-    desc: 'Makinenizin teknik durumu ve piyasa koşulları birlikte incelensin.',
-  },
-  {
-    num: '03',
-    title: 'Teklifinizi Alın',
-    desc: 'Satın alma teklifinizi SMS ve e-posta üzerinden görüntüleyin.',
-  },
+  { num: '01', title: 'Makinenizi Tanıtın',         desc: 'Temel bilgileri ve fotoğrafları mevcut form üzerinden paylaşın.' },
+  { num: '02', title: 'Uzmanlarımız Değerlendirsin', desc: 'Makinenizin teknik durumu ve piyasa koşulları birlikte incelensin.' },
+  { num: '03', title: 'Teklifinizi Alın',            desc: 'Satın alma teklifinizi SMS ve e-posta üzerinden görüntüleyin.' },
 ]
 
-type MachineCategory = {
-  title: string
-  desc: string
-  Illustration: React.ComponentType<{ className?: string }>
-}
-
-const MACHINE_CATEGORIES: MachineCategory[] = [
-  { Illustration: AbkantPresIllustration,    title: 'Abkant Pres',           desc: 'CNC, hidrolik ve pnömatik abkant presler.' },
-  { Illustration: GiyotinMakasIllustration,  title: 'Giyotin Makas',          desc: 'Hidrolik ve mekanik giyotin kesim makineleri.' },
-  { Illustration: PresIllustration,          title: 'Pres Makineleri',        desc: 'Eksantrik, hidrolik ve servo pres sistemleri.' },
-  { Illustration: SilindirIllustration,      title: 'Silindir Makineleri',    desc: 'Sac kıvırma ve silindir bükme makineleri.' },
-  { Illustration: BoruBukumIllustration,     title: 'Boru Büküm Makineleri', desc: 'Boru ve profil şekillendirme sistemleri.' },
-  { Illustration: TesterelerIllustration,    title: 'Testereler',             desc: 'Şerit testere ve metal kesim makineleri.' },
+const MACHINE_CATEGORIES = [
+  { img: '/01_abkant_pres.png',      title: 'Abkant Pres',           desc: 'CNC, hidrolik ve pnömatik abkant presler.' },
+  { img: '/02_giyotin_makas.png',    title: 'Giyotin Makas',          desc: 'Hidrolik ve mekanik giyotin kesim makineleri.' },
+  { img: '/03_pres_makinesi.png',    title: 'Pres Makineleri',        desc: 'Eksantrik, hidrolik ve servo pres sistemleri.' },
+  { img: '/04_silindir_makinesi.png',title: 'Silindir Makineleri',    desc: 'Sac kıvırma ve silindir bükme makineleri.' },
+  { img: '/05_boru_bukum.png',       title: 'Boru Büküm Makineleri', desc: 'Boru ve profil şekillendirme sistemleri.' },
+  { img: '/06_serit_testere.png',    title: 'Testereler',             desc: 'Şerit testere ve metal kesim makineleri.' },
 ]
 
 const COMPARE_ROWS = [
@@ -96,11 +50,9 @@ const DEFAULT_FAQS = [
 
 export default async function HomePage() {
   const supabase = createServiceClient()
-
   const [{ data: dbFaqs }] = await Promise.all([
     supabase.from('faqs').select('question,answer').eq('active', true).order('order_num'),
   ])
-
   const faqs = (dbFaqs && dbFaqs.length > 0) ? dbFaqs : DEFAULT_FAQS
 
   const faqSchema = {
@@ -117,9 +69,12 @@ export default async function HomePage() {
     <div className="bg-white">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
-      {/* HERO */}
+      {/* ── HERO ─────────────────────────────────────────────── */}
       <section className="relative bg-white border-b border-[#E2E8F0] overflow-hidden">
-        <TechnicalPattern id="hero-pattern" color="blue" />
+        {/* Blueprint grid background */}
+        <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+          <Image src="/11_blueprint_grid_light.png" alt="" fill className="object-cover opacity-40" />
+        </div>
         <div className="relative max-w-[1280px] mx-auto px-6 pt-16 pb-[96px] md:pt-20 md:pb-[96px]">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left: copy */}
@@ -130,21 +85,15 @@ export default async function HomePage() {
               <h1 className="text-[40px] sm:text-[56px] font-extrabold text-[#0F172A] leading-[46px] sm:leading-[64px] tracking-tight mb-5">
                 Makineniz İçin Teklifinizi Öğrenin.
               </h1>
-              <p className="text-[18px] text-[#475569] leading-[30px] mb-10 max-w-[480px] font-normal">
+              <p className="text-[18px] text-[#475569] leading-[30px] mb-10 max-w-[480px]">
                 Makinenizin bilgilerini paylaşın. Uzman ekibimiz değerlendirsin ve 24 saat içinde satın alma teklifinizi hazırlasın. Teklifi kabul edip etmemek tamamen size ait.
               </p>
               <div className="flex flex-col sm:flex-row items-start gap-4">
-                <Link
-                  href="/sat"
-                  className="inline-flex items-center gap-2 bg-[#3B5BDB] hover:bg-[#2F4AC7] hover:-translate-y-0.5 text-white font-bold px-8 h-[56px] rounded-[16px] text-[16px] transition-all duration-200"
-                >
+                <Link href="/sat" className="inline-flex items-center gap-2 bg-[#3B5BDB] hover:bg-[#2F4AC7] hover:-translate-y-0.5 text-white font-bold px-8 h-[56px] rounded-[16px] text-[16px] transition-all duration-200">
                   Ücretsiz Teklif Al
                   <ArrowRight className="w-4 h-4" strokeWidth={2} />
                 </Link>
-                <a
-                  href="#nasil-calisir"
-                  className="inline-flex items-center gap-2 text-[#475569] hover:text-[#0F172A] font-medium px-8 h-[56px] rounded-[16px] text-[16px] transition-colors border border-[#E2E8F0] hover:border-[#CBD5E1]"
-                >
+                <a href="#nasil-calisir" className="inline-flex items-center gap-2 text-[#475569] hover:text-[#0F172A] font-medium px-8 h-[56px] rounded-[16px] text-[16px] transition-colors border border-[#E2E8F0] hover:border-[#CBD5E1]">
                   Nasıl Çalışır?
                 </a>
               </div>
@@ -158,61 +107,48 @@ export default async function HomePage() {
               </div>
             </div>
 
-            {/* Right: press brake illustration (desktop only) */}
+            {/* Right: transparent hero image (desktop) */}
             <div className="hidden lg:flex items-center justify-center relative">
               <Image
-                src="/abkant-pres-blueprint.png"
+                src="/13_abkant_hero_transparent.png"
                 alt="Abkant pres teknik çizim"
                 width={520}
                 height={520}
                 className="w-full max-w-[480px] h-auto"
                 priority
               />
-              {/* Floating labels */}
               <div className="absolute top-[8%] left-[0%] flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-[#3B5BDB]" />
-                <span className="text-[11px] font-semibold text-[#3B5BDB] tracking-wider uppercase bg-white/90 rounded-full px-3 py-1 border border-[#3B5BDB]/20">
-                  Makine bilgileri
-                </span>
+                <span className="text-[11px] font-semibold text-[#3B5BDB] tracking-wider uppercase bg-white/90 rounded-full px-3 py-1 border border-[#3B5BDB]/20">Makine bilgileri</span>
               </div>
               <div className="absolute top-[38%] right-[-4%] flex items-center gap-2">
-                <span className="text-[11px] font-semibold text-[#3B5BDB] tracking-wider uppercase bg-white/90 rounded-full px-3 py-1 border border-[#3B5BDB]/20">
-                  Uzman değerlendirmesi
-                </span>
+                <span className="text-[11px] font-semibold text-[#3B5BDB] tracking-wider uppercase bg-white/90 rounded-full px-3 py-1 border border-[#3B5BDB]/20">Uzman değerlendirmesi</span>
                 <div className="w-2 h-2 rounded-full bg-[#3B5BDB]" />
               </div>
               <div className="absolute bottom-[8%] right-[2%] flex items-center gap-2">
-                <span className="text-[11px] font-semibold text-[#3B5BDB] tracking-wider uppercase bg-white/90 rounded-full px-3 py-1 border border-[#3B5BDB]/20">
-                  Satın alma teklifi
-                </span>
+                <span className="text-[11px] font-semibold text-[#3B5BDB] tracking-wider uppercase bg-white/90 rounded-full px-3 py-1 border border-[#3B5BDB]/20">Satın alma teklifi</span>
                 <div className="w-2 h-2 rounded-full bg-[#3B5BDB]" />
               </div>
             </div>
           </div>
-
-          {/* Mobile: simplified machine outline below trust indicators */}
-          <div className="lg:hidden flex justify-center mt-10 opacity-30">
-            <AbkantPresIllustration className="w-24 h-24" />
-          </div>
         </div>
       </section>
 
-      {/* NEDEN TRİNK */}
+      {/* ── NEDEN TRİNK ──────────────────────────────────────── */}
       <section className="relative bg-[#F8FAFC] py-[96px] overflow-hidden">
-        <TechnicalPattern id="trust-pattern" color="blue" />
+        <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+          <Image src="/11_blueprint_grid_light.png" alt="" fill className="object-cover opacity-30" />
+        </div>
         <div className="relative max-w-[1280px] mx-auto px-6">
           <div className="mb-14">
             <h2 className="text-[42px] font-bold text-[#0F172A] leading-[50px] mb-4">Teklif Sürecini Kolaylaştırıyoruz.</h2>
             <p className="text-[18px] text-[#475569] leading-[30px] max-w-2xl">Makinenizi ilan vermeden, alıcı aramadan ve satış kararı almadan değerlendirmeye alın.</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {TRUST_ITEMS.map(({ icon: Icon, title, desc }) => (
-              <div
-                key={title}
-                className="bg-white border border-[#E2E8F0] rounded-[20px] p-8 hover:-translate-y-0.5 hover:shadow-sm hover:border-[#3B5BDB]/30 transition-all duration-200 flex flex-col"
-              >
-                <div className="w-12 h-12 rounded-xl bg-[#3B5BDB]/8 flex items-center justify-center mb-6 flex-shrink-0">
-                  <Icon className="w-6 h-6 text-[#3B5BDB]" strokeWidth={2} />
+            {TRUST_ITEMS.map(({ img, title, desc }) => (
+              <div key={title} className="bg-white border border-[#E2E8F0] rounded-[20px] p-8 hover:-translate-y-0.5 hover:shadow-sm hover:border-[#3B5BDB]/30 transition-all duration-200 flex flex-col">
+                <div className="w-14 h-14 mb-6 flex-shrink-0">
+                  <Image src={img} alt={title} width={56} height={56} className="w-full h-full object-contain" />
                 </div>
                 <h3 className="font-semibold text-[#0F172A] mb-3 text-[16px] leading-snug">{title}</h3>
                 <p className="text-[14px] text-[#475569] leading-[22px] mt-auto">{desc}</p>
@@ -222,49 +158,44 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* NASIL ÇALIŞIR */}
+      {/* ── NASIL ÇALIŞIR ────────────────────────────────────── */}
       <section id="nasil-calisir" className="bg-white py-[96px]">
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="mb-14">
             <h2 className="text-[42px] font-bold text-[#0F172A] leading-[50px] mb-4">Nasıl Çalışır?</h2>
             <p className="text-[18px] text-[#475569] leading-[30px] max-w-md">Yaklaşık 3 dakikalık form. 24 saat içinde satın alma teklifi.</p>
           </div>
-          <div className="relative grid md:grid-cols-3 gap-12 mb-12">
+          <div className="grid md:grid-cols-3 gap-12 mb-12">
             {STEPS.map((step) => (
-              <div key={step.num} className="relative">
+              <div key={step.num}>
                 <div className="text-[#3B5BDB]/10 font-extrabold text-[80px] leading-none mb-6 select-none">{step.num}</div>
                 <h3 className="font-semibold text-[#0F172A] text-[20px] leading-[28px] mb-3">{step.title}</h3>
                 <p className="text-[16px] text-[#475569] leading-[28px]">{step.desc}</p>
               </div>
             ))}
           </div>
-          <Link
-            href="/sat"
-            className="inline-flex items-center gap-2 bg-[#3B5BDB] hover:bg-[#2F4AC7] hover:-translate-y-0.5 text-white font-bold px-8 h-[56px] rounded-[16px] text-[16px] transition-all duration-200"
-          >
+          <Link href="/sat" className="inline-flex items-center gap-2 bg-[#3B5BDB] hover:bg-[#2F4AC7] hover:-translate-y-0.5 text-white font-bold px-8 h-[56px] rounded-[16px] text-[16px] transition-all duration-200">
             Ücretsiz Teklif Al
             <ArrowRight className="w-4 h-4" strokeWidth={2} />
           </Link>
         </div>
       </section>
 
-      {/* MAKİNE KATEGORİLERİ */}
+      {/* ── MAKİNE KATEGORİLERİ ─────────────────────────────── */}
       <section id="makineler" className="relative bg-[#F8FAFC] py-[96px] overflow-hidden">
-        <TechnicalPattern id="machine-pattern" color="blue" />
+        <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+          <Image src="/11_blueprint_grid_light.png" alt="" fill className="object-cover opacity-30" />
+        </div>
         <div className="relative max-w-[1280px] mx-auto px-6">
           <div className="mb-14">
             <h2 className="text-[42px] font-bold text-[#0F172A] leading-[50px] mb-4">Hangi Makinelere Teklif Veriyoruz?</h2>
             <p className="text-[18px] text-[#475569] leading-[30px] max-w-2xl">Türkiye genelindeki ikinci el sac işleme makinelerini değerlendiriyor ve satın alma teklifi sunuyoruz.</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {MACHINE_CATEGORIES.map(({ Illustration, title, desc }) => (
-              <Link
-                key={title}
-                href="/sat"
-                className="bg-white border border-[#E2E8F0] rounded-[20px] p-8 hover:-translate-y-0.5 hover:shadow-sm hover:border-[#3B5BDB]/30 transition-all duration-200 group flex flex-col"
-              >
-                <div className="w-14 h-14 mb-6 flex-shrink-0">
-                  <Illustration className="w-full h-full" />
+            {MACHINE_CATEGORIES.map(({ img, title, desc }) => (
+              <Link key={title} href="/sat" className="bg-white border border-[#E2E8F0] rounded-[20px] p-8 hover:-translate-y-0.5 hover:shadow-sm hover:border-[#3B5BDB]/30 transition-all duration-200 group flex flex-col">
+                <div className="w-16 h-16 mb-6 flex-shrink-0">
+                  <Image src={img} alt={title} width={64} height={64} className="w-full h-full object-contain" />
                 </div>
                 <h3 className="font-semibold text-[#0F172A] mb-2 text-[18px] leading-snug">{title}</h3>
                 <p className="text-[14px] text-[#475569] leading-[22px] mb-6 flex-1">{desc}</p>
@@ -277,7 +208,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* KARŞILAŞTIRMA */}
+      {/* ── KARŞILAŞTIRMA ────────────────────────────────────── */}
       <section className="bg-white py-[96px]">
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="mb-12">
@@ -303,7 +234,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* SSS */}
+      {/* ── SSS ──────────────────────────────────────────────── */}
       <section id="sss" className="bg-[#F8FAFC] py-[96px]">
         <div className="max-w-[1280px] mx-auto px-6">
           <div className="mb-14 text-center">
@@ -316,12 +247,15 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ALT CTA */}
+      {/* ── ALT CTA ──────────────────────────────────────────── */}
       <section className="relative bg-[#0F172A] py-[80px] overflow-hidden">
-        <TechnicalPattern id="cta-pattern" color="navy" />
-        {/* Large decorative press brake (right side, desktop only) */}
-        <div className="hidden lg:block absolute right-8 top-1/2 -translate-y-1/2 pointer-events-none" aria-hidden="true">
-          <FinalCtaPressbrake className="w-[260px] h-auto opacity-[0.10]" />
+        {/* Dark blueprint grid */}
+        <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+          <Image src="/12_blueprint_grid_dark.png" alt="" fill className="object-cover opacity-60" />
+        </div>
+        {/* Dark overlay press brake (right, desktop only) */}
+        <div className="hidden lg:block absolute right-0 top-0 h-full pointer-events-none" aria-hidden="true">
+          <Image src="/14_abkant_dark_overlay.png" alt="" width={400} height={400} className="h-full w-auto object-contain object-right" />
         </div>
         <div className="relative max-w-[1280px] mx-auto px-6">
           <h2 className="text-[42px] font-bold text-white leading-[50px] mb-5 max-w-xl">
@@ -330,10 +264,7 @@ export default async function HomePage() {
           <p className="text-[18px] text-[#94A3B8] leading-[30px] mb-10 max-w-md">
             Ücretsiz formu tamamlayın. Teklifinizi görün, kararınızı daha sonra verin.
           </p>
-          <Link
-            href="/sat"
-            className="inline-flex items-center gap-2 bg-[#3B5BDB] hover:bg-[#2F4AC7] hover:-translate-y-0.5 text-white font-bold px-8 h-[56px] rounded-[16px] text-[16px] transition-all duration-200"
-          >
+          <Link href="/sat" className="inline-flex items-center gap-2 bg-[#3B5BDB] hover:bg-[#2F4AC7] hover:-translate-y-0.5 text-white font-bold px-8 h-[56px] rounded-[16px] text-[16px] transition-all duration-200">
             Ücretsiz Teklif Al
             <ArrowRight className="w-4 h-4" strokeWidth={2} />
           </Link>
