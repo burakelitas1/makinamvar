@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://trinkmakina.com/blog' },
 }
 
-export const revalidate = 3600
+export const dynamic = 'force-dynamic'
 
 type Post = {
   id: string
