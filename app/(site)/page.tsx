@@ -244,7 +244,7 @@ export default async function HomePage() {
                   <p className="text-white/70 text-[13px] mt-1">Her makine teknik durumuna göre ayrıca incelenir.</p>
                 </div>
                 {/* Scroll: mavi gradient (yazısız) */}
-                <div className="sr-blue-overlay absolute inset-0 bg-gradient-to-t from-[#3B5BDB]/90 via-[#3B5BDB]/30 to-transparent opacity-0 group-hover:!opacity-100 transition-opacity duration-300" />
+                <div className="sr-blue-overlay absolute inset-0 bg-gradient-to-t from-[#3B5BDB]/90 via-[#3B5BDB]/30 to-[#3B5BDB]/15 opacity-0 group-hover:!opacity-100 transition-opacity duration-300" />
                 {/* Hover: yazı */}
                 <div className="absolute inset-0 flex items-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div className="px-8 py-8 w-full">
