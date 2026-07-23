@@ -230,11 +230,6 @@ export default async function HomePage() {
             <p className="text-[18px] text-[#475569] leading-[30px] max-w-md">Yaklaşık 3 dakikalık form. 24 saat içinde satın alma teklifi.</p>
           </div>
           <div className="relative grid md:grid-cols-3 gap-12 mb-12">
-            {/* Connector line (desktop only, behind content) */}
-            <div
-              className="hidden md:block absolute top-[38px] left-[calc(16.67%+16px)] right-[calc(16.67%+16px)] h-px bg-[#3B5BDB]/15 pointer-events-none"
-              aria-hidden="true"
-            />
             {STEPS.map((step) => (
               <div key={step.num} className="relative">
                 <div className="text-[#3B5BDB]/10 font-extrabold text-[80px] leading-none mb-6 select-none">{step.num}</div>
