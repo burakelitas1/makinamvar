@@ -38,9 +38,10 @@ const COMPARE_ROWS = [
 ]
 
 const DEFAULT_TESTIMONIALS = [
-  { id: '1', name: 'Mehmet K.', detail: 'Bursa OSB | 2018 Model Abkant Pres', text: 'Makineyi satmayı düşünüyordum ama nereden başlayacağımı bilemedim. Trink ile çok hızlı ilgilendiler, 24 saatten kısa sürede teklif geldi. Fiyattan memnun kaldım.', date: 'Mart 2025' },
-  { id: '2', name: 'Ali R.',    detail: 'İzmir | Giyotin Makas',              text: 'Eskiden böyle bir hizmet yoktu. İlanla uğraşmak yerine direkt teklif almak çok daha pratik. Lojistiği de kendileri halletti, hiç uğraşmadım.', date: 'Ocak 2025' },
-  { id: '3', name: 'Hasan T.', detail: 'Konya | Silindir Makinesi',           text: 'Teklifi aldıktan sonra kabul etmek zorunda değilsiniz diyorlar, bu güveni çok beğendim. Sonunda anlaştık ve ödeme anında yapıldı.', date: 'Şubat 2025' },
+  { id: '1', name: 'Mehmet K.', detail: 'Bursa OSB | 2018 Model Abkant Pres',  text: 'Makineyi satmayı düşünüyordum ama nereden başlayacağımı bilemedim. Trink ile çok hızlı ilgilendiler, 24 saatten kısa sürede teklif geldi. Fiyattan memnun kaldım.', date: 'Mart 2025' },
+  { id: '2', name: 'Ali R.',    detail: 'İzmir | Giyotin Makas',               text: 'Eskiden böyle bir hizmet yoktu. İlanla uğraşmak yerine direkt teklif almak çok daha pratik. Lojistiği de kendileri halletti, hiç uğraşmadım.', date: 'Ocak 2025' },
+  { id: '3', name: 'Hasan T.', detail: 'Konya | Silindir Makinesi',            text: 'Teklifi aldıktan sonra kabul etmek zorunda değilsiniz diyorlar, bu güveni çok beğendim. Sonunda anlaştık ve ödeme anında yapıldı.', date: 'Şubat 2025' },
+  { id: '4', name: 'Kadir Y.', detail: 'Ankara | Pres Makinesi',               text: 'Satmayı düşünmüyordum, sadece makinenin piyasa değerini merak ediyordum. Formu doldurup teklif aldım. Herhangi bir yükümlülük olmadığı için çok rahat bir deneyimdi.', date: 'Nisan 2025' },
 ]
 
 const DEFAULT_FAQS = [
