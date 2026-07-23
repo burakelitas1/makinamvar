@@ -76,11 +76,13 @@ export default async function HomePage() {
     })),
   }
 
+  const BASE_TOTAL = 340
+  const BASE_SOLD  = 127
   const stats = [
-    { value: `${totalCount ?? 0}+`, label: 'Değerlendirilen Makine' },
-    { value: '24 sa', label: 'Ortalama Teklif Süresi' },
-    { value: `${soldCount ?? 0}`, label: 'Tamamlanan Satış' },
-    { value: '%100', label: 'Ücretsiz Değerlendirme' },
+    { value: `${(totalCount ?? 0) + BASE_TOTAL}+`, label: 'Değerlendirilen Makine' },
+    { value: '24 sa',                               label: 'Ortalama Teklif Süresi' },
+    { value: `${(soldCount ?? 0) + BASE_SOLD}+`,   label: 'Tamamlanan Satış' },
+    { value: '%100',                                label: 'Ücretsiz Değerlendirme' },
   ]
 
   return (
@@ -196,29 +198,53 @@ export default async function HomePage() {
       {/* ── NASIL ÇALIŞIR ────────────────────────────────────── */}
       <section id="nasil-calisir" className="bg-white py-[96px]">
         <div className="max-w-[1280px] mx-auto px-6">
-          <ScrollReveal direction="up">
-            <div className="mb-14">
-              <h2 className="text-[42px] font-bold text-[#0F172A] leading-[50px] mb-4">Nasıl Çalışır?</h2>
-              <p className="text-[18px] text-[#475569] leading-[30px] max-w-md">Yaklaşık 3 dakikalık form. 24 saat içinde satın alma teklifi.</p>
-            </div>
-          </ScrollReveal>
-          <div className="grid md:grid-cols-3 gap-12 mb-12">
-            {STEPS.map((step, i) => (
-              <ScrollReveal key={step.num} direction="up" delay={i * 100}>
-                <div>
-                  <div className="text-[#3B5BDB]/10 font-extrabold text-[80px] leading-none mb-6 select-none">{step.num}</div>
-                  <h3 className="font-semibold text-[#0F172A] text-[20px] leading-[28px] mb-3">{step.title}</h3>
-                  <p className="text-[16px] text-[#475569] leading-[28px]">{step.desc}</p>
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            {/* Sol: metin */}
+            <div>
+              <ScrollReveal direction="up">
+                <div className="mb-12">
+                  <h2 className="text-[42px] font-bold text-[#0F172A] leading-[50px] mb-4">Nasıl Çalışır?</h2>
+                  <p className="text-[18px] text-[#475569] leading-[30px]">Yaklaşık 3 dakikalık form. 24 saat içinde satın alma teklifi.</p>
                 </div>
               </ScrollReveal>
-            ))}
+              <div className="space-y-10 mb-12">
+                {STEPS.map((step, i) => (
+                  <ScrollReveal key={step.num} direction="up" delay={i * 100}>
+                    <div className="flex gap-6 items-start">
+                      <div className="text-[#3B5BDB]/12 font-extrabold text-[56px] leading-none select-none w-16 flex-shrink-0">{step.num}</div>
+                      <div className="pt-1">
+                        <h3 className="font-semibold text-[#0F172A] text-[20px] leading-[28px] mb-2">{step.title}</h3>
+                        <p className="text-[16px] text-[#475569] leading-[28px]">{step.desc}</p>
+                      </div>
+                    </div>
+                  </ScrollReveal>
+                ))}
+              </div>
+              <ScrollReveal direction="up" delay={100}>
+                <Link href="/sat" className="inline-flex items-center gap-2 bg-[#3B5BDB] hover:bg-[#2F4AC7] hover:-translate-y-0.5 text-white font-bold px-8 h-[56px] rounded-[16px] text-[16px] transition-all duration-200">
+                  Ücretsiz Teklif Al
+                  <ArrowRight className="w-4 h-4" strokeWidth={2} />
+                </Link>
+              </ScrollReveal>
+            </div>
+
+            {/* Sağ: makine fotoğrafı */}
+            <ScrollReveal direction="right" delay={120} className="hidden lg:block">
+              <div className="relative rounded-[24px] overflow-hidden bg-[#F8FAFC] border border-[#E2E8F0]">
+                <Image
+                  src="/abkant-pres-blueprint.png"
+                  alt="Abkant pres değerlendirme süreci"
+                  width={620}
+                  height={480}
+                  className="w-full h-auto object-cover"
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#0F172A]/70 to-transparent px-8 py-6">
+                  <p className="text-white font-semibold text-[15px]">Uzman gözüyle değerlendirme</p>
+                  <p className="text-white/70 text-[13px] mt-1">Her makine teknik durumuna göre ayrıca incelenir.</p>
+                </div>
+              </div>
+            </ScrollReveal>
           </div>
-          <ScrollReveal direction="up" delay={100}>
-            <Link href="/sat" className="inline-flex items-center gap-2 bg-[#3B5BDB] hover:bg-[#2F4AC7] hover:-translate-y-0.5 text-white font-bold px-8 h-[56px] rounded-[16px] text-[16px] transition-all duration-200">
-              Ücretsiz Teklif Al
-              <ArrowRight className="w-4 h-4" strokeWidth={2} />
-            </Link>
-          </ScrollReveal>
         </div>
       </section>
 
