@@ -117,7 +117,7 @@ export default function AdminDetailPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="w-8 h-8 border-2 border-orange-500 border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-2 border-[#3B5BDB] border-t-transparent rounded-full animate-spin" />
       </div>
     )
   }
@@ -125,8 +125,8 @@ export default function AdminDetailPage() {
   if (!listing) {
     return (
       <div className="text-center py-16">
-        <p className="text-gray-400">Talep bulunamadı.</p>
-        <Link href="/admin" className="text-orange-400 hover:underline mt-4 inline-block">← Geri Dön</Link>
+        <p className="text-[#64748B]">Talep bulunamadı.</p>
+        <Link href="/admin" className="text-[#3B5BDB] hover:underline mt-4 inline-block">← Geri Dön</Link>
       </div>
     )
   }
@@ -134,11 +134,11 @@ export default function AdminDetailPage() {
   return (
     <div className="max-w-5xl">
       <div className="flex items-center gap-4 mb-6">
-        <Link href="/admin" className="text-gray-400 hover:text-white transition-colors text-sm">
+        <Link href="/admin" className="text-[#64748B] hover:text-white transition-colors text-sm">
           ← Tüm Talepler
         </Link>
         <span className="text-white">/</span>
-        <span className="text-gray-300 text-sm">
+        <span className="text-[#475569] text-sm">
           {listing.brand} {listing.model}
         </span>
       </div>
@@ -162,7 +162,7 @@ export default function AdminDetailPage() {
                   return (
                     <div key={d.id} className="flex items-center gap-2 text-xs">
                       <span className="text-yellow-500">{reasons.join(', ')}</span>
-                      <span className="text-gray-500">—</span>
+                      <span className="text-[#94A3B8]">—</span>
                       <Link href={`/admin/${d.id}`} className="text-yellow-400 hover:text-yellow-300 underline">
                         {d.contact_name} · {d.brand} {d.model} · {new Date(d.created_at).toLocaleDateString('tr-TR')}
                       </Link>
@@ -183,12 +183,12 @@ export default function AdminDetailPage() {
           {listing.photos.length > 0 && (
             <div className="card">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">Fotoğraflar</h2>
+                <h2 className="text-sm font-semibold text-[#64748B] uppercase tracking-wider">Fotoğraflar</h2>
                 <div className="flex gap-2">
                   <button
                     type="button"
                     onClick={() => downloadPhoto(listing.photos[activePhoto], activePhoto)}
-                    className="flex items-center gap-1.5 px-3 py-1.5 bg-[#475569] hover:bg-navy-600 border border-navy-600 text-gray-300 hover:text-white text-xs font-medium rounded-lg transition-colors"
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-[#F1F5F9] hover:bg-[#E2E8F0] border border-[#E2E8F0] text-[#475569] hover:text-white text-xs font-medium rounded-lg transition-colors"
                   >
                     ⬇ İndir
                   </button>
@@ -196,14 +196,14 @@ export default function AdminDetailPage() {
                     <button
                       type="button"
                       onClick={() => downloadAllPhotos(listing.photos)}
-                      className="flex items-center gap-1.5 px-3 py-1.5 bg-[#475569] hover:bg-navy-600 border border-navy-600 text-gray-300 hover:text-white text-xs font-medium rounded-lg transition-colors"
+                      className="flex items-center gap-1.5 px-3 py-1.5 bg-[#F1F5F9] hover:bg-[#E2E8F0] border border-[#E2E8F0] text-[#475569] hover:text-white text-xs font-medium rounded-lg transition-colors"
                     >
                       ⬇ Tümünü İndir ({listing.photos.length})
                     </button>
                   )}
                 </div>
               </div>
-              <div className="relative aspect-video rounded-lg overflow-hidden bg-[#1E293B] mb-3">
+              <div className="relative aspect-video rounded-lg overflow-hidden bg-white mb-3">
                 <Image
                   src={listing.photos[activePhoto]}
                   alt="Makine fotoğrafı"
@@ -218,7 +218,7 @@ export default function AdminDetailPage() {
                       key={i}
                       onClick={() => setActivePhoto(i)}
                       className={`relative flex-shrink-0 w-16 h-16 rounded-md overflow-hidden border-2 transition-colors
-                        ${activePhoto === i ? 'border-orange-500' : 'border-navy-600'}`}
+                        ${activePhoto === i ? 'border-[#3B5BDB]' : 'border-[#E2E8F0]'}`}
                     >
                       <Image src={url} alt="" fill className="object-cover" />
                     </button>
@@ -231,9 +231,9 @@ export default function AdminDetailPage() {
           {/* Makine Bilgileri */}
           <div className="card">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider">Makine Bilgileri</h2>
+              <h2 className="text-sm font-semibold text-[#64748B] uppercase tracking-wider">Makine Bilgileri</h2>
               <button type="button" onClick={downloadInfoCard}
-                className="flex items-center gap-1.5 px-3 py-1.5 bg-[#475569] hover:bg-navy-600 border border-navy-600 text-gray-300 hover:text-white text-xs font-medium rounded-lg transition-colors">
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-[#F1F5F9] hover:bg-[#E2E8F0] border border-[#E2E8F0] text-[#475569] hover:text-white text-xs font-medium rounded-lg transition-colors">
                 ⬇ Bilgi Kartı İndir
               </button>
             </div>
@@ -254,7 +254,7 @@ export default function AdminDetailPage() {
                 },
               ].map(({ label, value }) => (
                 <div key={label}>
-                  <dt className="text-xs text-gray-500 mb-0.5">{label}</dt>
+                  <dt className="text-xs text-[#94A3B8] mb-0.5">{label}</dt>
                   <dd className="text-gray-900 font-medium">{value}</dd>
                 </div>
               ))}
@@ -262,7 +262,7 @@ export default function AdminDetailPage() {
             {/* Makineye özel teknik detaylar */}
             {listing.extra_fields && Object.keys(listing.extra_fields).length > 0 && (
               <div className="mt-4 pt-4 border-t border-gray-100">
-                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Teknik Detaylar</p>
+                <p className="text-xs font-semibold text-[#64748B] uppercase tracking-wider mb-3">Teknik Detaylar</p>
                 <dl className="grid grid-cols-2 gap-3">
                   {Object.entries(listing.extra_fields as Record<string, string>)
                     .filter(([, v]) => v)
@@ -278,7 +278,7 @@ export default function AdminDetailPage() {
                       }
                       return (
                         <div key={k}>
-                          <dt className="text-xs text-gray-500 mb-0.5">{labels[k] ?? k}</dt>
+                          <dt className="text-xs text-[#94A3B8] mb-0.5">{labels[k] ?? k}</dt>
                           <dd className="text-gray-900 font-medium">{v}</dd>
                         </div>
                       )
@@ -291,24 +291,24 @@ export default function AdminDetailPage() {
 
           {/* İletişim */}
           <div className="card">
-            <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">İletişim</h2>
+            <h2 className="text-sm font-semibold text-[#64748B] uppercase tracking-wider mb-4">İletişim</h2>
             <dl className="space-y-3">
               <div>
-                <dt className="text-xs text-gray-500 mb-0.5">Ad Soyad</dt>
+                <dt className="text-xs text-[#94A3B8] mb-0.5">Ad Soyad</dt>
                 <dd className="text-gray-900 font-medium">{listing.contact_name}</dd>
               </div>
               <div>
-                <dt className="text-xs text-gray-500 mb-0.5">Cep Telefonu</dt>
+                <dt className="text-xs text-[#94A3B8] mb-0.5">Cep Telefonu</dt>
                 <dd>
-                  <a href={`tel:${listing.contact_phone}`} className="text-orange-400 hover:underline font-medium">
+                  <a href={`tel:${listing.contact_phone}`} className="text-[#3B5BDB] hover:underline font-medium">
                     {listing.contact_phone}
                   </a>
                 </dd>
               </div>
               <div>
-                <dt className="text-xs text-gray-500 mb-0.5">E-posta</dt>
+                <dt className="text-xs text-[#94A3B8] mb-0.5">E-posta</dt>
                 <dd>
-                  <a href={`mailto:${listing.contact_email}`} className="text-orange-400 hover:underline font-medium">
+                  <a href={`mailto:${listing.contact_email}`} className="text-[#3B5BDB] hover:underline font-medium">
                     {listing.contact_email}
                   </a>
                 </dd>
@@ -319,7 +319,7 @@ export default function AdminDetailPage() {
           {/* Müşteri Notu */}
           {listing.notes && (
             <div className="card">
-              <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">Müşteri Notu</h2>
+              <h2 className="text-sm font-semibold text-[#64748B] uppercase tracking-wider mb-3">Müşteri Notu</h2>
               <p className="text-gray-700 text-sm leading-relaxed whitespace-pre-wrap">{listing.notes}</p>
             </div>
           )}
@@ -330,7 +330,7 @@ export default function AdminDetailPage() {
 
           {/* Durum */}
           <div className="card">
-            <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">Durum</h2>
+            <h2 className="text-sm font-semibold text-[#64748B] uppercase tracking-wider mb-4">Durum</h2>
             <div className="mb-4">
               <StatusBadge status={listing.status} />
               {listing.offer_price && (
@@ -340,7 +340,7 @@ export default function AdminDetailPage() {
                 </p>
               )}
               {listing.offer_sent_at && (
-                <p className="text-gray-500 text-xs mt-1">
+                <p className="text-[#94A3B8] text-xs mt-1">
                   Teklif: {new Date(listing.offer_sent_at).toLocaleString('tr-TR')}
                   {' '}({Math.floor((Date.now() - new Date(listing.offer_sent_at).getTime()) / 86400000)} gün önce)
                 </p>
@@ -348,8 +348,8 @@ export default function AdminDetailPage() {
             </div>
 
             {listing.customer_response && (
-              <div className="mt-4 p-3 rounded-lg bg-[#334155] border border-navy-600 space-y-2">
-                <p className="text-xs text-gray-400 uppercase tracking-wider font-semibold">Müşteri Yanıtı</p>
+              <div className="mt-4 p-3 rounded-lg bg-white border border-[#E2E8F0] space-y-2">
+                <p className="text-xs text-[#64748B] uppercase tracking-wider font-semibold">Müşteri Yanıtı</p>
                 <span className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold ${
                   listing.customer_response === 'kabul' ? 'bg-green-100 text-green-800' :
                   listing.customer_response === 'red' ? 'bg-red-100 text-red-800' :
@@ -364,7 +364,7 @@ export default function AdminDetailPage() {
                   </p>
                 )}
                 {listing.customer_note && (
-                  <p className="text-gray-300 text-sm italic">"{listing.customer_note}"</p>
+                  <p className="text-[#475569] text-sm italic">"{listing.customer_note}"</p>
                 )}
               </div>
             )}
@@ -377,8 +377,8 @@ export default function AdminDetailPage() {
                   disabled={statusUpdating || listing.status === s}
                   className={`w-full py-2 px-3 rounded-lg text-sm font-medium transition-colors text-left
                     ${listing.status === s
-                      ? 'bg-orange-500 text-white cursor-default'
-                      : 'bg-[#475569] text-gray-300 hover:bg-navy-600 border border-navy-600'
+                      ? 'bg-[#3B5BDB] text-white cursor-default'
+                      : 'bg-[#F1F5F9] text-[#475569] hover:bg-[#E2E8F0] border border-[#E2E8F0]'
                     } disabled:opacity-50`}
                 >
                   {statusLabels[s]}
@@ -390,7 +390,7 @@ export default function AdminDetailPage() {
 
           {/* Teklif Gönder */}
           <div className="card">
-            <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">Teklif Gönder</h2>
+            <h2 className="text-sm font-semibold text-[#64748B] uppercase tracking-wider mb-4">Teklif Gönder</h2>
             <div className="space-y-3">
               <div>
                 <label className="label text-xs">Teklif Fiyatı (TL)</label>

@@ -89,6 +89,9 @@ export default function TaleplerClient({ listings, cities, brands }: Props) {
     setBrand(''); setDateFrom(''); setDateTo('')
   }
 
+  const inputCls = "w-full bg-white border border-[#E2E8F0] rounded-lg px-3 py-2 text-[#0F172A] text-sm placeholder-[#94A3B8] focus:outline-none focus:border-[#3B5BDB] focus:ring-1 focus:ring-[#3B5BDB]/20"
+  const labelCls = "text-xs text-[#475569] mb-1.5 block font-medium"
+
   return (
     <>
       {/* Durum tabları */}
@@ -99,39 +102,39 @@ export default function TaleplerClient({ listings, cities, brands }: Props) {
             onClick={() => setStatus(tab.key)}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2
               ${status === tab.key
-                ? 'bg-[#E67E22] text-white'
-                : 'bg-[#334155] text-gray-300 hover:bg-[#475569] border border-[#334155]'}`}
+                ? 'bg-[#3B5BDB] text-white shadow-sm'
+                : 'bg-white text-[#475569] hover:bg-[#F1F5F9] border border-[#E2E8F0]'}`}
           >
             {tab.label}
-            <span className={`text-xs px-1.5 py-0.5 rounded-full ${status === tab.key ? 'bg-white/20' : 'bg-[#475569]'}`}>
+            <span className={`text-xs px-1.5 py-0.5 rounded-full ${status === tab.key ? 'bg-white/20 text-white' : 'bg-[#F1F5F9] text-[#64748B]'}`}>
               {tab.key === '' ? counts.all : (counts[tab.key] ?? 0)}
             </span>
           </button>
         ))}
       </div>
 
-      {/* Arama + Filtre aç/kapat */}
+      {/* Arama + Filtre */}
       <div className="flex gap-3 mb-4">
         <input
           type="text"
           placeholder="Ad, telefon, marka, model, il ara…"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="flex-1 bg-[#334155] border border-[#334155] rounded-lg px-4 py-2 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-orange-500"
+          className="flex-1 bg-white border border-[#E2E8F0] rounded-lg px-4 py-2 text-[#0F172A] text-sm placeholder-[#94A3B8] focus:outline-none focus:border-[#3B5BDB] focus:ring-1 focus:ring-[#3B5BDB]/20"
         />
         <button
           onClick={() => setFiltersOpen(!filtersOpen)}
           className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border transition-colors
             ${filtersOpen || hasFilters
-              ? 'bg-orange-500/10 border-orange-500 text-orange-400'
-              : 'bg-[#334155] border-[#334155] text-gray-300 hover:bg-[#475569]'}`}
+              ? 'bg-[#3B5BDB]/8 border-[#3B5BDB] text-[#3B5BDB]'
+              : 'bg-white border-[#E2E8F0] text-[#475569] hover:bg-[#F1F5F9]'}`}
         >
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4h18M6 8h12M10 12h4" />
           </svg>
           Filtrele
           {hasFilters && (
-            <span className="bg-orange-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+            <span className="bg-[#3B5BDB] text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
               {[machineType, city, district, brand, dateFrom, dateTo].filter(Boolean).length}
             </span>
           )}
@@ -140,89 +143,43 @@ export default function TaleplerClient({ listings, cities, brands }: Props) {
 
       {/* Filtre paneli */}
       {filtersOpen && (
-        <div className="bg-[#1E293B] border border-[#334155] rounded-xl p-5 mb-5 grid grid-cols-2 lg:grid-cols-3 gap-4">
-          {/* Makine Türü */}
+        <div className="bg-white border border-[#E2E8F0] rounded-xl p-5 mb-5 grid grid-cols-2 lg:grid-cols-3 gap-4 shadow-sm">
           <div>
-            <label className="text-xs text-gray-400 mb-1.5 block">Makine Türü</label>
-            <select
-              value={machineType}
-              onChange={(e) => setMachineType(e.target.value)}
-              className="w-full bg-[#334155] border border-[#334155] rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-orange-500"
-            >
+            <label className={labelCls}>Makine Türü</label>
+            <select value={machineType} onChange={(e) => setMachineType(e.target.value)} className={inputCls}>
               <option value="">Tümü</option>
               {MACHINE_TYPES.map((t) => (
                 <option key={t} value={t}>{machineTypeLabels[t]}</option>
               ))}
             </select>
           </div>
-
-          {/* Marka */}
           <div>
-            <label className="text-xs text-gray-400 mb-1.5 block">Marka</label>
-            <input
-              type="text"
-              placeholder="örn. Trumpf, Baykal…"
-              value={brand}
-              onChange={(e) => setBrand(e.target.value)}
-              list="brand-list"
-              className="w-full bg-[#334155] border border-[#334155] rounded-lg px-3 py-2 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-orange-500"
-            />
-            <datalist id="brand-list">
-              {brands.map((b) => <option key={b} value={b} />)}
-            </datalist>
+            <label className={labelCls}>Marka</label>
+            <input type="text" placeholder="örn. Trumpf, Baykal…" value={brand} onChange={(e) => setBrand(e.target.value)} list="brand-list" className={inputCls} />
+            <datalist id="brand-list">{brands.map((b) => <option key={b} value={b} />)}</datalist>
           </div>
-
-          {/* İl */}
           <div>
-            <label className="text-xs text-gray-400 mb-1.5 block">İl</label>
-            <select
-              value={city}
-              onChange={(e) => { setCity(e.target.value); setDistrict('') }}
-              className="w-full bg-[#334155] border border-[#334155] rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-orange-500"
-            >
+            <label className={labelCls}>İl</label>
+            <select value={city} onChange={(e) => { setCity(e.target.value); setDistrict('') }} className={inputCls}>
               <option value="">Tüm İller</option>
               {cities.map((c) => <option key={c} value={c}>{c}</option>)}
             </select>
           </div>
-
-          {/* İlçe */}
           <div>
-            <label className="text-xs text-gray-400 mb-1.5 block">İlçe</label>
-            <input
-              type="text"
-              placeholder="İlçe ara…"
-              value={district}
-              onChange={(e) => setDistrict(e.target.value)}
-              className="w-full bg-[#334155] border border-[#334155] rounded-lg px-3 py-2 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-orange-500"
-            />
-          </div>
-
-          {/* Tarih aralığı */}
-          <div>
-            <label className="text-xs text-gray-400 mb-1.5 block">Başlangıç Tarihi</label>
-            <input
-              type="date"
-              value={dateFrom}
-              onChange={(e) => setDateFrom(e.target.value)}
-              className="w-full bg-[#334155] border border-[#334155] rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-orange-500"
-            />
+            <label className={labelCls}>İlçe</label>
+            <input type="text" placeholder="İlçe ara…" value={district} onChange={(e) => setDistrict(e.target.value)} className={inputCls} />
           </div>
           <div>
-            <label className="text-xs text-gray-400 mb-1.5 block">Bitiş Tarihi</label>
-            <input
-              type="date"
-              value={dateTo}
-              onChange={(e) => setDateTo(e.target.value)}
-              className="w-full bg-[#334155] border border-[#334155] rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-orange-500"
-            />
+            <label className={labelCls}>Başlangıç Tarihi</label>
+            <input type="date" value={dateFrom} onChange={(e) => setDateFrom(e.target.value)} className={inputCls} />
           </div>
-
+          <div>
+            <label className={labelCls}>Bitiş Tarihi</label>
+            <input type="date" value={dateTo} onChange={(e) => setDateTo(e.target.value)} className={inputCls} />
+          </div>
           {hasFilters && (
             <div className="col-span-2 lg:col-span-3 flex justify-end">
-              <button
-                onClick={clearFilters}
-                className="text-sm text-gray-400 hover:text-white underline transition-colors"
-              >
+              <button onClick={clearFilters} className="text-sm text-[#475569] hover:text-[#0F172A] underline transition-colors">
                 Filtreleri Temizle
               </button>
             </div>
@@ -231,20 +188,20 @@ export default function TaleplerClient({ listings, cities, brands }: Props) {
       )}
 
       {/* Sonuç sayısı */}
-      <p className="text-gray-500 text-xs mb-3">
+      <p className="text-[#94A3B8] text-xs mb-3">
         {filtered.length} talep gösteriliyor{listings.length !== filtered.length ? ` (toplam ${listings.length})` : ''}
       </p>
 
       {/* Tablo */}
       {!filtered.length ? (
-        <div className="bg-[#1E293B] rounded-xl text-center py-16 border border-[#334155]">
-          <p className="text-gray-400">Bu filtreye ait talep bulunmuyor.</p>
+        <div className="bg-white rounded-xl text-center py-16 border border-[#E2E8F0]">
+          <p className="text-[#94A3B8]">Bu filtreye ait talep bulunmuyor.</p>
         </div>
       ) : (
-        <div className="overflow-x-auto rounded-xl border border-[#334155]">
+        <div className="overflow-x-auto rounded-xl border border-[#E2E8F0] shadow-sm">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-[#334155] text-gray-400 text-left">
+              <tr className="bg-[#F8FAFC] text-[#64748B] text-left border-b border-[#E2E8F0]">
                 <th className="px-4 py-3 font-medium">Tarih</th>
                 <th className="px-4 py-3 font-medium">Makine</th>
                 <th className="px-4 py-3 font-medium">Marka / Model</th>
@@ -254,34 +211,34 @@ export default function TaleplerClient({ listings, cities, brands }: Props) {
                 <th className="px-4 py-3 font-medium"></th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-navy-700">
+            <tbody className="divide-y divide-[#E2E8F0]">
               {filtered.map((l) => {
                 const dupReasons = getDuplicateReasons(l, listings)
                 const isDup = dupReasons.length > 0
                 return (
-                  <tr key={l.id} className={`hover:bg-[#334155] transition-colors ${isDup ? 'bg-yellow-900/20' : 'bg-[#1E293B]'}`}>
-                    <td className="px-4 py-3 text-gray-400 whitespace-nowrap">
+                  <tr key={l.id} className={`hover:bg-[#F8FAFC] transition-colors ${isDup ? 'bg-amber-50' : 'bg-white'}`}>
+                    <td className="px-4 py-3 text-[#64748B] whitespace-nowrap">
                       {new Date(l.created_at).toLocaleDateString('tr-TR')}
                     </td>
-                    <td className="px-4 py-3 text-white font-medium whitespace-nowrap">
+                    <td className="px-4 py-3 text-[#0F172A] font-medium whitespace-nowrap">
                       {machineTypeLabels[l.machine_type] ?? l.machine_type}
                     </td>
-                    <td className="px-4 py-3 text-gray-300">
+                    <td className="px-4 py-3 text-[#475569]">
                       {l.brand}
-                      <span className="text-gray-500 text-xs block">{l.model}</span>
+                      <span className="text-[#94A3B8] text-xs block">{l.model}</span>
                     </td>
-                    <td className="px-4 py-3 text-gray-400">
+                    <td className="px-4 py-3 text-[#475569]">
                       {l.location_city}
-                      <span className="text-gray-500 text-xs block">{l.location_district}</span>
+                      <span className="text-[#94A3B8] text-xs block">{l.location_district}</span>
                     </td>
-                    <td className="px-4 py-3 text-gray-300">
+                    <td className="px-4 py-3 text-[#475569]">
                       <div className="flex items-center gap-2">
                         <div>
                           {l.contact_name}
-                          <span className="text-gray-500 text-xs block">{l.contact_phone}</span>
+                          <span className="text-[#94A3B8] text-xs block">{l.contact_phone}</span>
                         </div>
                         {isDup && (
-                          <span title={dupReasons.join(' · ')} className="flex-shrink-0 w-5 h-5 bg-yellow-400 text-yellow-900 rounded-full flex items-center justify-center text-xs font-bold cursor-help">
+                          <span title={dupReasons.join(' · ')} className="flex-shrink-0 w-5 h-5 bg-amber-400 text-amber-900 rounded-full flex items-center justify-center text-xs font-bold cursor-help">
                             !
                           </span>
                         )}
@@ -289,7 +246,7 @@ export default function TaleplerClient({ listings, cities, brands }: Props) {
                     </td>
                     <td className="px-4 py-3"><StatusBadge status={l.status} /></td>
                     <td className="px-4 py-3">
-                      <Link href={`/admin/${l.id}`} className="text-[#E67E22] hover:text-orange-300 font-medium text-xs whitespace-nowrap">
+                      <Link href={`/admin/${l.id}`} className="text-[#3B5BDB] hover:text-[#2F4AC7] font-medium text-xs whitespace-nowrap">
                         İncele →
                       </Link>
                     </td>

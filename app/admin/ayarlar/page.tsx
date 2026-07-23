@@ -44,17 +44,17 @@ export default function AyarlarPage() {
     setMsg(res.ok ? 'Ayarlar kaydedildi ✓' : 'Hata oluştu')
   }
 
-  if (loading) return <div className="text-gray-400 text-center py-20">Yükleniyor…</div>
+  if (loading) return <div className="text-[#475569] text-center py-20">Yükleniyor…</div>
 
   return (
     <div className="max-w-2xl">
       <h1 className="text-2xl font-bold text-white mb-2">Site Ayarları</h1>
-      <p className="text-gray-400 text-sm mb-8">İletişim bilgileri ve site içeriklerini buradan güncelleyebilirsiniz.</p>
+      <p className="text-[#475569] text-sm mb-8">İletişim bilgileri ve site içeriklerini buradan güncelleyebilirsiniz.</p>
 
       <div className="space-y-8">
         {FIELDS.map((section) => (
-          <div key={section.section} className="bg-[#1E293B] border border-[#334155] rounded-xl p-6">
-            <h2 className="text-white font-semibold text-sm uppercase tracking-wider mb-5 pb-3 border-b border-[#334155]">
+          <div key={section.section} className="bg-white border border-[#E2E8F0] rounded-xl p-6">
+            <h2 className="text-white font-semibold text-sm uppercase tracking-wider mb-5 pb-3 border-b border-[#E2E8F0]">
               {section.section}
             </h2>
             <div className="space-y-4">
@@ -82,7 +82,7 @@ export default function AyarlarPage() {
         {saving ? 'Kaydediliyor…' : 'Ayarları Kaydet'}
       </button>
 
-      <p className="text-gray-500 text-xs mt-4">
+      <p className="text-[#475569] text-xs mt-4">
         Not: İletişim bilgisi değişikliklerinin sitede görünmesi için sayfayı yenilemeniz gerekebilir.
       </p>
     </div>
