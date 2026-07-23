@@ -575,7 +575,7 @@ export default function SatPage() {
             <h2 className="text-base font-bold text-gray-900 border-b border-gray-100 pb-3 mb-5 flex items-center gap-2">
               <span className="w-6 h-6 bg-[#3B5BDB] text-white rounded-full text-xs font-bold flex items-center justify-center">2</span>
               Fotoğraflar
-              <span className="text-xs font-normal text-gray-400 ml-1">(max. 5 adet)</span>
+              <span className="text-xs font-normal text-gray-400 ml-1">(isteğe bağlı, max. 6 adet)</span>
             </h2>
             <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-4">
               <p className="text-sm font-semibold text-[#2C3E50] mb-2">Daha Doğru Teklif İçin Fotoğraflar</p>
