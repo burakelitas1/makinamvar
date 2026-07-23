@@ -9,6 +9,7 @@ import { supabase } from '@/lib/supabase'
 import { CITIES } from '@/lib/cities'
 import PhotoUpload from '@/components/PhotoUpload'
 import { CheckCircle2, Wrench, AlertCircle } from 'lucide-react'
+import { FormHeaderIllustration } from '@/components/MachineIllustrations'
 
 const schema = z.object({
   machine_type: z.enum(['abkant', 'giyotin', 'press', 'silindir', 'boru-bukum', 'testere', 'diger'], {
@@ -192,8 +193,12 @@ export default function SatPage() {
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Sayfa başlığı */}
-      <div className="bg-[#0F172A] py-10">
-        <div className="max-w-2xl mx-auto px-4 text-center">
+      <div className="relative bg-[#0F172A] py-10 overflow-hidden">
+        {/* Decorative machine illustration (desktop, low opacity) */}
+        <div className="hidden sm:block absolute right-0 top-0 h-full pointer-events-none" aria-hidden="true">
+          <FormHeaderIllustration className="h-full w-auto opacity-100" />
+        </div>
+        <div className="relative max-w-2xl mx-auto px-4 text-center">
           <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">Ücretsiz Teklif Talebi</h1>
           <p className="text-[#94A3B8] text-sm sm:text-base">
             Makinenizin bilgilerini paylaşın. Uzman ekibimiz değerlendirsin, satın alma teklifinizi 24 saat içinde iletsin.
