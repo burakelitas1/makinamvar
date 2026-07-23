@@ -35,7 +35,7 @@ export default async function BlogPage() {
       .from('posts')
       .select('id,title,slug,cover_image,category,author_name,published_at,content')
       .eq('published', true)
-      .order('published_at', { ascending: false })
+      .order('created_at', { ascending: false })
     posts = data ?? []
   } catch {
     // fall through to empty state
