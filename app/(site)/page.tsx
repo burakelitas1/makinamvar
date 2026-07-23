@@ -243,8 +243,8 @@ export default async function HomePage() {
                   <p className="text-white font-semibold text-[15px]">Uzman gözüyle değerlendirme</p>
                   <p className="text-white/70 text-[13px] mt-1">Her makine teknik durumuna göre ayrıca incelenir.</p>
                 </div>
-                {/* Scroll + Hover: mavi gradient */}
-                <div className="sr-blue-overlay absolute inset-0 bg-gradient-to-t from-[#3B5BDB]/80 via-[#3B5BDB]/20 to-transparent opacity-0 group-hover:!opacity-100 transition-opacity duration-300 flex items-end">
+                {/* Hover: mavi gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#3B5BDB]/90 via-[#3B5BDB]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
                   <div className="px-8 py-8 w-full">
                     <p className="text-white font-bold text-[18px] mb-1">Ücretsiz Teklif Al</p>
                     <p className="text-white/80 text-[14px] flex items-center gap-2">
