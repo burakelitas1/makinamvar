@@ -8,7 +8,7 @@ import { createServiceClient } from '@/lib/supabase-server'
 import { ArrowRight, CheckCircle, Star } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'İkinci El Sac İşleme Makinesi Sat — 24 Saatte Nakit Teklif',
+  title: 'Makinanıza Ücretsiz Teklif Alın',
   description: 'Abkant pres, giyotin makas, lazer kesim makinenizi kolayca satın. Ücretsiz değerlendirme, 24 saat içinde nakit teklif. Söküm ve nakliye tamamen bizden. Türkiye geneli hizmet.',
   alternates: { canonical: 'https://trinkmakina.com' },
 }
