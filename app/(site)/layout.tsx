@@ -12,7 +12,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
       <header className="bg-white/80 backdrop-blur-[20px] border-b border-[#E2E8F0] sticky top-0 z-50 h-[80px]">
         <div className="max-w-[1280px] mx-auto px-6 h-full flex items-center justify-between gap-6">
           <a href="/" className="flex items-center flex-shrink-0" aria-label="Trink Makina Ana Sayfa">
-            <Image src="/trinkmakina_logo.png" alt="Trink Makina" width={130} height={26} priority />
+            <Image src="/trinkmakina_logo.png" alt="Trink Makina" width={200} height={133} priority style={{height: '52px', width: 'auto'}} />
           </a>
           <nav className="hidden lg:flex items-center gap-8 text-[14px] font-medium text-[#475569]">
             <a href="#nasil-calisir" className="hover:text-[#0F172A] transition-colors">Nasıl Çalışır</a>
@@ -35,7 +35,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
             <div className="col-span-2 lg:col-span-1">
               <div className="mb-4">
-                <Image src="/trinkmakina_logo.png" alt="Trink Makina" width={120} height={24} />
+                <Image src="/trinkmakina_logo.png" alt="Trink Makina" width={200} height={133} style={{height: '48px', width: 'auto'}} />
               </div>
               <p className="text-[#475569] text-[14px] leading-[22px]">Endüstriyel Değerleme Platformu</p>
               <p className="text-[#94A3B8] text-[12px] mt-2 leading-[20px]">Sac işleme makinelerinizin gerçek piyasa değerini öğrenin.</p>
