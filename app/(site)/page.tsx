@@ -51,6 +51,8 @@ const DEFAULT_TESTIMONIALS = [
   { id: '2', name: 'Ali R.',    detail: 'İzmir | Giyotin Makas',               text: 'Eskiden böyle bir hizmet yoktu. İlanla uğraşmak yerine direkt teklif almak çok daha pratik. Lojistiği de kendileri halletti, hiç uğraşmadım.', date: 'Ocak 2025' },
   { id: '3', name: 'Hasan T.', detail: 'Konya | Silindir Makinesi',            text: 'Teklifi aldıktan sonra kabul etmek zorunda değilsiniz diyorlar, bu güveni çok beğendim. Sonunda anlaştık ve ödeme anında yapıldı.', date: 'Şubat 2025' },
   { id: '4', name: 'Kadir Y.', detail: 'Ankara | Pres Makinesi',               text: 'Satmayı düşünmüyordum, sadece makinenin piyasa değerini merak ediyordum. Formu doldurup teklif aldım. Herhangi bir yükümlülük olmadığı için çok rahat bir deneyimdi.', date: 'Nisan 2025' },
+  { id: '5', name: 'Serkan B.', detail: 'Kocaeli | Lazer Kesim Makinesi',       text: 'Yaklaşık 1 ay önce fiyat almıştım, o dönem teklife sıcak bakmamıştım. Ama iş yerinde nakit ihtiyacı doğunca tekrar yazdım. Aynı ilgiyi gördüm, hızlıca anlaştık.', date: 'Mayıs 2025' },
+  { id: '6', name: 'Erkan D.',  detail: 'Gaziantep | CNC Bükme Makinesi',      text: 'Asıl amacım makinenin güncel piyasa değerini öğrenmekti. Formu doldurdum, detaylı bir teklif geldi. Rakamı görünce piyasayı çok daha iyi anladım.', date: 'Haziran 2025' },
 ]
 
 const DEFAULT_FAQS = [
