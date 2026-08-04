@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const post = await getPost(params.slug)
   if (!post) return { title: 'Sayfa Bulunamadı' }
   return {
-    title: `${post.title} | Trink Makina Blog`,
+    title: `${post.title} | Trink Makina Bilgi Bankası`,
     description: post.content.replace(/#+\s/g, '').slice(0, 155),
     alternates: { canonical: `https://trinkmakina.com/blog/${post.slug}` },
     openGraph: {
@@ -88,7 +88,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
         <div className="max-w-none">
           {paragraphs.map((para, i) => {
             if (para.startsWith('## ')) return <h2 key={i} className="text-[20px] font-bold text-[#0F172A] mt-8 mb-3">{para.slice(3)}</h2>
-            if (para.startsWith('# '))  return <h2 key={i} className="text-[22px] font-bold text-[#0F172A] mt-8 mb-3">{para.slice(2)}</h2>
+            if (para.startsWith('# '))  return <h1 key={i} className="text-[22px] font-bold text-[#0F172A] mt-8 mb-3">{para.slice(2)}</h1>
             if (para.startsWith('### ')) return <h3 key={i} className="text-[17px] font-semibold text-[#0F172A] mt-6 mb-2">{para.slice(4)}</h3>
             if (para.startsWith('- ') || para.startsWith('* ')) {
               return <li key={i} className="text-[15px] text-[#475569] leading-[26px] ml-5 list-disc mb-1">{para.slice(2)}</li>

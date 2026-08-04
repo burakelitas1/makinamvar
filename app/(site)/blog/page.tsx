@@ -9,8 +9,8 @@ function optimizeImage(url: string, width: number, quality = 70): string {
 }
 
 export const metadata: Metadata = {
-  title: 'Blog — Makine Satış Rehberi | Trink Makina',
-  description: 'İkinci el sac işleme makineleri hakkında uzman rehberleri, değerleme ipuçları ve sektör haberleri. Trink Makina blogu.',
+  title: 'Bilgi Bankası — Makine Rehberleri | Trink Makina',
+  description: 'İkinci el sac işleme makineleri hakkında uzman rehberleri, değerleme ipuçları ve sektör bilgileri. Trink Makina bilgi bankası.',
   alternates: { canonical: 'https://trinkmakina.com/blog' },
 }
 
@@ -46,8 +46,8 @@ export default async function BlogPage() {
     <div className="bg-white min-h-screen">
       <div className="max-w-[1280px] mx-auto px-6 py-16">
         <div className="mb-12">
-          <h1 className="text-[42px] font-bold text-[#0F172A] leading-tight mb-4">Blog</h1>
-          <p className="text-[18px] text-[#475569]">Makine satışı, değerleme ve sektör hakkında rehberler.</p>
+          <h1 className="text-[42px] font-bold text-[#0F172A] leading-tight mb-4">Bilgi Bankası</h1>
+          <p className="text-[18px] text-[#475569]">Makine satışı, değerleme ve sektör hakkında uzman içerikler.</p>
         </div>
 
         {posts.length === 0 ? (
@@ -75,7 +75,7 @@ export default async function BlogPage() {
                   )}
                   <h2 className="font-bold text-[#0F172A] text-[17px] leading-snug mb-3 flex-1">{post.title}</h2>
                   <p className="text-[#475569] text-[13px] line-clamp-3 mb-4">
-                    {post.content.replace(/#+\s/g, '').slice(0, 120)}…
+                    {post.content.replace(/^#+\s.*/gm, '').replace(/\*\*|__|\*|_|`|\[([^\]]*)\]\([^)]*\)/g, '$1').replace(/^[-*]\s/gm, '').trim().slice(0, 120)}…
                   </p>
                   <div className="flex items-center justify-between text-[12px] text-[#94A3B8] mt-auto pt-4 border-t border-[#E2E8F0]">
                     <span>{post.author_name ?? 'Trink Makina'}</span>

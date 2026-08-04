@@ -17,7 +17,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
           <nav className="hidden lg:flex items-center gap-8 text-[14px] font-medium text-[#475569]">
             <a href="#nasil-calisir" className="hover:text-[#0F172A] transition-colors">Nasıl Çalışır</a>
             <a href="#sss" className="hover:text-[#0F172A] transition-colors">SSS</a>
-            <a href="/blog" className="hover:text-[#0F172A] transition-colors">Blog</a>
+            <a href="/blog" className="hover:text-[#0F172A] transition-colors">Bilgi Bankası</a>
           </nav>
           <a
             href="/sat"
@@ -65,7 +65,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
                   <p className="text-[#94A3B8] text-[12px] mt-0.5">Hafta içi 09:00 – 18:00</p>
                 </li>
                 <li><a href="mailto:info@trinkmakina.com" className="hover:text-[#0F172A] transition-colors">info@trinkmakina.com</a></li>
-                <li className="text-[#94A3B8] text-[12px] leading-[20px]">Örnek Mah. Sanayi Cad. No:1<br />Ataşehir / İstanbul</li>
+                <li className="text-[#94A3B8] text-[12px] leading-[20px]">Doğanlar Mh. 1419 Sk. No:34<br />Bornova / İZMİR</li>
               </ul>
             </address>
           </div>

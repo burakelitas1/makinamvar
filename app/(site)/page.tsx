@@ -431,11 +431,11 @@ export default async function HomePage() {
             <ScrollReveal direction="up">
               <div className="flex items-end justify-between mb-10">
                 <div>
-                  <p className="text-[12px] font-semibold text-[#3B5BDB] uppercase tracking-wider mb-2">Blog</p>
+                  <p className="text-[12px] font-semibold text-[#3B5BDB] uppercase tracking-wider mb-2">Bilgi Bankası</p>
                   <h2 className="text-[36px] font-bold text-[#0F172A] leading-tight">Uzman Rehberleri</h2>
                 </div>
                 <Link href="/blog" className="hidden sm:inline-flex items-center gap-1.5 text-[#3B5BDB] hover:text-[#2F4AC7] font-semibold text-[14px] transition-colors">
-                  Tüm yazılar
+                  Tüm içerikler
                   <ArrowRight className="w-4 h-4" strokeWidth={2} />
                 </Link>
               </div>
