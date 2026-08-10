@@ -46,9 +46,16 @@ export default function TaleplerClient({ listings, cities, brands }: Props) {
   const [dateTo, setDateTo] = useState('')
   const [search, setSearch] = useState('')
   const [filtersOpen, setFiltersOpen] = useState(false)
+  const [showArchived, setShowArchived] = useState(false)
+  const [localListings, setLocalListings] = useState(listings)
+  const [loadingId, setLoadingId] = useState<string | null>(null)
+
+  const activeListings = useMemo(() => localListings.filter(l => !l.archived), [localListings])
+  const archivedListings = useMemo(() => localListings.filter(l => l.archived), [localListings])
+  const source = showArchived ? archivedListings : activeListings
 
   const filtered = useMemo(() => {
-    return listings.filter((l) => {
+    return source.filter((l) => {
       if (status && l.status !== status) return false
       if (machineType && l.machine_type !== machineType) return false
       if (city && l.location_city !== city) return false
@@ -68,19 +75,19 @@ export default function TaleplerClient({ listings, cities, brands }: Props) {
       }
       return true
     })
-  }, [listings, status, machineType, city, district, brand, dateFrom, dateTo, search])
+  }, [source, status, machineType, city, district, brand, dateFrom, dateTo, search])
 
   const counts = useMemo(() => {
-    const base = (s: string) => listings.filter((l) => l.status === s).length
+    const base = (s: string) => activeListings.filter((l) => l.status === s).length
     return {
-      all: listings.length,
+      all: activeListings.length,
       bekliyor: base('bekliyor'),
       'teklif-verildi': base('teklif-verildi'),
       'yanit-bekliyor': base('yanit-bekliyor'),
       kabul: base('kabul'),
       red: base('red'),
     } as Record<string, number>
-  }, [listings])
+  }, [activeListings])
 
   const hasFilters = machineType || city || district || brand || dateFrom || dateTo
 
@@ -89,29 +96,76 @@ export default function TaleplerClient({ listings, cities, brands }: Props) {
     setBrand(''); setDateFrom(''); setDateTo('')
   }
 
+  async function handleArchive(id: string, archive: boolean) {
+    setLoadingId(id)
+    try {
+      const res = await fetch(`/api/admin/listings/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ archived: archive }),
+      })
+      if (res.ok) {
+        setLocalListings(prev => prev.map(l => l.id === id ? { ...l, archived: archive } : l))
+      }
+    } finally {
+      setLoadingId(null)
+    }
+  }
+
+  async function handleDelete(id: string) {
+    if (!confirm('Bu talebi kalıcı olarak silmek istediğinizden emin misiniz?')) return
+    setLoadingId(id)
+    try {
+      const res = await fetch(`/api/admin/listings/${id}`, { method: 'DELETE' })
+      if (res.ok) {
+        setLocalListings(prev => prev.filter(l => l.id !== id))
+      }
+    } finally {
+      setLoadingId(null)
+    }
+  }
+
   const inputCls = "w-full bg-white border border-[#E2E8F0] rounded-lg px-3 py-2 text-[#0F172A] text-sm placeholder-[#94A3B8] focus:outline-none focus:border-[#3B5BDB] focus:ring-1 focus:ring-[#3B5BDB]/20"
   const labelCls = "text-xs text-[#475569] mb-1.5 block font-medium"
 
   return (
     <>
-      {/* Durum tabları */}
-      <div className="flex gap-2 mb-4 flex-wrap">
-        {STATUS_TABS.map((tab) => (
-          <button
-            key={tab.key}
-            onClick={() => setStatus(tab.key)}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2
-              ${status === tab.key
-                ? 'bg-[#3B5BDB] text-white shadow-sm'
-                : 'bg-white text-[#475569] hover:bg-[#F1F5F9] border border-[#E2E8F0]'}`}
-          >
-            {tab.label}
-            <span className={`text-xs px-1.5 py-0.5 rounded-full ${status === tab.key ? 'bg-white/20 text-white' : 'bg-[#F1F5F9] text-[#64748B]'}`}>
-              {tab.key === '' ? counts.all : (counts[tab.key] ?? 0)}
-            </span>
-          </button>
-        ))}
+      {/* Arşiv toggle */}
+      <div className="flex items-center gap-3 mb-4">
+        <button
+          onClick={() => setShowArchived(false)}
+          className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors border ${!showArchived ? 'bg-[#3B5BDB] text-white border-[#3B5BDB]' : 'bg-white text-[#475569] border-[#E2E8F0] hover:bg-[#F1F5F9]'}`}
+        >
+          Aktif Talepler <span className="ml-1 text-xs opacity-70">{activeListings.length}</span>
+        </button>
+        <button
+          onClick={() => setShowArchived(true)}
+          className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors border ${showArchived ? 'bg-[#475569] text-white border-[#475569]' : 'bg-white text-[#475569] border-[#E2E8F0] hover:bg-[#F1F5F9]'}`}
+        >
+          Arşiv <span className="ml-1 text-xs opacity-70">{archivedListings.length}</span>
+        </button>
       </div>
+
+      {/* Durum tabları — sadece aktif görünümde */}
+      {!showArchived && (
+        <div className="flex gap-2 mb-4 flex-wrap">
+          {STATUS_TABS.map((tab) => (
+            <button
+              key={tab.key}
+              onClick={() => setStatus(tab.key)}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2
+                ${status === tab.key
+                  ? 'bg-[#3B5BDB] text-white shadow-sm'
+                  : 'bg-white text-[#475569] hover:bg-[#F1F5F9] border border-[#E2E8F0]'}`}
+            >
+              {tab.label}
+              <span className={`text-xs px-1.5 py-0.5 rounded-full ${status === tab.key ? 'bg-white/20 text-white' : 'bg-[#F1F5F9] text-[#64748B]'}`}>
+                {tab.key === '' ? counts.all : (counts[tab.key] ?? 0)}
+              </span>
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* Arama + Filtre */}
       <div className="flex gap-3 mb-4">
@@ -189,7 +243,7 @@ export default function TaleplerClient({ listings, cities, brands }: Props) {
 
       {/* Sonuç sayısı */}
       <p className="text-[#94A3B8] text-xs mb-3">
-        {filtered.length} talep gösteriliyor{listings.length !== filtered.length ? ` (toplam ${listings.length})` : ''}
+        {filtered.length} talep gösteriliyor{source.length !== filtered.length ? ` (toplam ${source.length})` : ''}
       </p>
 
       {/* Tablo */}
@@ -213,8 +267,9 @@ export default function TaleplerClient({ listings, cities, brands }: Props) {
             </thead>
             <tbody className="divide-y divide-[#E2E8F0]">
               {filtered.map((l) => {
-                const dupReasons = getDuplicateReasons(l, listings)
+                const dupReasons = getDuplicateReasons(l, activeListings)
                 const isDup = dupReasons.length > 0
+                const isLoading = loadingId === l.id
                 return (
                   <tr key={l.id} className={`hover:bg-[#F8FAFC] transition-colors ${isDup ? 'bg-amber-50' : 'bg-white'}`}>
                     <td className="px-4 py-3 text-[#64748B] whitespace-nowrap">
@@ -246,9 +301,33 @@ export default function TaleplerClient({ listings, cities, brands }: Props) {
                     </td>
                     <td className="px-4 py-3"><StatusBadge status={l.status} /></td>
                     <td className="px-4 py-3">
-                      <Link href={`/admin/${l.id}`} className="text-[#3B5BDB] hover:text-[#2F4AC7] font-medium text-xs whitespace-nowrap">
-                        İncele →
-                      </Link>
+                      <div className="flex items-center gap-2">
+                        {!showArchived && (
+                          <Link href={`/admin/${l.id}`} className="text-[#3B5BDB] hover:text-[#2F4AC7] font-medium text-xs whitespace-nowrap">
+                            İncele →
+                          </Link>
+                        )}
+                        <button
+                          onClick={() => handleArchive(l.id, !l.archived)}
+                          disabled={isLoading}
+                          title={l.archived ? 'Arşivden çıkar' : 'Arşivle'}
+                          className="text-[#94A3B8] hover:text-[#475569] transition-colors disabled:opacity-40"
+                        >
+                          {l.archived ? (
+                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8l1 12a2 2 0 002 2h8a2 2 0 002-2l1-12M10 12h4" /></svg>
+                          ) : (
+                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8l1 12a2 2 0 002 2h8a2 2 0 002-2l1-12" /></svg>
+                          )}
+                        </button>
+                        <button
+                          onClick={() => handleDelete(l.id)}
+                          disabled={isLoading}
+                          title="Kalıcı olarak sil"
+                          className="text-[#94A3B8] hover:text-red-500 transition-colors disabled:opacity-40"
+                        >
+                          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 )
