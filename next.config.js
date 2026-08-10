@@ -11,7 +11,6 @@ const nextConfig = {
         hostname: 'd8j0ntlcm91z4.cloudfront.net',
       },
     ],
-    unoptimized: true,
     formats: ['image/avif', 'image/webp'],
   },
   async headers() {

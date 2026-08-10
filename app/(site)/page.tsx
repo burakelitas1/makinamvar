@@ -17,10 +17,10 @@ export const revalidate = 3600
 export const dynamic = 'force-dynamic'
 
 const TRUST_ITEMS = [
-  { img: '/07_uzman_degerlendirmesi.png', title: 'Uzman Değerlendirmesi', desc: 'Makinenizin teknik bilgileri, durumu ve piyasa koşulları birlikte incelenir.' },
-  { img: '/08_24_saatte_teklif.png',      title: '24 Saatte Teklif',       desc: 'Formu tamamladıktan sonra satın alma teklifiniz en geç 24 saat içinde paylaşılır.' },
-  { img: '/09_lojistik.png',              title: 'Lojistiği Biz Planlarız', desc: 'Anlaşma sağlanırsa söküm, vinç ve nakliye organizasyonunu biz yönetiriz.' },
-  { img: '/10_karar_size_ait.png',        title: 'Karar Size Ait',         desc: 'Teklifi kabul edebilir, reddedebilir veya karşı teklifinizi iletebilirsiniz.' },
+  { img: '/07_uzman_degerlendirmesi.webp', title: 'Uzman Değerlendirmesi', desc: 'Makinenizin teknik bilgileri, durumu ve piyasa koşulları birlikte incelenir.' },
+  { img: '/08_24_saatte_teklif.webp',      title: '24 Saatte Teklif',       desc: 'Formu tamamladıktan sonra satın alma teklifiniz en geç 24 saat içinde paylaşılır.' },
+  { img: '/09_lojistik.webp',              title: 'Lojistiği Biz Planlarız', desc: 'Anlaşma sağlanırsa söküm, vinç ve nakliye organizasyonunu biz yönetiriz.' },
+  { img: '/10_karar_size_ait.webp',        title: 'Karar Size Ait',         desc: 'Teklifi kabul edebilir, reddedebilir veya karşı teklifinizi iletebilirsiniz.' },
 ]
 
 const STEPS = [
@@ -30,12 +30,12 @@ const STEPS = [
 ]
 
 const MACHINE_CATEGORIES = [
-  { img: '/abkant1.png',         title: 'Abkant Pres',           desc: 'CNC, hidrolik ve pnömatik abkant presler.' },
-  { img: '/giyotin.png',         title: 'Giyotin Makas',          desc: 'Hidrolik ve mekanik giyotin kesim makineleri.' },
-  { img: '/pres.png',            title: 'Pres Makineleri',        desc: 'Eksantrik, hidrolik ve servo pres sistemleri.' },
-  { img: '/silindir.png',        title: 'Silindir Makineleri',    desc: 'Sac kıvırma ve silindir bükme makineleri.' },
-  { img: '/boru-bukum-new.png',  title: 'Boru Büküm Makineleri', desc: 'Boru ve profil şekillendirme sistemleri.' },
-  { img: '/testere.png',         title: 'Testereler',             desc: 'Şerit testere ve metal kesim makineleri.' },
+  { img: '/abkant1.webp',         title: 'Abkant Pres',           desc: 'CNC, hidrolik ve pnömatik abkant presler.' },
+  { img: '/giyotin.webp',         title: 'Giyotin Makas',          desc: 'Hidrolik ve mekanik giyotin kesim makineleri.' },
+  { img: '/pres.webp',            title: 'Pres Makineleri',        desc: 'Eksantrik, hidrolik ve servo pres sistemleri.' },
+  { img: '/silindir.webp',        title: 'Silindir Makineleri',    desc: 'Sac kıvırma ve silindir bükme makineleri.' },
+  { img: '/boru-bukum-new.webp',  title: 'Boru Büküm Makineleri', desc: 'Boru ve profil şekillendirme sistemleri.' },
+  { img: '/testere.webp',         title: 'Testereler',             desc: 'Şerit testere ve metal kesim makineleri.' },
 ]
 
 const COMPARE_ROWS = [
@@ -164,7 +164,7 @@ export default async function HomePage() {
 
             <ScrollReveal direction="right" delay={150} className="hidden lg:flex items-center justify-center relative">
               <Image
-                src="/13_abkant_hero_transparent.png"
+                src="/13_abkant_hero_transparent.webp"
                 alt="Abkant pres teknik çizim"
                 width={520}
                 height={520}
@@ -268,7 +268,7 @@ export default async function HomePage() {
             <ScrollReveal direction="right" delay={120} className="hidden lg:block">
               <Link href="/sat" className="group block relative rounded-[24px] overflow-hidden bg-[#F8FAFC] border border-[#E2E8F0] hover:border-[#3B5BDB]/40 hover:shadow-xl transition-all duration-300">
                 <Image
-                  src="/abkant.png"
+                  src="/abkant.webp"
                   alt="Abkant pres değerlendirme süreci"
                   width={620}
                   height={480}
@@ -488,7 +488,7 @@ export default async function HomePage() {
           <Image src="/12_blueprint_grid_dark.png" alt="" fill className="object-cover opacity-60" />
         </div>
         <div className="hidden lg:block absolute right-0 top-0 h-full pointer-events-none" aria-hidden="true">
-          <Image src="/14_abkant_dark_overlay.png" alt="" width={400} height={400} className="h-full w-auto object-contain object-right" />
+          <Image src="/14_abkant_dark_overlay.webp" alt="" width={400} height={400} className="h-full w-auto object-contain object-right" />
         </div>
         <div className="relative max-w-[1280px] mx-auto px-6">
           <ScrollReveal direction="up">
